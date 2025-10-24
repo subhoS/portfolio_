@@ -47,6 +47,11 @@ export default async function PostPage({ params }: Props) {
           description={meta.description || meta.excerpt}
           url={`/blog/${slug}`}
           image={meta.featured_image}
+          keywords={meta.keywords}
+          author={meta.author}
+          type="article"
+          publishedDate={meta.date}
+          modifiedDate={meta.date}
         />
 
         <Box
@@ -248,6 +253,33 @@ export default async function PostPage({ params }: Props) {
                 height: "auto",
                 borderRadius: "8px",
                 my: 3,
+              },
+              "& table": {
+                width: "100%",
+                borderCollapse: "collapse",
+                my: 3,
+                border: "1px solid var(--border)",
+                borderRadius: "8px",
+                overflow: "hidden",
+              },
+              "& th": {
+                background: "var(--surface)",
+                color: "var(--text-primary)",
+                padding: "12px 16px",
+                textAlign: "left",
+                fontWeight: 600,
+                borderBottom: "2px solid var(--border)",
+              },
+              "& td": {
+                padding: "12px 16px",
+                borderBottom: "1px solid var(--border)",
+                color: "var(--text-secondary)",
+              },
+              "& tbody tr:hover": {
+                backgroundColor: "var(--surface)",
+              },
+              "& tbody tr:last-child td": {
+                borderBottom: "none",
               },
             }}
             dangerouslySetInnerHTML={{ __html: contentHtml }}

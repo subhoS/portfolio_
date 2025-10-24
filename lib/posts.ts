@@ -6,6 +6,66 @@ import html from "remark-html";
 
 const postsPath = path.join(process.cwd(), "content", "blog");
 
+// Convert markdown tables to HTML
+function convertMarkdownTablesToHtml(markdown: string): string {
+  const lines = markdown.split("\n");
+  let result: string[] = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
+
+    // Check if this is a table header line
+    if (
+      line.includes("|") &&
+      i + 1 < lines.length &&
+      lines[i + 1].includes("---")
+    ) {
+      const headerCells = line
+        .split("|")
+        .map((cell) => cell.trim())
+        .filter((cell) => cell);
+      const separatorLine = lines[i + 1];
+
+      // Build table HTML
+      let tableHtml = "<table>\n<thead>\n<tr>\n";
+      headerCells.forEach((cell) => {
+        tableHtml += `<th>${cell}</th>\n`;
+      });
+      tableHtml += "</tr>\n</thead>\n<tbody>\n";
+
+      // Process table rows
+      i += 2;
+      while (
+        i < lines.length &&
+        lines[i].includes("|") &&
+        !lines[i].includes("---")
+      ) {
+        const rowCells = lines[i]
+          .split("|")
+          .map((cell) => cell.trim())
+          .filter((cell) => cell);
+
+        tableHtml += "<tr>\n";
+        rowCells.forEach((cell) => {
+          tableHtml += `<td>${cell}</td>\n`;
+        });
+        tableHtml += "</tr>\n";
+        i++;
+      }
+
+      tableHtml += "</tbody>\n</table>";
+      result.push(tableHtml);
+      continue;
+    }
+
+    result.push(line);
+    i++;
+  }
+
+  return result.join("\n");
+}
+
 export type PostMeta = {
   title: string;
   description?: string;
@@ -43,7 +103,11 @@ export async function getPostBySlug(slug: string) {
   const fullPath = path.join(postsPath, `${slug}.md`);
   const raw = await fs.readFile(fullPath, "utf8");
   const { data, content } = matter(raw);
-  const processed = await remark().use(html).process(content);
+
+  // Convert markdown tables to HTML first
+  const contentWithHtmlTables = convertMarkdownTablesToHtml(content);
+
+  const processed = await remark().use(html).process(contentWithHtmlTables);
   const contentHtml = processed.toString();
   const readingTime = calculateReadingTime(content);
 

@@ -6,10 +6,48 @@ import ThemeProviderClient from "../components/ThemeProviderClient";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Subhadeep Datta — Software Engineer",
+  title: "Subhadeep Datta — Full Stack Engineer",
   description:
-    "Personal portfolio of Subhadeep Datta — projects, blog, and contact. SEO-optimized.",
+    "Full stack engineer building fast, scalable systems. Focused on performance, architecture, and shipping things that work.",
+  keywords: [
+    "full stack engineer",
+    "software engineer",
+    "system design",
+    "backend engineering",
+    "react",
+    "node.js",
+    "distributed systems",
+  ],
   metadataBase: new URL(process.env.SITE_URL || "https://example.com"),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: process.env.SITE_URL || "https://example.com",
+    title: "Subhadeep Datta — Full Stack Engineer",
+    description:
+      "Full stack engineer focused on building fast, scalable systems.",
+    siteName: "Subhadeep Datta",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Subhadeep Datta — Full Stack Engineer",
+    description:
+      "Full stack engineer focused on building fast, scalable systems.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: process.env.SITE_URL || "https://example.com",
+  },
 };
 
 export default function RootLayout({

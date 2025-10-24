@@ -1,15 +1,36 @@
 import SEO from "../../components/SEO";
 import { Box, Typography, Stack, Chip } from "@mui/joy";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About — Subhadeep Datta",
+  description:
+    "Learn about my work in full stack development, distributed systems, and building products that scale.",
+  keywords: [
+    "about",
+    "software engineer",
+    "full stack developer",
+    "system design",
+  ],
+  openGraph: {
+    type: "website",
+    title: "About — Subhadeep Datta",
+    description:
+      "Full stack engineer focused on building fast, scalable systems.",
+    url: "/about",
+  },
+};
 
 export default function AboutPage() {
   const skills = [
-    "React",
+    "System Design",
     "TypeScript",
-    "Next.js",
+    "React",
     "Node.js",
-    "Performance Optimization",
-    "SEO",
-    "Accessibility",
+    "Performance",
+    "AWS",
+    "Distributed Systems",
+    "Team Leadership",
   ];
 
   return (
@@ -32,19 +53,30 @@ export default function AboutPage() {
         level="body-lg"
         sx={{ mt: 4, color: "var(--text-secondary)", lineHeight: 1.8 }}
       >
-        I'm a software engineer specializing in frontend architecture,
-        performance optimization, and building scalable web applications. With
-        over 4 years of experience, I've helped teams deliver fast, accessible,
-        and SEO-optimized web experiences.
+        I'm a full stack engineer who enjoys building systems that work well. I
+        focus on the intersection of good architecture, performance, and
+        shipping things that users actually need.
       </Typography>
 
       <Typography
         level="body-lg"
         sx={{ mt: 3, color: "var(--text-secondary)", lineHeight: 1.8 }}
       >
-        I'm passionate about writing clean, maintainable code and mentoring
-        other engineers. When I'm not coding, you can find me contributing to
-        open source projects or exploring new technologies.
+        Right now I'm at Noisiv Consulting where I'm a co-founder and CTO,
+        working on enterprise technology solutions. Before that, I led
+        engineering at QID, a digital verification platform, and spent time at
+        early-stage startups learning how to build products.
+      </Typography>
+
+      <Typography
+        level="body-lg"
+        sx={{ mt: 3, color: "var(--text-secondary)", lineHeight: 1.8 }}
+      >
+        I care about code quality, mentoring other engineers, and thinking
+        deeply about system design. I believe good engineering is about making
+        things simpler, not more complex. When I'm not working, I read about
+        distributed systems, play around with new technologies, and contribute
+        to open source when I find something interesting.
       </Typography>
 
       <Box sx={{ mt: 6 }}>
@@ -52,7 +84,7 @@ export default function AboutPage() {
           level="title-lg"
           sx={{ fontWeight: 700, mb: 2, color: "var(--text-primary)" }}
         >
-          Skills & Technologies
+          Things I work with
         </Typography>
         <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", gap: 1 }}>
           {skills.map((skill) => (

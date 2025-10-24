@@ -2,6 +2,29 @@ import { getAllPosts } from "../../lib/posts";
 import Link from "next/link";
 import SEO from "../../components/SEO";
 import { Box, Typography, Card, CardContent, Chip } from "@mui/joy";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog — Subhadeep Datta",
+  description:
+    "Technical blog articles on frontend development, search systems, performance optimization, Elasticsearch, debouncing, and modern web development practices.",
+  keywords: [
+    "blog",
+    "technical articles",
+    "frontend development",
+    "performance optimization",
+    "search systems",
+    "web development",
+    "elasticsearch",
+  ],
+  openGraph: {
+    type: "website",
+    title: "Blog — Subhadeep Datta",
+    description:
+      "Technical blog articles on frontend development, search systems, and performance optimization.",
+    url: "/blog",
+  },
+};
 
 export default async function BlogPage() {
   const posts = await getAllPosts();

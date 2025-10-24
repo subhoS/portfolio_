@@ -525,15 +525,15 @@ CDC prevents this by ensuring search is always up-to-date.
 
 ### Tools for CDC
 
-| Tool                  | Database                   | Latency     | Setup        | Cost       | Best For                |
-| --------------------- | -------------------------- | ----------- | ------------ | ---------- | ----------------------- |
-| **Debezium**          | MySQL, PostgreSQL, MongoDB | < 1 second  | Complex      | Free (OSS) | Enterprise, High-volume |
-| **AWS DMS**           | Most SQL databases         | < 1 second  | Easy (Cloud) | $$         | AWS users, managed      |
-| **Segment**           | Cloud-based                | < 5 seconds | Very Easy    | $$         | SaaS-first stacks       |
-| **Airbyte**           | 300+ sources               | < 1 minute  | Easy         | Free/Cloud | Flexible, many sources  |
-| **Kafka Connect**     | Pluggable                  | < 1 second  | Moderate     | Free (OSS) | Kafka users, scalable   |
-| **Triggerflow**       | PostgreSQL                 | < 500ms     | Easy         | Free       | Serverless (AWS Lambda) |
-| **Supabase Realtime** | PostgreSQL                 | < 100ms     | Very Easy    | $$         | Postgres + Real-time    |
+| Tool              | Database                   | Latency     | Setup        | Cost       | Best For                |
+| ----------------- | -------------------------- | ----------- | ------------ | ---------- | ----------------------- |
+| Debezium          | MySQL, PostgreSQL, MongoDB | < 1 second  | Complex      | Free (OSS) | Enterprise, High-volume |
+| AWS DMS           | Most SQL databases         | < 1 second  | Easy (Cloud) | $$         | AWS users, managed      |
+| Segment           | Cloud-based                | < 5 seconds | Very Easy    | $$         | SaaS-first stacks       |
+| Airbyte           | 300+ sources               | < 1 minute  | Easy         | Free/Cloud | Flexible, many sources  |
+| Kafka Connect     | Pluggable                  | < 1 second  | Moderate     | Free (OSS) | Kafka users, scalable   |
+| Triggerflow       | PostgreSQL                 | < 500ms     | Easy         | Free       | Serverless (AWS Lambda) |
+| Supabase Realtime | PostgreSQL                 | < 100ms     | Very Easy    | $$         | Postgres + Real-time    |
 
 ---
 
@@ -755,7 +755,7 @@ def update_product(id):
 | **Multi-source integration**     | Airbyte                  |
 | **Serverless, low-latency**      | Triggerflow (AWS Lambda) |
 
-�👉 **Learn more:**
+👉 **Learn more:**
 
 - [Debezium: CDC for MySQL and PostgreSQL](https://debezium.io/documentation/reference/)
 - [Supabase Realtime Docs](https://supabase.com/docs/guides/realtime)
@@ -1252,14 +1252,47 @@ Whether you're building a small product search or a massive e-commerce platform,
 
 ## 🔗 Summary of Resources
 
-| Concept                  | Tool / Docs   | Link                                                                                                 |
-| ------------------------ | ------------- | ---------------------------------------------------------------------------------------------------- |
-| Debouncing               | MDN Docs      | [setTimeout() – MDN](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)                    |
-| Ranking Algorithms       | Elastic Blog  | [Understanding BM25](https://www.elastic.co/blog/practical-bm25)                                     |
-| Elasticsearch            | Official Docs | [Elasticsearch Guide](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)    |
-| CDC                      | Debezium      | [Debezium Documentation](https://debezium.io/documentation/reference/)                               |
-| Real-Time Data Pipelines | Kafka Connect | [Kafka Connect Overview](https://www.confluent.io/blog/kafka-connect-deep-dive-change-data-capture/) |
-| Docker Setup             | Official Docs | [Docker Documentation](https://docs.docker.com/)                                                     |
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Tool / Docs</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debouncing</td>
+<td>MDN Docs</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/setTimeout">setTimeout() – MDN</a></td>
+</tr>
+<tr>
+<td>Ranking Algorithms</td>
+<td>Elastic Blog</td>
+<td><a href="https://www.elastic.co/blog/practical-bm25">Understanding BM25</a></td>
+</tr>
+<tr>
+<td>Elasticsearch</td>
+<td>Official Docs</td>
+<td><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">Elasticsearch Guide</a></td>
+</tr>
+<tr>
+<td>CDC</td>
+<td>Debezium</td>
+<td><a href="https://debezium.io/documentation/reference/">Debezium Documentation</a></td>
+</tr>
+<tr>
+<td>Real-Time Data Pipelines</td>
+<td>Kafka Connect</td>
+<td><a href="https://www.confluent.io/blog/kafka-connect-deep-dive-change-data-capture/">Kafka Connect Overview</a></td>
+</tr>
+<tr>
+<td>Docker Setup</td>
+<td>Official Docs</td>
+<td><a href="https://docs.docker.com/">Docker Documentation</a></td>
+</tr>
+</tbody>
+</table>
 
 ---
 

@@ -1,154 +1,132 @@
 {
   "name": "Subhadeep Datta",
   "displayName": "Subhadeep",
-  "title": "Software Engineer — Frontend, SEO, Performance",
-  "shortBio": "I build fast, accessible, and SEO-first web experiences — frontend engineering, architecture, and mentorship.",
-  "longBio": "Results-driven Technology Leader and Full Stack Engineer with 4+ years of experience architecting distributed systems, optimizing web performance, and leading engineering teams. Specialized in frontend architecture, SEO optimization, and scalable backend systems. Proven ability to deliver high-performance solutions with 99.9% uptime, reduce infrastructure costs by 25%, and mentor cross-functional teams. Passionate about creating fast, accessible, and SEO-first web applications using modern frameworks like React, Next.js, and Node.js.",
+  "title": "Full Stack Engineer & Technical Leader",
+  "shortBio": "I build fast, scalable systems and lead engineering teams. Currently CTO at Noisiv Consulting. Obsessed with performance, clean architecture, and making technology actually work.",
+  "longBio": "I'm a full stack engineer focused on building systems that scale. Over the past 6 years, I've worked on everything from real-time APIs to distributed systems and machine learning pipelines. Right now, I'm a CTO and co-founder at Noisiv Consulting, where I lead a team building enterprise solutions. I care about performance, maintainability, and shipping things that matter.",
+  "headline": "Full Stack Engineer & CTO",
   "avatar": "/subhadeep-datta.jpg",
   "logo": "/logo.svg",
   "resume": "/resume.pdf",
   "contact": {
-    "email": "subhadeepdatta2@gmail.com",
+    "email": "dattasubhadeep4321@outlook.com",
     "phone": "+91 8250272776"
   },
   "site": {
-    "url": "https://example.com",
-    "name": "Subhadeep Datta",
-    "description": "Portfolio of Subhadeep Datta — Software Engineer and Technology Leader specializing in frontend performance, SEO, and scalable system design.",
+    "url": "https://subhadeep-datta.dev",
+    "name": "Subhadeep Datta — Tech Leader & Full Stack Engineer",
+    "description": "Portfolio of Subhadeep Datta — Tech Co-founder & CTO specializing in distributed systems, enterprise architecture, LLMs, MCP, and RAG solutions. 6+ years building scalable backend systems with 99.9% uptime.",
     "ogImage": "/og-image.png",
-    "twitter": "@subhadeep"
+    "twitter": "@SubhadeepDataa"
   },
   "socials": {
     "github": "https://github.com/subhoS",
     "linkedin": "https://www.linkedin.com/in/subhadeep-datta-cto/",
     "x": "https://x.com/SubhadeepDataa",
+    "company": "https://noisivconsulting.com/",
     "other": [
       {
         "name": "Portfolio",
-        "url": "https://example.com"
+        "url": "https://subhadeep-datta.dev"
+      },
+      {
+        "name": "Noisiv Consulting",
+        "url": "https://noisivconsulting.com/"
       }
     ]
   },
   "projects": [
     {
-      "title": "Realtime Analytics Dashboard",
-      "description": "An opinionated analytics UI focused on performance, realtime updates, and accessibility. Built scalable WebSocket streams and optimized rendering for large datasets.",
-      "tech": ["React", "Next.js", "WebSockets", "TypeScript"],
-      "href": "https://github.com/subhoS/realtime-analytics"
-    },
-    {
-      "title": "Open Source Tooling",
-      "description": "A suite of developer tools and CLI utilities to streamline builds, linting, and publishing workflows. Adopted by multiple projects for CI/CD automation.",
-      "tech": ["TypeScript", "Node.js", "CLI", "CI/CD"],
-      "href": "https://github.com/subhoS"
-    },
-    {
-      "title": "Design System & Component Library",
-      "description": "Cross-platform design system with reusable React components, design tokens, and accessibility-first guidelines used across multiple production applications.",
-      "tech": ["Figma", "MUI", "CSS", "React"],
-      "href": "/projects/design-system"
-    }
-  ],
-  "experience": [
-    {
-      "company": "Noisiv Consulting",
-      "role": "Chief Technology Officer (CTO)",
-      "period": "June 2023 – Present",
-      "summary": "Led three engineering teams across backend, frontend, and DevOps (25+ engineers). Architected scalable systems handling millions of daily requests with 99.9% uptime. Implemented a matrix management structure improving cross-team collaboration and reduced infrastructure costs by 25%.",
+      "title": "Noisiv Consulting",
+      "description": "Co-founded and lead engineering at Noisiv — an enterprise technology consulting firm. Built scalable backend systems serving Fortune 500 clients, designed database architectures, and scaled the engineering team from 0 to 25+. Work spans Java, Python, Node.js, and modern DevOps. It's where most of my learnings on distributed systems and team leadership come from.",
       "tech": [
         "Java",
         "Python",
         "Node.js",
         "MongoDB",
         "PostgreSQL",
+        "Kafka",
         "AWS",
         "Kubernetes"
-      ]
+      ],
+      "href": "https://noisivconsulting.com/"
     },
     {
-      "company": "Qid (FITT, IIT Delhi)",
-      "role": "Technology Lead",
-      "period": "June 2022 – November 2024",
-      "summary": "Led the development of a digital check-in platform processing 100K+ verifications with near-zero downtime. Built scalable architecture, integrated with India Stack APIs, and managed a cross-functional engineering team.",
-      "tech": ["Node.js", "React", "Express", "PostgreSQL", "AWS"]
+      "title": "QID — Digital Verification Platform",
+      "description": "Built and led the team for a digital check-in platform used for verifications. The interesting part wasn't the frontend — it was handling offline-first sync and integrating with India's identity systems. Worked with constraints: low bandwidth, critical accuracy, and massive scale.",
+      "tech": [
+        "Angular",
+        "NestJS",
+        "MongoDB",
+        "Offline-first architecture",
+        "Identity APIs"
+      ],
+      "href": "https://github.com/subhoS"
     },
+    {
+      "title": "Realtime Analytics Dashboard",
+      "description": "A WebSocket-based analytics dashboard. The challenge was handling real-time updates for thousands of data points without blocking the UI. Learned a lot about rendering optimization and efficient state management here.",
+      "tech": ["React", "Next.js", "WebSockets", "TypeScript"],
+      "href": "https://github.com/subhoS"
+    }
+  ],
+  "experience": [
     {
       "company": "Noisiv Consulting",
-      "role": "Partner Technology Manager",
-      "period": "September 2021 – June 2023",
-      "summary": "Managed 20+ enterprise client projects, led an 8-member developer team, and implemented agile practices improving efficiency by 40%. Architected microservice-based infrastructure reducing downtime by 60%.",
-      "tech": ["Microservices", "Docker", "Kubernetes", "CI/CD"]
+      "role": "Tech Co-founder & CTO",
+      "period": "2024 - Present",
+      "summary": "Leading engineering teams building enterprise solutions. Focused on architecture, performance, and scaling systems that matter."
     },
     {
-      "company": "Videtorrium India",
-      "role": "Software Engineer Intern",
-      "period": "October 2020 – August 2021",
-      "summary": "Migrated backend from PHP to Go, achieving 3× speed improvements and 40% higher user engagement. Launched Bharat Oxygen in 72 hours, connecting 1,500+ users during COVID-19.",
-      "tech": ["Golang", "MySQL", "JavaScript", "Node.js"]
+      "company": "QID Platform (FITT IIT Delhi)",
+      "role": "Tech Lead",
+      "period": "2022 - 2024",
+      "summary": "Built and scaled a digital verification platform from ground up. Led team of engineers, handled everything from API design to infrastructure."
+    },
+    {
+      "company": "Videtorrium & Unlock.fit",
+      "role": "Software Engineer",
+      "period": "2020 - 2021",
+      "summary": "Early-stage work building products and learning the craft. Mentored developers and shipped features that reached users."
+    }
+  ],
+  "awards": [
+    {
+      "title": "COVID-19 Hero",
+      "issuer": "Bharat Oxygen Initiative",
+      "year": 2021,
+      "description": "Built and launched Bharat Oxygen platform in 72 hours, connecting 1,500+ users with life-saving oxygen and medical resources during the COVID-19 crisis."
     }
   ],
   "leadership": [
     {
-      "organization": "Global Dialogue Forum",
-      "role": "Conference Organizer",
-      "period": "2022 – 2023",
-      "summary": "Led major policy and technology conferences like The Sustainable Industry Summit, Diversity & Conformity, and Indo-Pacific Security Summit with participation from global leaders and institutions."
+      "organization": "Noisiv Consulting",
+      "role": "Tech Co-founder & CTO",
+      "period": "2024 - Present",
+      "summary": "Leading 25+ engineers across backend, frontend, and DevOps teams. Architecting enterprise solutions for Fortune 500 clients."
+    },
+    {
+      "organization": "QID Platform",
+      "role": "Technical Lead",
+      "period": "2022 - 2024",
+      "summary": "Led cross-functional engineering team delivering mission-critical check-in platform with 99.9% uptime."
     }
   ],
   "education": {
     "degree": "Bachelor of Science in Information Technology",
     "institution": "Jamia Hamdard University, New Delhi",
-    "gpa": "3.45/4.0",
-    "details": "Specialized in Artificial Intelligence; Led AI-based social media optimization project; Coursework included Data Structures, Algorithms, Cloud Computing, and AI."
+    "graduationDate": "September 2024"
   },
-  "certifications": [
-    "BCG Strategy Consultant Job Simulation (2025)",
-    "IBM Apptio Cloudability Technical Sales (2024)",
-    "IBM Turbonomic Technical Sales (2024)",
-    "Harvard CS50: Introduction to Computer Science (2020)"
-  ],
   "skills": {
-    "languages": [
-      "JavaScript",
-      "TypeScript",
-      "Java",
-      "Python",
-      "Golang",
-      "C++"
-    ],
-    "frameworks": [
-      "React",
-      "Next.js",
-      "Node.js",
-      "Express",
-      "Spring Boot",
-      "NestJS",
-      "AngularJS",
-      "Flutter"
-    ],
-    "databases": [
-      "MongoDB",
-      "Redis",
-      "Kafka",
-      "MySQL",
-      "PostgreSQL",
-      "DynamoDB"
-    ],
-    "cloudDevOps": [
-      "AWS",
-      "Docker",
-      "Kubernetes",
-      "Terraform",
-      "Jenkins",
-      "CI/CD",
-      "Microservices"
-    ],
-    "aiMl": ["TensorFlow", "PyTorch", "RAG Models", "LLMs", "Fine-tuning"],
-    "leadership": [
-      "System Design",
-      "Agile/Scrum",
-      "Team Management",
-      "Technical Roadmapping"
+    "backend": ["Java", "Python", "Node.js", "Go"],
+    "frontend": ["React", "TypeScript", "Next.js"],
+    "databases": ["MongoDB", "PostgreSQL", "Redis", "Elasticsearch"],
+    "infrastructure": ["AWS", "Kubernetes", "Docker", "Terraform", "CI/CD"],
+    "interests": [
+      "System design",
+      "Performance optimization",
+      "Distributed systems",
+      "AI/LLMs"
     ]
   }
 }

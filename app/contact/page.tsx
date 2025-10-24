@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SEO from "../../components/SEO";
+import type { Metadata } from "next";
 import {
   Box,
   Typography,

@@ -2,6 +2,20 @@ import SEO from "../../components/SEO";
 import { Box, Typography, Grid } from "@mui/joy";
 import ProjectCard from "../../components/ProjectCard";
 import profile from "../../data/profile.json";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects — Subhadeep Datta",
+  description:
+    "Work I've built - from enterprise platforms to open source tools. Focused on solving real problems.",
+  keywords: ["projects", "portfolio", "web applications", "open source"],
+  openGraph: {
+    type: "website",
+    title: "Projects — Subhadeep Datta",
+    description: "Portfolio of projects and work.",
+    url: "/projects",
+  },
+};
 
 export default function ProjectsPage() {
   const projects = profile.projects || [];
@@ -30,8 +44,9 @@ export default function ProjectsPage() {
         level="body-lg"
         sx={{ color: "var(--text-secondary)", mb: 4 }}
       >
-        A selection of projects showcasing my work in frontend architecture,
-        performance optimization, and full-stack development.
+        Things I've built and learned from. Most of this work is about solving
+        real problems — scaling systems, handling edge cases, and shipping
+        things that work.
       </Typography>
 
       <Grid container spacing={3} sx={{ mt: 2 }}>
