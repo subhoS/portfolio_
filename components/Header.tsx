@@ -22,7 +22,9 @@ export default function Header() {
         top: 0,
         zIndex: 1200,
         backdropFilter: "blur(6px)",
-        bgcolor: "background.surface",
+        bgcolor: "var(--surface) !important",
+        borderColor: "var(--border) !important",
+        color: "var(--foreground) !important",
       }}
     >
       <Link
@@ -45,7 +47,7 @@ export default function Header() {
           level="title-lg"
           sx={{
             fontWeight: 700,
-            color: "text.primary",
+            color: "var(--foreground) !important",
             display: { xs: "none", md: "block" },
           }}
         >
@@ -65,8 +67,9 @@ export default function Header() {
               variant="plain"
               size="sm"
               sx={{
+                color: "var(--foreground) !important",
                 "&:hover": {
-                  bgcolor: "var(--joy-palette-action-hoverBg)",
+                  bgcolor: "var(--surface-secondary)",
                 },
               }}
             >
@@ -78,8 +81,9 @@ export default function Header() {
               variant="plain"
               size="sm"
               sx={{
+                color: "var(--foreground) !important",
                 "&:hover": {
-                  bgcolor: "var(--joy-palette-action-hoverBg)",
+                  bgcolor: "var(--surface-secondary)",
                 },
               }}
             >
@@ -91,8 +95,9 @@ export default function Header() {
               variant="plain"
               size="sm"
               sx={{
+                color: "var(--foreground) !important",
                 "&:hover": {
-                  bgcolor: "var(--joy-palette-action-hoverBg)",
+                  bgcolor: "var(--surface-secondary)",
                 },
               }}
             >
@@ -100,7 +105,18 @@ export default function Header() {
             </Button>
           </Link>
           <Link href="/contact" style={{ textDecoration: "none" }}>
-            <Button variant="solid" color="primary" size="sm">
+            <Button
+              variant="solid"
+              color="primary"
+              size="sm"
+              sx={{
+                bgcolor: "var(--accent) !important",
+                color: "var(--background) !important",
+                "&:hover": {
+                  bgcolor: "var(--accent-dark) !important",
+                },
+              }}
+            >
               Contact
             </Button>
           </Link>

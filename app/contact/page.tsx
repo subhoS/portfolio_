@@ -52,45 +52,86 @@ export default function ContactPage() {
 
       <Typography
         level="h1"
-        sx={{ fontSize: { xs: 28, md: 40 }, fontWeight: 800, mb: 2 }}
+        sx={{
+          fontSize: { xs: 28, md: 40 },
+          fontWeight: 800,
+          mb: 2,
+          color: "var(--text-primary)",
+        }}
       >
         Get in touch
       </Typography>
 
-      <Typography level="body-lg" sx={{ color: "text.secondary", mb: 4 }}>
+      <Typography
+        level="body-lg"
+        sx={{ color: "var(--text-secondary)", mb: 4 }}
+      >
         Have a question or want to collaborate? I'd love to hear from you.
       </Typography>
 
       <Stack component="form" onSubmit={handleSubmit} spacing={2}>
         <Box>
-          <FormLabel>Name</FormLabel>
+          <FormLabel sx={{ color: "var(--text-primary)" }}>Name</FormLabel>
           <Input
             placeholder="Your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            sx={{
+              borderColor: "var(--border) !important",
+              color: "var(--foreground) !important",
+              bgcolor: "var(--surface) !important",
+              "& input": {
+                color: "var(--foreground) !important",
+              },
+              "& input::placeholder": {
+                color: "var(--text-tertiary) !important",
+              },
+            }}
           />
         </Box>
 
         <Box>
-          <FormLabel>Email</FormLabel>
+          <FormLabel sx={{ color: "var(--text-primary)" }}>Email</FormLabel>
           <Input
             type="email"
             placeholder="your@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            sx={{
+              borderColor: "var(--border) !important",
+              color: "var(--foreground) !important",
+              bgcolor: "var(--surface) !important",
+              "& input": {
+                color: "var(--foreground) !important",
+              },
+              "& input::placeholder": {
+                color: "var(--text-tertiary) !important",
+              },
+            }}
           />
         </Box>
 
         <Box>
-          <FormLabel>Message</FormLabel>
+          <FormLabel sx={{ color: "var(--text-primary)" }}>Message</FormLabel>
           <Textarea
             placeholder="Your message…"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             minRows={5}
             required
+            sx={{
+              borderColor: "var(--border) !important",
+              color: "var(--foreground) !important",
+              bgcolor: "var(--surface) !important",
+              "& textarea": {
+                color: "var(--foreground) !important",
+              },
+              "& textarea::placeholder": {
+                color: "var(--text-tertiary) !important",
+              },
+            }}
           />
         </Box>
 
@@ -99,7 +140,14 @@ export default function ContactPage() {
           variant="solid"
           color="primary"
           size="lg"
-          sx={{ mt: 2 }}
+          sx={{
+            mt: 2,
+            bgcolor: "var(--accent) !important",
+            color: "var(--background) !important",
+            "&:hover": {
+              bgcolor: "var(--accent-dark) !important",
+            },
+          }}
           disabled={status === "sending"}
         >
           {status === "sending" ? "Sending…" : "Send message"}

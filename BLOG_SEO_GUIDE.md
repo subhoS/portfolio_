@@ -54,16 +54,16 @@ More content...
 
 ### Step 2: Front Matter Fields Explained
 
-| Field | Purpose | Max Length |
-|-------|---------|-----------|
-| `title` | Post headline | 60 chars (SEO optimal) |
-| `date` | Publication date | `YYYY-MM-DD` format |
-| `excerpt` | Summary shown in blog list | 160 chars |
-| `description` | SEO meta description | 150-160 chars |
-| `keywords` | Target keywords (comma-separated) | 5-7 keywords |
-| `tags` | Article tags (comma-separated) | 3-5 tags |
-| `author` | Author name | Your name |
-| `featured_image` | Cover image URL | Must be accessible |
+| Field            | Purpose                           | Max Length             |
+| ---------------- | --------------------------------- | ---------------------- |
+| `title`          | Post headline                     | 60 chars (SEO optimal) |
+| `date`           | Publication date                  | `YYYY-MM-DD` format    |
+| `excerpt`        | Summary shown in blog list        | 160 chars              |
+| `description`    | SEO meta description              | 150-160 chars          |
+| `keywords`       | Target keywords (comma-separated) | 5-7 keywords           |
+| `tags`           | Article tags (comma-separated)    | 3-5 tags               |
+| `author`         | Author name                       | Your name              |
+| `featured_image` | Cover image URL                   | Must be accessible     |
 
 ---
 
@@ -208,24 +208,29 @@ featured_image: "https://example.com/image.jpg"
 ---
 
 ## Introduction
+
 - Hook the reader
 - Mention the main topic
 - State what they'll learn
 
 ## Problem/Background
+
 - Explain why this matters
 - Real-world example
 
 ## Solution/How-To
+
 - Step-by-step guide
 - Code examples
 - Best practices
 
 ## Advanced Tips
+
 - Going deeper
 - Optimization techniques
 
 ## Conclusion
+
 - Recap key points
 - Call-to-action
 ```

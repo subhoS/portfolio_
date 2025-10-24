@@ -10,7 +10,7 @@ featured_image: "https://images.unsplash.com/photo-1516534775068-bb57a52dbb33?w=
 ---
 
 **Meta Description:**
-Learn what *debouncing* is, how it improves real-time search performance, and how to implement it in JavaScript and React. Includes step-by-step examples and best practices.
+Learn what _debouncing_ is, how it improves real-time search performance, and how to implement it in JavaScript and React. Includes step-by-step examples and best practices.
 
 ---
 
@@ -23,9 +23,9 @@ Modern websites and apps rely heavily on real-time search, but making a network 
 
 In this article, you'll learn:
 
-* What debouncing is (and why you need it)
-* How it works in search inputs
-* Real-world JavaScript and React examples
+- What debouncing is (and why you need it)
+- How it works in search inputs
+- Real-world JavaScript and React examples
 
 ---
 
@@ -40,26 +40,26 @@ const searchInput = document.getElementById("search");
 
 searchInput.addEventListener("input", (e) => {
   fetch(`/api/search?q=${e.target.value}`)
-    .then(res => res.json())
-    .then(data => console.log(data));
+    .then((res) => res.json())
+    .then((data) => console.log(data));
 });
 ```
 
 If the user types "apple", this code makes **five** requests:
 
-* `a`
-* `ap`
-* `app`
-* `appl`
-* `apple`
+- `a`
+- `ap`
+- `app`
+- `appl`
+- `apple`
 
 That's **five unnecessary API calls** for one search term.
 
 Problems this causes:
 
-* 🔄 **Server overload** — multiple requests per user.
-* 🐢 **Slow UX** — results keep flickering or lagging.
-* 💸 **Wasted bandwidth** — repeated work for similar queries.
+- 🔄 **Server overload** — multiple requests per user.
+- 🐢 **Slow UX** — results keep flickering or lagging.
+- 💸 **Wasted bandwidth** — repeated work for similar queries.
 
 ---
 
@@ -79,11 +79,11 @@ For example, you can set a 300ms debounce delay. If the user types continuously,
 
 Here's what happens **without debouncing**:
 
-* Type "hello" → 5 API calls → UI feels jittery.
+- Type "hello" → 5 API calls → UI feels jittery.
 
 And with **debouncing**:
 
-* Type "hello" → only **1 API call** after typing stops → UI feels smooth and responsive.
+- Type "hello" → only **1 API call** after typing stops → UI feels smooth and responsive.
 
 The difference might seem small, but on high-traffic sites, it drastically reduces load and improves perceived speed.
 
@@ -110,8 +110,8 @@ const searchInput = document.getElementById("search");
 
 const handleSearch = debounce((e) => {
   fetch(`/api/search?q=${e.target.value}`)
-    .then(res => res.json())
-    .then(data => console.log(data));
+    .then((res) => res.json())
+    .then((data) => console.log(data));
 }, 300);
 
 searchInput.addEventListener("input", handleSearch);
@@ -146,7 +146,7 @@ export default function SearchBox() {
   useEffect(() => {
     if (debouncedQuery) {
       fetch(`/api/search?q=${debouncedQuery}`)
-        .then(res => res.json())
+        .then((res) => res.json())
         .then(console.log);
     }
   }, [debouncedQuery]);
@@ -168,10 +168,10 @@ No unnecessary re-renders or redundant API calls — just smooth, optimized sear
 
 ## 🧭 Best Practices for Debouncing Search
 
-* ⚙️ **Use sensible delay** — 250–500ms is usually ideal.
-* 💬 **Show loading states** — helps users know something's happening.
-* 🚫 **Don't debounce everything** — only user-triggered, frequent actions like typing or scrolling.
-* 🔄 **Combine with caching** — avoid fetching the same results repeatedly.
+- ⚙️ **Use sensible delay** — 250–500ms is usually ideal.
+- 💬 **Show loading states** — helps users know something's happening.
+- 🚫 **Don't debounce everything** — only user-triggered, frequent actions like typing or scrolling.
+- 🔄 **Combine with caching** — avoid fetching the same results repeatedly.
 
 ---
 
@@ -179,9 +179,9 @@ No unnecessary re-renders or redundant API calls — just smooth, optimized sear
 
 Debouncing is one of those small front-end tricks that makes a **big difference**. It helps:
 
-* Reduce unnecessary network calls
-* Improve performance
-* Deliver smoother, more responsive user experiences
+- Reduce unnecessary network calls
+- Improve performance
+- Deliver smoother, more responsive user experiences
 
 So, the next time you build a search bar, remember:
 
@@ -193,10 +193,10 @@ So, the next time you build a search bar, remember:
 
 ✨ **Debouncing = Control + Performance + UX**
 
-* Reduces API calls from 5 to 1 per search term
-* Improves perceived performance
-* Saves server resources and bandwidth
-* Essential for real-time search features
+- Reduces API calls from 5 to 1 per search term
+- Improves perceived performance
+- Saves server resources and bandwidth
+- Essential for real-time search features
 
 ---
 

@@ -18,14 +18,19 @@ export default function AboutPage() {
 
       <Typography
         level="h1"
-        sx={{ fontSize: { xs: 28, md: 40 }, fontWeight: 800, mb: 2 }}
+        sx={{
+          fontSize: { xs: 28, md: 40 },
+          fontWeight: 800,
+          mb: 2,
+          color: "var(--text-primary)",
+        }}
       >
         About me
       </Typography>
 
       <Typography
         level="body-lg"
-        sx={{ mt: 4, color: "text.secondary", lineHeight: 1.8 }}
+        sx={{ mt: 4, color: "var(--text-secondary)", lineHeight: 1.8 }}
       >
         I'm a software engineer specializing in frontend architecture,
         performance optimization, and building scalable web applications. With
@@ -35,7 +40,7 @@ export default function AboutPage() {
 
       <Typography
         level="body-lg"
-        sx={{ mt: 3, color: "text.secondary", lineHeight: 1.8 }}
+        sx={{ mt: 3, color: "var(--text-secondary)", lineHeight: 1.8 }}
       >
         I'm passionate about writing clean, maintainable code and mentoring
         other engineers. When I'm not coding, you can find me contributing to
@@ -43,12 +48,23 @@ export default function AboutPage() {
       </Typography>
 
       <Box sx={{ mt: 6 }}>
-        <Typography level="title-lg" sx={{ fontWeight: 700, mb: 2 }}>
+        <Typography
+          level="title-lg"
+          sx={{ fontWeight: 700, mb: 2, color: "var(--text-primary)" }}
+        >
           Skills & Technologies
         </Typography>
         <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", gap: 1 }}>
           {skills.map((skill) => (
-            <Chip key={skill} variant="soft" size="md">
+            <Chip
+              key={skill}
+              variant="soft"
+              size="md"
+              sx={{
+                bgcolor: "var(--surface-secondary) !important",
+                color: "var(--foreground) !important",
+              }}
+            >
               {skill}
             </Chip>
           ))}

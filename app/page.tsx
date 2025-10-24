@@ -17,11 +17,19 @@ export default function Home() {
       <Box sx={{ maxWidth: 980, mx: "auto", mt: 8 }}>
         <Typography
           level="h2"
-          sx={{ fontSize: { xs: 24, md: 32 }, fontWeight: 800, mb: 1 }}
+          sx={{
+            fontSize: { xs: 24, md: 32 },
+            fontWeight: 800,
+            mb: 1,
+            color: "var(--text-primary)",
+          }}
         >
           Featured projects
         </Typography>
-        <Typography level="body-sm" sx={{ color: "text.secondary", mb: 4 }}>
+        <Typography
+          level="body-sm"
+          sx={{ color: "var(--text-secondary)", mb: 4 }}
+        >
           A selection of work spanning frontend architecture, performance
           optimization, and open source
         </Typography>

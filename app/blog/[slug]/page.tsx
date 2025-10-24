@@ -32,11 +32,13 @@ export default async function PostPage({ params }: Props) {
     const { meta, contentHtml, readingTime } = await getPostBySlug(slug);
     const siteUrl = process.env.SITE_URL || "https://example.com";
     const postUrl = `${siteUrl}/blog/${slug}`;
-    const formattedDate = meta.date ? new Date(meta.date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }) : '';
+    const formattedDate = meta.date
+      ? new Date(meta.date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : "";
 
     return (
       <>
@@ -46,15 +48,34 @@ export default async function PostPage({ params }: Props) {
           url={`/blog/${slug}`}
           image={meta.featured_image}
         />
-        
-        <Box sx={{ px: { xs: 2, md: 4 }, py: { xs: 6, md: 10 }, maxWidth: 800, mx: "auto" }}>
+
+        <Box
+          sx={{
+            px: { xs: 2, md: 4 },
+            py: { xs: 6, md: 10 },
+            maxWidth: 800,
+            mx: "auto",
+          }}
+        >
           {/* Breadcrumb Navigation */}
-          <Box sx={{ mb: 4, display: "flex", gap: 1, alignItems: "center", fontSize: "sm" }}>
-            <Link href="/blog" style={{ color: "var(--foreground)", opacity: 0.7 }}>
+          <Box
+            sx={{
+              mb: 4,
+              display: "flex",
+              gap: 1,
+              alignItems: "center",
+              fontSize: "sm",
+              color: "var(--text-secondary)",
+            }}
+          >
+            <Link href="/blog" style={{ color: "var(--accent)", opacity: 0.7 }}>
               Blog
             </Link>
             <span>/</span>
-            <Typography level="body-sm" sx={{ opacity: 0.7 }}>
+            <Typography
+              level="body-sm"
+              sx={{ opacity: 0.7, color: "var(--text-secondary)" }}
+            >
               {meta.title}
             </Typography>
           </Box>
@@ -83,6 +104,7 @@ export default async function PostPage({ params }: Props) {
               fontWeight: 800,
               mb: 2,
               lineHeight: 1.2,
+              color: "var(--text-primary)",
             }}
           >
             {meta.title}
@@ -96,9 +118,10 @@ export default async function PostPage({ params }: Props) {
               gap: 3,
               mb: 4,
               pb: 3,
-              borderBottom: "1px solid var(--foreground)",
+              borderBottom: "1px solid var(--border)",
               opacity: 0.7,
               fontSize: "14px",
+              color: "var(--text-secondary)",
             }}
           >
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
@@ -143,6 +166,7 @@ export default async function PostPage({ params }: Props) {
                 mt: 6,
                 mb: 3,
                 lineHeight: 1.3,
+                color: "var(--text-primary)",
               },
               "& h3": {
                 fontSize: { xs: 20, md: 24 },
@@ -150,18 +174,20 @@ export default async function PostPage({ params }: Props) {
                 mt: 4,
                 mb: 2,
                 lineHeight: 1.3,
+                color: "var(--text-primary)",
               },
               "& h4": {
                 fontSize: { xs: 18, md: 20 },
                 fontWeight: 600,
                 mt: 3,
                 mb: 2,
+                color: "var(--text-primary)",
               },
               "& p": {
                 fontSize: { xs: 16, md: 17 },
                 lineHeight: 1.8,
                 mb: 2,
-                color: "var(--foreground)",
+                color: "var(--text-secondary)",
               },
               "& ul, & ol": {
                 fontSize: { xs: 16, md: 17 },
@@ -171,43 +197,47 @@ export default async function PostPage({ params }: Props) {
               },
               "& li": {
                 mb: 1,
+                color: "var(--text-secondary)",
               },
               "& blockquote": {
-                borderLeft: "4px solid var(--foreground)",
+                borderLeft: "4px solid var(--accent)",
                 pl: 3,
                 py: 1,
                 my: 3,
-                opacity: 0.8,
+                bgcolor: "var(--surface)",
+                color: "var(--text-secondary)",
+                borderRadius: "4px",
                 fontStyle: "italic",
               },
               "& code": {
-                background: "var(--background)",
+                background: "var(--surface)",
+                color: "var(--accent)",
                 px: "6px",
                 py: "3px",
                 borderRadius: "4px",
                 fontSize: "14px",
                 fontFamily: "monospace",
-                border: "1px solid var(--foreground)",
-                opacity: 0.9,
               },
               "& pre": {
-                background: "#1e1e1e",
-                color: "#d4d4d4",
+                background: "var(--surface-secondary)",
+                color: "var(--foreground)",
                 p: 3,
                 borderRadius: "8px",
                 overflow: "auto",
                 mb: 3,
                 fontSize: "14px",
                 lineHeight: 1.6,
+                border: "1px solid var(--border)",
               },
               "& pre code": {
                 background: "transparent",
+                color: "var(--foreground)",
                 border: "none",
                 px: 0,
                 py: 0,
               },
               "& a": {
-                color: "#0066cc",
+                color: "var(--accent)",
                 textDecoration: "underline",
                 "&:hover": {
                   opacity: 0.8,
@@ -228,8 +258,9 @@ export default async function PostPage({ params }: Props) {
             sx={{
               mt: 8,
               pt: 4,
-              borderTop: "1px solid var(--foreground)",
+              borderTop: "1px solid var(--border)",
               opacity: 0.7,
+              color: "var(--text-secondary)",
             }}
           >
             <Typography level="body-sm">
@@ -278,7 +309,15 @@ export default async function PostPage({ params }: Props) {
         <Typography level="body-lg" sx={{ mt: 2, color: "text.secondary" }}>
           Sorry, we couldn't load this post. Please try again later.
         </Typography>
-        <Link href="/blog" style={{ color: "#0066cc", textDecoration: "underline", marginTop: "20px", display: "inline-block" }}>
+        <Link
+          href="/blog"
+          style={{
+            color: "#0066cc",
+            textDecoration: "underline",
+            marginTop: "20px",
+            display: "inline-block",
+          }}
+        >
           ← Back to Blog
         </Link>
       </Box>

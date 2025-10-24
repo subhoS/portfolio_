@@ -23,25 +23,34 @@ export default function Hero() {
             gap: 4,
             alignItems: "center",
             flexDirection: { xs: "column", md: "row" },
+            color: "var(--foreground)",
           }}
         >
           <Avatar
             src={avatar}
             size="lg"
             variant="soft"
-            sx={{ width: 160, height: 160 }}
+            sx={{
+              width: 160,
+              height: 160,
+              bgcolor: "var(--surface-secondary)",
+            }}
           />
           <Box>
             <Typography
               level="h1"
-              sx={{ fontSize: { xs: 28, md: 40 }, fontWeight: 800 }}
+              sx={{
+                fontSize: { xs: 28, md: 40 },
+                fontWeight: 800,
+                color: "var(--text-primary)",
+              }}
             >
-              Hi, I'm{" "}
-              <span style={{ color: "var(--joy-palette-primary-solidBg)" }}>
-                {name}
-              </span>
+              Hi, I'm <span style={{ color: "var(--accent)" }}>{name}</span>
             </Typography>
-            <Typography level="body-lg" sx={{ mt: 2, color: "text.secondary" }}>
+            <Typography
+              level="body-lg"
+              sx={{ mt: 2, color: "var(--text-secondary)" }}
+            >
               {shortBio || title}
             </Typography>
 
@@ -51,10 +60,28 @@ export default function Hero() {
                 href="/projects"
                 variant="solid"
                 color="primary"
+                sx={{
+                  bgcolor: "var(--accent) !important",
+                  color: "var(--background) !important",
+                  "&:hover": {
+                    bgcolor: "var(--accent-dark) !important",
+                  },
+                }}
               >
                 See projects
               </Button>
-              <Button component="a" href="/contact" variant="outlined">
+              <Button
+                component="a"
+                href="/contact"
+                variant="outlined"
+                sx={{
+                  color: "var(--foreground) !important",
+                  borderColor: "var(--border) !important",
+                  "&:hover": {
+                    bgcolor: "var(--surface-secondary)",
+                  },
+                }}
+              >
                 Get in touch
               </Button>
             </Stack>

@@ -16,12 +16,20 @@ export default function ProjectsPage() {
 
       <Typography
         level="h1"
-        sx={{ fontSize: { xs: 28, md: 40 }, fontWeight: 800, mb: 2 }}
+        sx={{
+          fontSize: { xs: 28, md: 40 },
+          fontWeight: 800,
+          mb: 2,
+          color: "var(--text-primary)",
+        }}
       >
         Projects
       </Typography>
 
-      <Typography level="body-lg" sx={{ color: "text.secondary", mb: 4 }}>
+      <Typography
+        level="body-lg"
+        sx={{ color: "var(--text-secondary)", mb: 4 }}
+      >
         A selection of projects showcasing my work in frontend architecture,
         performance optimization, and full-stack development.
       </Typography>

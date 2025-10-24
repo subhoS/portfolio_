@@ -3,7 +3,6 @@ import Analytics from "../components/Analytics";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ThemeProviderClient from "../components/ThemeProviderClient";
-import { ThemeProvider } from "../context/ThemeContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Search Console verification - set SEARCH_CONSOLE_VERIFICATION env var in production */}
         {process.env.SEARCH_CONSOLE_VERIFICATION && (
@@ -28,17 +27,40 @@ export default function RootLayout({
             content={process.env.SEARCH_CONSOLE_VERIFICATION}
           />
         )}
+        {/* Theme initialization script to prevent FOUC (Flash of Unstyled Content) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const savedMode = localStorage.getItem('themeMode') || 'system';
+                  let theme = 'light';
+                  
+                  if (savedMode === 'light') {
+                    theme = 'light';
+                  } else if (savedMode === 'dark') {
+                    theme = 'dark';
+                  } else {
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  }
+                  
+                  document.documentElement.setAttribute('data-theme', theme);
+                  document.documentElement.classList.add(theme);
+                  document.documentElement.classList.remove(theme === 'dark' ? 'light' : 'dark');
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
-        <ThemeProvider>
-          <ThemeProviderClient>
-            <Header />
-            {/* Analytics will only add gtag if NEXT_PUBLIC_GA_ID is set */}
-            <Analytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? null} />
-            <main style={{ minHeight: "70vh" }}>{children}</main>
-            <Footer />
-          </ThemeProviderClient>
-        </ThemeProvider>
+        <ThemeProviderClient>
+          <Header />
+          {/* Analytics will only add gtag if NEXT_PUBLIC_GA_ID is set */}
+          <Analytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? null} />
+          <main style={{ minHeight: "70vh" }}>{children}</main>
+          <Footer />
+        </ThemeProviderClient>
       </body>
     </html>
   );

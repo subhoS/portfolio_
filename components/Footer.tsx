@@ -16,9 +16,9 @@ export default function Footer() {
         mt: 8,
         py: 8,
         px: 3,
-        borderTop: "1px solid",
-        borderColor: "divider",
-        bgcolor: "background.surface",
+        borderTop: "1px solid var(--border)",
+        bgcolor: "var(--surface) !important",
+        color: "var(--foreground) !important",
       }}
     >
       <Box
@@ -32,10 +32,16 @@ export default function Footer() {
         }}
       >
         <Box>
-          <Typography level="title-md" sx={{ fontWeight: 600 }}>
+          <Typography
+            level="title-md"
+            sx={{ fontWeight: 600, color: "var(--text-primary)" }}
+          >
             About
           </Typography>
-          <Typography level="body-sm" sx={{ mt: 1, maxWidth: 420 }}>
+          <Typography
+            level="body-sm"
+            sx={{ mt: 1, maxWidth: 420, color: "var(--text-secondary)" }}
+          >
             Subhadeep Datta — software engineer building performant, accessible
             web experiences. Find my work and get in touch.
           </Typography>
@@ -51,15 +57,45 @@ export default function Footer() {
         </Box>
 
         <Box>
-          <Typography level="title-md" sx={{ fontWeight: 600 }}>
+          <Typography
+            level="title-md"
+            sx={{ fontWeight: 600, color: "var(--text-primary)" }}
+          >
             Newsletter
           </Typography>
-          <Typography level="body-sm" sx={{ mt: 1 }}>
+          <Typography
+            level="body-sm"
+            sx={{ mt: 1, color: "var(--text-secondary)" }}
+          >
             Get occasional updates and posts.
           </Typography>
           <Stack direction="row" sx={{ mt: 2 }}>
-            <Input placeholder="Your email" aria-label="Email for newsletter" />
-            <Button variant="solid" color="primary">
+            <Input
+              placeholder="Your email"
+              aria-label="Email for newsletter"
+              sx={{
+                borderColor: "var(--border) !important",
+                color: "var(--foreground) !important",
+                bgcolor: "var(--background) !important",
+                "& input": {
+                  color: "var(--foreground) !important",
+                },
+                "& input::placeholder": {
+                  color: "var(--text-tertiary) !important",
+                },
+              }}
+            />
+            <Button
+              variant="solid"
+              color="primary"
+              sx={{
+                bgcolor: "var(--accent) !important",
+                color: "var(--background) !important",
+                "&:hover": {
+                  bgcolor: "var(--accent-dark) !important",
+                },
+              }}
+            >
               Subscribe
             </Button>
           </Stack>
@@ -67,9 +103,14 @@ export default function Footer() {
       </Box>
 
       <Box sx={{ mt: 6, textAlign: "center" }}>
-        <Typography level="body-sm">
+        <Typography level="body-sm" sx={{ color: "var(--text-secondary)" }}>
           © {new Date().getFullYear()} Subhadeep Datta —{" "}
-          <JoyLink href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+          <JoyLink
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ color: "var(--accent)" }}
+          >
             Download resume
           </JoyLink>
         </Typography>

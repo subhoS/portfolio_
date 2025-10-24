@@ -29,10 +29,13 @@ export default function ProjectCard({
       sx={{
         minWidth: 280,
         transition: "all 0.3s ease",
+        bgcolor: "var(--surface) !important",
+        borderColor: "var(--border) !important",
+        color: "var(--foreground) !important",
         "&:hover": {
           transform: "translateY(-4px)",
           boxShadow: "md",
-          borderColor: "primary.solidBg",
+          borderColor: "var(--accent) !important",
         },
         cursor: href ? "pointer" : "default",
       }}
@@ -43,15 +46,37 @@ export default function ProjectCard({
       })}
     >
       <CardContent>
-        <Typography level="h4" sx={{ fontSize: 18, fontWeight: 700 }}>
+        <Typography
+          level="h4"
+          sx={{ fontSize: 18, fontWeight: 700, color: "var(--text-primary)" }}
+        >
           {title}
         </Typography>
-        <Typography level="body-sm" sx={{ mt: 1, color: "text.secondary" }}>
+        <Typography
+          level="body-sm"
+          sx={{ mt: 1, color: "var(--text-secondary)" }}
+        >
           {description}
         </Typography>
-        <Sheet sx={{ display: "flex", gap: 1, mt: 2, flexWrap: "wrap" }}>
+        <Sheet
+          sx={{
+            display: "flex",
+            gap: 1,
+            mt: 2,
+            flexWrap: "wrap",
+            bgcolor: "transparent",
+          }}
+        >
           {tech.map((t) => (
-            <Chip key={t} size="sm" variant="soft">
+            <Chip
+              key={t}
+              size="sm"
+              variant="soft"
+              sx={{
+                bgcolor: "var(--surface-secondary) !important",
+                color: "var(--foreground) !important",
+              }}
+            >
               {t}
             </Chip>
           ))}
@@ -64,7 +89,7 @@ export default function ProjectCard({
               p: 1.5,
               textAlign: "center",
               fontWeight: 600,
-              color: "primary.solidBg",
+              color: "var(--accent)",
             }}
           >
             View project →

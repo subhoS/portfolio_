@@ -1,0 +1,60 @@
+<svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1000" height="600" fill="#f8f9fa"/>
+  
+  <!-- FRONTEND LAYER -->
+  <g id="frontend">
+    <rect x="50" y="20" width="900" height="80" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="5"/>
+    <text x="500" y="45" font-size="18" font-weight="bold" text-anchor="middle" fill="#1976d2">FRONTEND LAYER</text>
+    <text x="500" y="70" font-size="14" text-anchor="middle" fill="#333">Search Input → Debounce (300ms) → API Call</text>
+  </g>
+  
+  <!-- Arrow 1 -->
+  <line x1="500" y1="100" x2="500" y2="130" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- BACKEND LAYER -->
+  <g id="backend">
+    <rect x="50" y="130" width="900" height="100" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="5"/>
+    <text x="500" y="155" font-size="18" font-weight="bold" text-anchor="middle" fill="#7b1fa2">BACKEND/API LAYER</text>
+    <text x="500" y="180" font-size="13" text-anchor="middle" fill="#333">Validate Query → Check Cache</text>
+    <text x="500" y="205" font-size="13" text-anchor="middle" fill="#333">Build Query DSL → Apply Ranking → Return Results</text>
+  </g>
+  
+  <!-- Arrow 2 -->
+  <line x1="500" y1="230" x2="500" y2="260" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- SEARCH ENGINE LAYER -->
+  <g id="search-engine">
+    <rect x="50" y="260" width="900" height="100" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" rx="5"/>
+    <text x="500" y="285" font-size="18" font-weight="bold" text-anchor="middle" fill="#388e3c">SEARCH ENGINE LAYER</text>
+    <g id="engines">
+      <rect x="100" y="305" width="220" height="40" fill="#fff" stroke="#388e3c" stroke-width="1"/>
+      <text x="210" y="330" font-size="12" font-weight="bold" text-anchor="middle" fill="#388e3c">Elasticsearch</text>
+      
+      <rect x="380" y="305" width="220" height="40" fill="#fff" stroke="#388e3c" stroke-width="1"/>
+      <text x="490" y="330" font-size="12" font-weight="bold" text-anchor="middle" fill="#388e3c">Typesense</text>
+      
+      <rect x="660" y="305" width="220" height="40" fill="#fff" stroke="#388e3c" stroke-width="1"/>
+      <text x="770" y="330" font-size="12" font-weight="bold" text-anchor="middle" fill="#388e3c">Meilisearch</text>
+    </g>
+  </g>
+  
+  <!-- Arrow 3 -->
+  <line x1="500" y1="360" x2="500" y2="390" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- DATA SYNC LAYER (CDC) -->
+  <g id="data-sync">
+    <rect x="50" y="390" width="900" height="120" fill="#fff3e0" stroke="#e65100" stroke-width="2" rx="5"/>
+    <text x="500" y="415" font-size="18" font-weight="bold" text-anchor="middle" fill="#e65100">DATA SYNCHRONIZATION LAYER (CDC)</text>
+    <text x="500" y="440" font-size="13" text-anchor="middle" fill="#333">Database Changes → CDC Tool (Debezium/Supabase)</text>
+    <text x="500" y="460" font-size="13" text-anchor="middle" fill="#333">Message Broker (Kafka/Kinesis) → Search Index Updated</text>
+    <text x="500" y="480" font-size="12" text-anchor="middle" fill="#666" font-style="italic">✓ Real-time sync (milliseconds)</text>
+  </g>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <polygon points="0 0, 10 5, 0 10" fill="#666"/>
+    </marker>
+  </defs>
+</svg>

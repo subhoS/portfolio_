@@ -2,6 +2,7 @@
 
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 import React from "react";
+import { ThemeProvider } from "../context/ThemeContext";
 
 const theme = extendTheme({
   colorSchemes: {
@@ -55,5 +56,9 @@ export default function ThemeProviderClient({
 }: {
   children: React.ReactNode;
 }) {
-  return <CssVarsProvider theme={theme}>{children}</CssVarsProvider>;
+  return (
+    <CssVarsProvider theme={theme}>
+      <ThemeProvider>{children}</ThemeProvider>
+    </CssVarsProvider>
+  );
 }

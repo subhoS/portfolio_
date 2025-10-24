@@ -77,13 +77,15 @@
   padding: 0;
   box-sizing: border-box;
   transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease;
+    border-color 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
 }
 
 html {
   scroll-behavior: smooth;
   scrollbar-gutter: stable;
   font-size: 16px;
+  background: var(--background);
+  color: var(--foreground);
 }
 
 @media (max-width: 640px) {
@@ -95,14 +97,15 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ============================================
@@ -154,6 +157,7 @@ button {
   background: none;
   font-family: inherit;
   transition: all 0.2s ease;
+  color: inherit;
 }
 
 button:disabled {
@@ -168,6 +172,7 @@ code {
   border-radius: 4px;
   font-family: "Menlo", "Monaco", "Courier New", monospace;
   font-size: 0.95em;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 pre {
@@ -177,6 +182,7 @@ pre {
   padding: 1rem;
   overflow-x: auto;
   margin: 1rem 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 pre code {
@@ -184,6 +190,7 @@ pre code {
   color: var(--foreground);
   padding: 0;
   border-radius: 0;
+  transition: color 0.3s ease;
 }
 
 /* ============================================
@@ -200,35 +207,58 @@ h6 {
   font-weight: 700;
   line-height: 1.25;
   color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 h1 {
   font-size: clamp(1.75rem, 5vw, 2.5rem);
+  color: var(--foreground);
 }
 
 h2 {
   font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--text-primary);
 }
 
 h3 {
   font-size: clamp(1.25rem, 3vw, 1.75rem);
+  color: var(--text-primary);
 }
 
 h4 {
   font-size: 1.25rem;
+  color: var(--text-primary);
 }
 
 h5 {
   font-size: 1.1rem;
+  color: var(--text-primary);
 }
 
 h6 {
   font-size: 1rem;
+  color: var(--text-secondary);
 }
 
 p {
   margin: 1rem 0;
   line-height: 1.8;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+span {
+  color: inherit;
+}
+
+strong,
+b {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+em,
+i {
   color: var(--text-secondary);
 }
 
@@ -245,6 +275,7 @@ ol {
 li {
   margin-bottom: 0.75rem;
   color: var(--text-secondary);
+  transition: color 0.3s ease;
 }
 
 li:last-child {
@@ -259,6 +290,189 @@ blockquote {
   border-radius: 4px;
   color: var(--text-secondary);
   font-style: italic;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+th,
+td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+th {
+  background: var(--surface-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+tbody tr:hover {
+  background: var(--surface-secondary);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ============================================
+   IMAGES & MEDIA
+   ============================================ */
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+img {
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+img:hover {
+  filter: brightness(1.05);
+}
+
+figure {
+  margin: 1.5rem 0;
+  padding: 0;
+}
+
+figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+/* ============================================
+   DIVIDERS & SEPARATORS
+   ============================================ */
+
+hr {
+  border: none;
+  border-top: 2px solid var(--border);
+  margin: 2rem 0;
+  transition: border-color 0.3s ease;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 1.5rem 0;
+  transition: background-color 0.3s ease;
+}
+
+/* ============================================
+   BADGES & LABELS
+   ============================================ */
+
+.badge,
+.tag,
+.label {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.badge:hover,
+.tag:hover,
+.label:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================
+   CARDS & CONTAINERS
+   ============================================ */
+
+.card,
+.card-component {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover,
+.card-component:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+/* ============================================
+   TEXT & TYPOGRAPHY UTILITIES
+   ============================================ */
+
+.text-muted {
+  color: var(--text-tertiary);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+.text-error {
+  color: var(--error);
+}
+
+.bg-surface {
+  background: var(--surface);
+}
+
+.bg-surface-secondary {
+  background: var(--surface-secondary);
+}
+
+.bg-accent {
+  background: var(--accent);
+  color: white;
 }
 
 /* ============================================
@@ -285,11 +499,23 @@ select:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+  background: var(--surface);
+  color: var(--text-primary);
 }
 
 input::placeholder,
 textarea::placeholder {
   color: var(--text-tertiary);
+  transition: color 0.3s ease;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background: var(--surface-secondary);
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* ============================================
@@ -619,5 +845,136 @@ article a:hover {
 
   article h3 {
     font-size: 1.25em;
+  }
+}
+
+/* ============================================
+   MATERIAL-UI COMPONENT THEMING OVERRIDES
+   ============================================ */
+
+/* Force all text to use theme colors */
+[data-theme="dark"],
+.dark {
+  /* Typography components */
+  .MuiTypography-root {
+    color: var(--foreground) !important;
+  }
+
+  .MuiTypography-body1,
+  .MuiTypography-body2 {
+    color: var(--text-secondary) !important;
+  }
+
+  .MuiTypography-h1,
+  .MuiTypography-h2,
+  .MuiTypography-h3,
+  .MuiTypography-h4,
+  .MuiTypography-h5,
+  .MuiTypography-h6 {
+    color: var(--text-primary) !important;
+  }
+
+  /* Sheet components */
+  .MuiSheet-root {
+    background-color: var(--surface) !important;
+    color: var(--foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Box and other containers */
+  .MuiBox-root {
+    color: var(--foreground) !important;
+  }
+
+  /* Input fields */
+  .MuiInput-root {
+    border-color: var(--border) !important;
+    color: var(--foreground) !important;
+  }
+
+  .MuiInput-root input {
+    color: var(--foreground) !important;
+  }
+
+  .MuiInput-root input::placeholder {
+    color: var(--text-tertiary) !important;
+  }
+
+  /* Buttons */
+  .MuiButton-root:not([color="primary"]) {
+    color: var(--foreground) !important;
+  }
+
+  .MuiButton-solid[color="primary"] {
+    background-color: var(--accent) !important;
+    color: var(--background) !important;
+  }
+
+  .MuiButton-plain {
+    color: var(--foreground) !important;
+  }
+
+  /* Chips */
+  .MuiChip-root {
+    background-color: var(--surface-secondary) !important;
+    color: var(--foreground) !important;
+  }
+
+  /* Link components */
+  .MuiLink-root {
+    color: var(--accent) !important;
+  }
+
+  .MuiLink-root:hover {
+    color: var(--accent-dark) !important;
+  }
+
+  /* Card components */
+  .MuiCard-root {
+    background-color: var(--surface) !important;
+    color: var(--foreground) !important;
+    border-color: var(--border) !important;
+  }
+}
+
+/* Light mode explicitly */
+:root:not([data-theme="dark"]) {
+  .MuiTypography-body1,
+  .MuiTypography-body2 {
+    color: var(--text-secondary) !important;
+  }
+
+  .MuiTypography-h1,
+  .MuiTypography-h2,
+  .MuiTypography-h3,
+  .MuiTypography-h4,
+  .MuiTypography-h5,
+  .MuiTypography-h6 {
+    color: var(--text-primary) !important;
+  }
+
+  .MuiSheet-root {
+    background-color: var(--surface) !important;
+    color: var(--foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  .MuiInput-root {
+    border-color: var(--border) !important;
+    color: var(--foreground) !important;
+  }
+
+  .MuiInput-root input::placeholder {
+    color: var(--text-tertiary) !important;
+  }
+
+  .MuiButton-solid[color="primary"] {
+    background-color: var(--accent) !important;
+    color: var(--background) !important;
+  }
+
+  .MuiCard-root {
+    background-color: var(--surface) !important;
+    color: var(--foreground) !important;
   }
 }

@@ -11,9 +11,15 @@ interface ThemeContextType {
   toggleTheme: () => void;
 }
 
-export const ThemeContext = createContext<ThemeContextType | undefined>(
-  undefined
-);
+const defaultContextValue: ThemeContextType = {
+  theme: "light",
+  mode: "system",
+  setMode: () => {},
+  toggleTheme: () => {},
+};
+
+export const ThemeContext =
+  createContext<ThemeContextType>(defaultContextValue);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -101,10 +107,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     applyTheme(newTheme);
   };
 
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
+  // Always provide context, even during SSR
   return (
     <ThemeContext.Provider
       value={{
