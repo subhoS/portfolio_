@@ -1,0 +1,154 @@
+{
+  "name": "Subhadeep Datta",
+  "displayName": "Subhadeep",
+  "title": "Software Engineer — Frontend, SEO, Performance",
+  "shortBio": "I build fast, accessible, and SEO-first web experiences — frontend engineering, architecture, and mentorship.",
+  "longBio": "Results-driven Technology Leader and Full Stack Engineer with 4+ years of experience architecting distributed systems, optimizing web performance, and leading engineering teams. Specialized in frontend architecture, SEO optimization, and scalable backend systems. Proven ability to deliver high-performance solutions with 99.9% uptime, reduce infrastructure costs by 25%, and mentor cross-functional teams. Passionate about creating fast, accessible, and SEO-first web applications using modern frameworks like React, Next.js, and Node.js.",
+  "avatar": "/subhadeep-datta.jpg",
+  "logo": "/logo.svg",
+  "resume": "/resume.pdf",
+  "contact": {
+    "email": "subhadeepdatta2@gmail.com",
+    "phone": "+91 8250272776"
+  },
+  "site": {
+    "url": "https://example.com",
+    "name": "Subhadeep Datta",
+    "description": "Portfolio of Subhadeep Datta — Software Engineer and Technology Leader specializing in frontend performance, SEO, and scalable system design.",
+    "ogImage": "/og-image.png",
+    "twitter": "@subhadeep"
+  },
+  "socials": {
+    "github": "https://github.com/subhoS",
+    "linkedin": "https://www.linkedin.com/in/subhadeep-datta-cto/",
+    "x": "https://x.com/SubhadeepDataa",
+    "other": [
+      {
+        "name": "Portfolio",
+        "url": "https://example.com"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "title": "Realtime Analytics Dashboard",
+      "description": "An opinionated analytics UI focused on performance, realtime updates, and accessibility. Built scalable WebSocket streams and optimized rendering for large datasets.",
+      "tech": ["React", "Next.js", "WebSockets", "TypeScript"],
+      "href": "https://github.com/subhoS/realtime-analytics"
+    },
+    {
+      "title": "Open Source Tooling",
+      "description": "A suite of developer tools and CLI utilities to streamline builds, linting, and publishing workflows. Adopted by multiple projects for CI/CD automation.",
+      "tech": ["TypeScript", "Node.js", "CLI", "CI/CD"],
+      "href": "https://github.com/subhoS"
+    },
+    {
+      "title": "Design System & Component Library",
+      "description": "Cross-platform design system with reusable React components, design tokens, and accessibility-first guidelines used across multiple production applications.",
+      "tech": ["Figma", "MUI", "CSS", "React"],
+      "href": "/projects/design-system"
+    }
+  ],
+  "experience": [
+    {
+      "company": "Noisiv Consulting",
+      "role": "Chief Technology Officer (CTO)",
+      "period": "June 2023 – Present",
+      "summary": "Led three engineering teams across backend, frontend, and DevOps (25+ engineers). Architected scalable systems handling millions of daily requests with 99.9% uptime. Implemented a matrix management structure improving cross-team collaboration and reduced infrastructure costs by 25%.",
+      "tech": [
+        "Java",
+        "Python",
+        "Node.js",
+        "MongoDB",
+        "PostgreSQL",
+        "AWS",
+        "Kubernetes"
+      ]
+    },
+    {
+      "company": "Qid (FITT, IIT Delhi)",
+      "role": "Technology Lead",
+      "period": "June 2022 – November 2024",
+      "summary": "Led the development of a digital check-in platform processing 100K+ verifications with near-zero downtime. Built scalable architecture, integrated with India Stack APIs, and managed a cross-functional engineering team.",
+      "tech": ["Node.js", "React", "Express", "PostgreSQL", "AWS"]
+    },
+    {
+      "company": "Noisiv Consulting",
+      "role": "Partner Technology Manager",
+      "period": "September 2021 – June 2023",
+      "summary": "Managed 20+ enterprise client projects, led an 8-member developer team, and implemented agile practices improving efficiency by 40%. Architected microservice-based infrastructure reducing downtime by 60%.",
+      "tech": ["Microservices", "Docker", "Kubernetes", "CI/CD"]
+    },
+    {
+      "company": "Videtorrium India",
+      "role": "Software Engineer Intern",
+      "period": "October 2020 – August 2021",
+      "summary": "Migrated backend from PHP to Go, achieving 3× speed improvements and 40% higher user engagement. Launched Bharat Oxygen in 72 hours, connecting 1,500+ users during COVID-19.",
+      "tech": ["Golang", "MySQL", "JavaScript", "Node.js"]
+    }
+  ],
+  "leadership": [
+    {
+      "organization": "Global Dialogue Forum",
+      "role": "Conference Organizer",
+      "period": "2022 – 2023",
+      "summary": "Led major policy and technology conferences like The Sustainable Industry Summit, Diversity & Conformity, and Indo-Pacific Security Summit with participation from global leaders and institutions."
+    }
+  ],
+  "education": {
+    "degree": "Bachelor of Science in Information Technology",
+    "institution": "Jamia Hamdard University, New Delhi",
+    "gpa": "3.45/4.0",
+    "details": "Specialized in Artificial Intelligence; Led AI-based social media optimization project; Coursework included Data Structures, Algorithms, Cloud Computing, and AI."
+  },
+  "certifications": [
+    "BCG Strategy Consultant Job Simulation (2025)",
+    "IBM Apptio Cloudability Technical Sales (2024)",
+    "IBM Turbonomic Technical Sales (2024)",
+    "Harvard CS50: Introduction to Computer Science (2020)"
+  ],
+  "skills": {
+    "languages": [
+      "JavaScript",
+      "TypeScript",
+      "Java",
+      "Python",
+      "Golang",
+      "C++"
+    ],
+    "frameworks": [
+      "React",
+      "Next.js",
+      "Node.js",
+      "Express",
+      "Spring Boot",
+      "NestJS",
+      "AngularJS",
+      "Flutter"
+    ],
+    "databases": [
+      "MongoDB",
+      "Redis",
+      "Kafka",
+      "MySQL",
+      "PostgreSQL",
+      "DynamoDB"
+    ],
+    "cloudDevOps": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "Jenkins",
+      "CI/CD",
+      "Microservices"
+    ],
+    "aiMl": ["TensorFlow", "PyTorch", "RAG Models", "LLMs", "Fine-tuning"],
+    "leadership": [
+      "System Design",
+      "Agile/Scrum",
+      "Team Management",
+      "Technical Roadmapping"
+    ]
+  }
+}

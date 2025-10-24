@@ -1,7 +1,6 @@
+// Minimal PostCSS config — Tailwind removed (we're using MUI Joy + Emotion)
 const config = {
-  plugins: {
-    "@tailwindcss/postcss": {},
-  },
+  plugins: {},
 };
 
 export default config;
