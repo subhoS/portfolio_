@@ -1,5 +1,5 @@
 ---
-title: "Hello — building an SEO-first portfolio"
+title: "Hello: building an SEO-first portfolio"
 date: "2025-10-24"
 description: "Why an SEO-first personal portfolio matters and the approach I'm taking."
 tags:

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#0f172a"/>
+  
+  <!-- Main circle -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="#3b82f6" stroke-width="3"/>
+  
+  <!-- SD monogram with tech theme -->
+  <g transform="translate(100, 100)">
+    <!-- Letter S with curved lines (representing code/tech) -->
+    <text x="-35" y="25" font-size="70" font-weight="bold" fill="#3b82f6" font-family="monospace">S</text>
+    
+    <!-- Letter D -->
+    <text x="15" y="25" font-size="70" font-weight="bold" fill="#60a5fa" font-family="monospace">D</text>
+    
+    <!-- Accent line -->
+    <line x1="-50" y1="45" x2="50" y2="45" stroke="#3b82f6" stroke-width="2"/>
+  </g>
+</svg>

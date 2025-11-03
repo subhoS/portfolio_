@@ -7,20 +7,25 @@
   --background: #ffffff;
   --foreground: #171717;
   --surface: #f8f9fa;
-  --surface-secondary: #f0f1f3;
+  --surface-secondary: #f3f0ff;
   --border: #e5e7eb;
   --border-light: #f3f4f6;
-  --accent: #0ea5a4;
-  --accent-dark: #089e9d;
+  --accent: #7c3aed;
+  --accent-dark: #6d28d9;
+  --accent-light: #a78bfa;
+  --accent-gradient: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%);
   --text-primary: #171717;
   --text-secondary: #6b7280;
   --text-tertiary: #9ca3af;
   --success: #10b981;
+  --success-light: #34d399;
   --warning: #f59e0b;
   --error: #ef4444;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 2px 0 rgba(124, 58, 237, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(124, 58, 237, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(124, 58, 237, 0.1);
+  --shadow-accent: 0 0 20px rgba(124, 58, 237, 0.15);
 }
 
 [data-theme="dark"],
@@ -29,20 +34,25 @@
   --background: #0f172a;
   --foreground: #f1f5f9;
   --surface: #1e293b;
-  --surface-secondary: #334155;
+  --surface-secondary: #2d1b4e;
   --border: #475569;
   --border-light: #1e293b;
-  --accent: #06b6d4;
-  --accent-dark: #0891b2;
+  --accent: #a78bfa;
+  --accent-dark: #8b5cf6;
+  --accent-light: #c4b5fd;
+  --accent-gradient: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-tertiary: #94a3b8;
   --success: #10b981;
+  --success-light: #6ee7b7;
   --warning: #f59e0b;
   --error: #ef4444;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 2px 0 rgba(167, 139, 250, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(167, 139, 250, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(167, 139, 250, 0.3);
+  --shadow-accent: 0 0 20px rgba(167, 139, 250, 0.15);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,20 +61,25 @@
     --background: #0f172a;
     --foreground: #f1f5f9;
     --surface: #1e293b;
-    --surface-secondary: #334155;
+    --surface-secondary: #2d1b4e;
     --border: #475569;
     --border-light: #1e293b;
-    --accent: #06b6d4;
-    --accent-dark: #0891b2;
+    --accent: #a78bfa;
+    --accent-dark: #8b5cf6;
+    --accent-light: #c4b5fd;
+    --accent-gradient: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
+    --accent-gradient-hover: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
     --text-primary: #f1f5f9;
     --text-secondary: #cbd5e1;
     --text-tertiary: #94a3b8;
     --success: #10b981;
+    --success-light: #6ee7b7;
     --warning: #f59e0b;
     --error: #ef4444;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 1px 2px 0 rgba(167, 139, 250, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(167, 139, 250, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(167, 139, 250, 0.3);
+    --shadow-accent: 0 0 20px rgba(167, 139, 250, 0.15);
   }
 }
 
@@ -145,10 +160,26 @@ a {
   color: var(--accent);
   text-decoration: none;
   transition: color 0.2s ease;
+  position: relative;
 }
 
 a:hover {
   color: var(--accent-dark);
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-gradient);
+  transition: width 0.3s ease;
+}
+
+a:hover::after {
+  width: 100%;
 }
 
 button {
@@ -163,6 +194,20 @@ button {
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-accent);
 }
 
 code {
@@ -498,7 +543,7 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
   background: var(--surface);
   color: var(--text-primary);
 }
@@ -977,4 +1022,83 @@ article a:hover {
     background-color: var(--surface) !important;
     color: var(--foreground) !important;
   }
+}
+
+/* ============================================
+   PLAYFUL ANIMATIONS & EFFECTS
+   ============================================ */
+
+@keyframes subtle-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(14, 165, 164, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(14, 165, 164, 0.2);
+  }
+}
+
+[data-theme="dark"] {
+  @keyframes subtle-glow-dark {
+    0%,
+    100% {
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.2);
+    }
+  }
+}
+
+@keyframes float-subtle {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Playful accent elements */
+[class*="accent"] {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Hover glow for interactive elements */
+button[color="primary"]:hover,
+a:hover {
+  animation: subtle-glow 2s ease-in-out infinite;
+}
+
+/* Subtle float on interactive cards */
+[role="button"],
+button,
+a[href] {
+  position: relative;
+}
+
+/* Success state styling */
+.success {
+  color: var(--success-light);
+}
+
+/* Playful form elements */
+input:focus,
+textarea:focus,
+select:focus {
+  background: linear-gradient(
+    to bottom,
+    var(--surface) 0%,
+    var(--surface-secondary) 100%
+  );
 }

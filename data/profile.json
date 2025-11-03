@@ -118,15 +118,49 @@
     "graduationDate": "September 2024"
   },
   "skills": {
-    "backend": ["Java", "Python", "Node.js", "Go"],
-    "frontend": ["React", "TypeScript", "Next.js"],
+    "frontend": [
+      "React.js",
+      "Angular",
+      "Ionic",
+      "Progressive Web Apps (PWA)",
+      "TypeScript",
+      "Next.js"
+    ],
+    "backend": ["Node.js", "NestJS", "GoLang (Gin)", "Python (Flask)", "Java"],
+    "mobile": ["Android", "iOS", "Ionic"],
     "databases": ["MongoDB", "PostgreSQL", "Redis", "Elasticsearch"],
-    "infrastructure": ["AWS", "Kubernetes", "Docker", "Terraform", "CI/CD"],
-    "interests": [
-      "System design",
-      "Performance optimization",
-      "Distributed systems",
-      "AI/LLMs"
+    "containerization": ["Docker", "Kubernetes"],
+    "cloudDevOps": [
+      "AWS",
+      "Google Cloud",
+      "Vercel",
+      "SaaS (Software as a Service)",
+      "Git (Version Control)",
+      "Kubernetes",
+      "Docker",
+      "Terraform",
+      "CI/CD"
+    ],
+    "aiMl": ["Artificial Intelligence (AI)", "Machine Learning (ML)", "LLMs"],
+    "systemDesign": [
+      "Cloud Computing",
+      "Distributed Systems",
+      "Architecture",
+      "Performance Optimization",
+      "System Design"
+    ],
+    "professional": [
+      "Software Development",
+      "Project Management",
+      "Team Management",
+      "Agile / Scrum Methodologies",
+      "Jira",
+      "Trello",
+      "Asana",
+      "ClickUp",
+      "Notion",
+      "Turbonomic",
+      "Apption"
     ]
   }
 }

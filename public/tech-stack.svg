@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet">
+  <!-- Title -->
+  <text x="400" y="40" font-size="32" font-weight="bold" text-anchor="middle" fill="currentColor" opacity="0.9">
+    Tech Stack Overview
+  </text>
+  
+  <!-- Frontend Section -->
+  <g>
+    <rect x="50" y="100" width="200" height="350" rx="10" fill="currentColor" opacity="0.05" stroke="currentColor" stroke-width="2"/>
+    <text x="150" y="135" font-size="20" font-weight="bold" text-anchor="middle" fill="currentColor">Frontend</text>
+    
+    <circle cx="100" cy="180" r="20" fill="#61dafb" opacity="0.8"/>
+    <text x="100" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="white">R</text>
+    <text x="150" y="190" font-size="14" fill="currentColor">React</text>
+    
+    <rect x="85" y="225" width="30" height="30" rx="4" fill="#f0db4f" opacity="0.8"/>
+    <text x="100" y="248" font-size="11" font-weight="bold" text-anchor="middle" fill="white">TS</text>
+    <text x="150" y="253" font-size="14" fill="currentColor">TypeScript</text>
+    
+    <rect x="85" y="275" width="30" height="30" rx="4" fill="#000" opacity="0.8"/>
+    <text x="100" y="296" font-size="11" font-weight="bold" text-anchor="middle" fill="white">A</text>
+    <text x="150" y="303" font-size="14" fill="currentColor">Angular</text>
+  </g>
+  
+  <!-- Backend Section -->
+  <g>
+    <rect x="300" y="100" width="200" height="350" rx="10" fill="currentColor" opacity="0.05" stroke="currentColor" stroke-width="2"/>
+    <text x="400" y="135" font-size="20" font-weight="bold" text-anchor="middle" fill="currentColor">Backend</text>
+    
+    <circle cx="350" cy="180" r="20" fill="#68a063" opacity="0.8"/>
+    <text x="350" y="190" font-size="11" font-weight="bold" text-anchor="middle" fill="white">Node</text>
+    <text x="400" y="190" font-size="14" fill="currentColor">Node.js</text>
+    
+    <rect x="335" y="225" width="30" height="30" rx="4" fill="#0070f3" opacity="0.8"/>
+    <text x="350" y="248" font-size="11" font-weight="bold" text-anchor="middle" fill="white">NS</text>
+    <text x="400" y="253" font-size="14" fill="currentColor">NestJS</text>
+    
+    <circle cx="350" cy="295" r="20" fill="#00a4ef" opacity="0.8"/>
+    <text x="350" y="302" font-size="11" font-weight="bold" text-anchor="middle" fill="white">Go</text>
+    <text x="400" y="303" font-size="14" fill="currentColor">GoLang</text>
+  </g>
+  
+  <!-- DevOps Section -->
+  <g>
+    <rect x="550" y="100" width="200" height="350" rx="10" fill="currentColor" opacity="0.05" stroke="currentColor" stroke-width="2"/>
+    <text x="650" y="135" font-size="20" font-weight="bold" text-anchor="middle" fill="currentColor">DevOps</text>
+    
+    <rect x="615" y="170" width="30" height="30" rx="4" fill="#ff9900" opacity="0.8"/>
+    <text x="630" y="193" font-size="11" font-weight="bold" text-anchor="middle" fill="white">AWS</text>
+    <text x="680" y="190" font-size="14" fill="currentColor">AWS</text>
+    
+    <circle cx="630" cy="245" r="20" fill="#2496ed" opacity="0.8"/>
+    <text x="630" y="252" font-size="11" font-weight="bold" text-anchor="middle" fill="white">D</text>
+    <text x="680" y="253" font-size="14" fill="currentColor">Docker</text>
+    
+    <circle cx="630" cy="310" r="20" fill="#326ce5" opacity="0.8"/>
+    <text x="630" y="317" font-size="11" font-weight="bold" text-anchor="middle" fill="white">K</text>
+    <text x="680" y="318" font-size="14" fill="currentColor">Kubernetes</text>
+  </g>
+</svg>

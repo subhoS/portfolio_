@@ -22,16 +22,56 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const skills = [
-    "System Design",
-    "TypeScript",
-    "React",
-    "Node.js",
-    "Performance",
-    "AWS",
-    "Distributed Systems",
-    "Team Leadership",
-  ];
+  const skillCategories = {
+    "Frontend Development": [
+      "React.js",
+      "Angular",
+      "Ionic",
+      "PWA",
+      "TypeScript",
+      "Next.js",
+    ],
+    "Backend Development": [
+      "Node.js",
+      "NestJS",
+      "Go (Gin)",
+      "Python (Flask)",
+      "Java",
+    ],
+    "Mobile Development": ["Android", "iOS", "Ionic"],
+    Databases: ["MongoDB", "PostgreSQL", "Redis", "Elasticsearch"],
+    "Containerization & Orchestration": ["Docker", "Kubernetes"],
+    "Cloud & DevOps": [
+      "AWS",
+      "Google Cloud",
+      "Vercel",
+      "Terraform",
+      "CI/CD",
+      "Git",
+    ],
+    "AI & Machine Learning": [
+      "Artificial Intelligence (AI)",
+      "Machine Learning (ML)",
+      "LLMs",
+    ],
+    "System Design & Architecture": [
+      "Cloud Computing",
+      "Distributed Systems",
+      "Performance Optimization",
+      "System Design",
+      "Architecture",
+    ],
+    "Professional Skills": [
+      "Team Leadership",
+      "Project Management",
+      "Agile/Scrum",
+      "Jira",
+      "Trello",
+      "Asana",
+      "ClickUp",
+      "Notion",
+    ],
+  };
 
   return (
     <Box sx={{ px: 2, py: { xs: 4, md: 8 }, maxWidth: 780, mx: "auto" }}>
@@ -82,23 +122,46 @@ export default function AboutPage() {
       <Box sx={{ mt: 6 }}>
         <Typography
           level="title-lg"
-          sx={{ fontWeight: 700, mb: 2, color: "var(--text-primary)" }}
+          sx={{ fontWeight: 700, mb: 3, color: "var(--text-primary)" }}
         >
-          Things I work with
+          Technical Skills
         </Typography>
-        <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", gap: 1 }}>
-          {skills.map((skill) => (
-            <Chip
-              key={skill}
-              variant="soft"
-              size="md"
-              sx={{
-                bgcolor: "var(--surface-secondary) !important",
-                color: "var(--foreground) !important",
-              }}
-            >
-              {skill}
-            </Chip>
+        <Stack spacing={3}>
+          {Object.entries(skillCategories).map(([category, skills]) => (
+            <Box key={category}>
+              <Typography
+                level="body-sm"
+                sx={{
+                  fontWeight: 600,
+                  mb: 1.5,
+                  color: "var(--accent)",
+                  textTransform: "uppercase",
+                  fontSize: "0.75rem",
+                  letterSpacing: "0.5px",
+                }}
+              >
+                {category}
+              </Typography>
+              <Stack
+                direction="row"
+                spacing={1}
+                sx={{ flexWrap: "wrap", gap: 1 }}
+              >
+                {skills.map((skill) => (
+                  <Chip
+                    key={skill}
+                    variant="soft"
+                    size="sm"
+                    sx={{
+                      bgcolor: "var(--surface-secondary) !important",
+                      color: "var(--foreground) !important",
+                    }}
+                  >
+                    {skill}
+                  </Chip>
+                ))}
+              </Stack>
+            </Box>
           ))}
         </Stack>
       </Box>

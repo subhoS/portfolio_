@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "fill-profile": "node scripts/fillProfile.js"
+    "fill-profile": "node scripts/fillProfile.js",
+    "generate-favicon": "node scripts/generateFavicon.js"
   },
   "dependencies": {
     "@emotion/react": "^11.0.0",
@@ -30,6 +31,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "sharp": "^0.32.0",
     "typescript": "^5"
   }
 }

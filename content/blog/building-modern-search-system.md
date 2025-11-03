@@ -2,7 +2,7 @@
 title: "Building a Modern Search System: From Debouncing to Ranking and Real-Time Updates"
 date: "2025-10-25"
 author: "Subhadeep Datta"
-excerpt: "Learn how to build a high-performance search system from scratch — covering frontend debouncing, backend ranking, Elasticsearch integration, and real-time updates with Change Data Capture (CDC)."
+excerpt: "Learn how to build a high-performance search system from scratch, covering frontend debouncing, backend ranking, Elasticsearch integration, and real-time updates with Change Data Capture (CDC)."
 featured_image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630&fit=crop"
 description: "A comprehensive guide to building production-grade search systems. Discover debouncing techniques, ranking algorithms, Elasticsearch fundamentals, and CDC patterns with code examples."
 tags:
@@ -13,7 +13,7 @@ readingTime: 12
 
 ## 🧭 Introduction: Why Search Is Harder Than It Looks
 
-Type a few letters into Google or Amazon, and results appear instantly — ranked, relevant, and fresh.
+Type a few letters into Google or Amazon, and results appear instantly, ranked, relevant, and fresh.
 
 Behind that magic lies a chain of complex engineering ideas:
 
@@ -22,13 +22,13 @@ Behind that magic lies a chain of complex engineering ideas:
 - **Elasticsearch** retrieves relevant results at scale
 - **Change Data Capture (CDC)** keeps everything up-to-date in real time
 
-In this article, we'll break each piece down, step by step — and end with a small, working example showing how to connect them all together.
+Let's break down each piece, work through some examples, and then tie them all together.
 
 ---
 
 ## 💡 1. Debouncing: The First Layer of Performance
 
-When a user types in a search box, every keystroke can trigger an API call — wasting bandwidth and hammering your backend.
+When a user types in a search box, every keystroke can trigger an API call, wasting bandwidth and straining your backend.
 
 Example: typing "apple" fires 5 requests:
 
@@ -36,13 +36,11 @@ Example: typing "apple" fires 5 requests:
 a → ap → app → appl → apple
 ```
 
-That's inefficient. **Debouncing** solves this by waiting until the user pauses typing before running the search.
+That's inefficient. **Debouncing** fixes this by waiting until the user stops typing before firing off a request.
 
 ### 🧩 How Debouncing Works
 
-> Wait X milliseconds after the last keystroke before executing the function.
-
-If another keystroke happens before the delay ends, the timer resets.
+Wait X milliseconds after the last keystroke before executing the function. If another keystroke happens before the delay ends, reset the timer.
 
 ### 🧠 Example (JavaScript)
 
@@ -63,7 +61,7 @@ const handleSearch = debounce((query) => {
 }, 300);
 ```
 
-✅ **Result:** Only **one** API call after the user stops typing — smoother UX, less load.
+**Result:** Only one API call after the user stops typing. Smoother UX, less backend load.
 
 ### Performance Impact
 
@@ -83,17 +81,17 @@ That's an **80% reduction** in unnecessary API calls!
 
 ## ⚖️ 2. Ranking: Making Search Results Relevant
 
-Once the query hits your backend, you need to decide **which results should appear first**.
+Once the query hits your backend, you need to determine which results should rank first.
 
-Ranking is the "brain" of search — it determines what's _most relevant_.
+Ranking is the "brain" of search. It determines what's most relevant.
 
 ### Common Ranking Factors
 
-1. **Text relevance** — how well the content matches the query
-2. **Popularity** — e.g., click counts, purchases
-3. **Recency** — newer results may rank higher
-4. **Personalization** — user preferences or history
-5. **User signals** — likes, shares, time-spent
+1. **Text relevance**: how well the content matches the query
+2. **Popularity**: e.g., click counts, purchases
+3. **Recency**: newer results may rank higher
+4. **Personalization**: user preferences or history
+5. **User signals**: likes, shares, time-spent
 
 ### 🔢 Simplified Ranking Formula
 
@@ -111,7 +109,7 @@ This formula is weighted because:
 
 ### Example Ranking Scenario
 
-Imagine searching for "wireless headphones" — here's how three products score:
+Imagine searching for "wireless headphones". Here's how three products score:
 
 ![Ranking Comparison](/ranking-comparison.svg)
 
@@ -138,7 +136,7 @@ _Visual breakdown showing why Sony ranks #1: balanced excellence across all rank
 - Recency: 20/100 (released 10 years ago)
 - **Final Score: 60.4** (low overall score)
 
-**Result:** Sony ranks first because it excels across all factors. Users see the most relevant product first! 🎉
+**Result:** Sony ranks first because it excels across all factors. Users see the most relevant product first!
 
 ---
 
@@ -146,9 +144,9 @@ _Visual breakdown showing why Sony ranks #1: balanced excellence across all rank
 
 Search engines use sophisticated algorithms:
 
-- **TF-IDF** (Term Frequency–Inverse Document Frequency) — classic approach
-- **BM25** — a modern improvement on TF-IDF (used by Elasticsearch)
-- **Learning to Rank (LTR)** — machine learning-based ranking
+- **TF-IDF** (Term Frequency–Inverse Document Frequency): classic approach
+- **BM25**: a modern improvement on TF-IDF (used by Elasticsearch)
+- **Learning to Rank (LTR)**: machine learning-based ranking
 
 **BM25 Formula (Simplified):**
 
@@ -173,16 +171,15 @@ Where:
 
 ## ⚙️ 3. Elasticsearch: The Engine Powering Modern Search
 
-**Elasticsearch** is a distributed search and analytics engine built on **Apache Lucene**.
-It's used by companies like Netflix, Uber, and Shopify to power their search systems.
+**Elasticsearch** is a distributed search and analytics engine built on Apache Lucene. Companies like Netflix, Uber, and Shopify use it to power their search systems.
 
 ### 🧠 Why Elasticsearch?
 
-- **Blazing fast full-text search** — searches millions of documents in milliseconds
-- **Scalable** — can handle billions of documents across clusters
-- **Powerful ranking & scoring** out-of-the-box (BM25)
-- **Supports fuzzy search**, filtering, and aggregations
-- **RESTful API** — easy to integrate with any backend
+- **Blazing fast full-text search** – searches millions of documents in milliseconds
+- **Scalable** – handles billions of documents across clusters
+- **Powerful ranking and scoring** built-in (BM25)
+- **Supports** fuzzy search, filtering, and aggregations
+- **RESTful API** – integrates with any backend
 
 ### 🗃️ Basic Architecture
 
@@ -275,7 +272,7 @@ This query returns products matching "headphones" that are under $500 and in sto
 
 ## 🔄 3.5 Search Engine Alternatives to Elasticsearch
 
-Elasticsearch is powerful but **complex to set up and operate**. Here are production-ready alternatives depending on your needs:
+**Elasticsearch** is powerful but complex to set up and operate. Here are production-ready alternatives depending on your needs:
 
 ### Comparison Table: Search Engines
 
@@ -466,13 +463,11 @@ with ix.searcher() as searcher:
 
 Even the best search index becomes outdated if your source data changes.
 
-When products are added, deleted, or updated in your main database, your search index must stay **in sync**.
-
-That's where **Change Data Capture (CDC)** comes in.
+When products are added, deleted, or updated in your main database, your search index must stay in sync. That's where Change Data Capture (CDC) comes in.
 
 ### 🧠 What Is CDC?
 
-CDC continuously monitors your database for changes and streams them to another system — like Elasticsearch.
+CDC continuously monitors your database for changes and streams them to another system, like Elasticsearch.
 
 ### The Problem CDC Solves
 
@@ -1237,14 +1232,14 @@ console.timeEnd("elasticsearch_query");
 
 ## 🌟 8. Final Thoughts
 
-A great search system is not just about speed — it's about **smart engineering** across every layer.
+A great search system is not just about speed. It's about smart engineering across every layer.
 
 - **Debouncing** smooths user input, reducing unnecessary API calls
 - **Ranking** ensures relevance, keeping users engaged
 - **Elasticsearch** delivers results at lightning speed, powering scalability
 - **CDC** keeps everything up to date in real time, maintaining data integrity
 
-When combined, they create a seamless experience where users get **relevant results — instantly and accurately**.
+When combined, they create a seamless experience where users get relevant results instantly and accurately.
 
 Whether you're building a small product search or a massive e-commerce platform, these principles apply. Start simple, measure performance, and optimize as you scale.
 
