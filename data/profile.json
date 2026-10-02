@@ -1,21 +1,21 @@
 {
   "name": "Subhadeep Datta",
   "displayName": "Subhadeep",
-  "title": "Full Stack Engineer & Technical Leader",
-  "shortBio": "I build fast, scalable systems and lead engineering teams. Currently CTO at Noisiv Consulting. Obsessed with performance, clean architecture, and making technology actually work.",
-  "longBio": "I'm a full stack engineer focused on building systems that scale. Over the past 6 years, I've worked on everything from real-time APIs to distributed systems and machine learning pipelines. Right now, I'm a CTO and co-founder at Noisiv Consulting, where I lead a team building enterprise solutions. I care about performance, maintainability, and shipping things that matter.",
+  "title": "Full Stack Engineer & CTO",
+  "shortBio": "Full Stack Engineer & CTO specializing in distributed systems, high-performance APIs, and AI integrations. I currently lead engineering at Hirerkey and Noisiv Consulting, building software that powers millions of interactions.",
+  "longBio": "I'm a Full Stack Engineer and CTO who loves solving hard scaling problems. Currently, I'm the Co-Founder & CTO at Hirerkey, building an AI-native HR platform in Dubai, and the Consulting CTO at Noisiv Consulting, where I design backend systems that handle millions of daily API requests. Before this, I led the technical team at Qid, scaling India's top digital ID gateway to handle massive daily traffic spikes. I write code primarily in Java, Node.js, and Python, and I rely heavily on Kafka, Redis, and MongoDB to keep systems fast and reliable.",
   "headline": "Full Stack Engineer & CTO",
   "avatar": "/subhadeep-datta.jpg",
   "logo": "/logo.svg",
   "resume": "/resume.pdf",
   "contact": {
-    "email": "dattasubhadeep4321@outlook.com",
+    "email": "subhadeepdatta2@gmail.com",
     "phone": "+91 8250272776"
   },
   "site": {
     "url": "https://subhadeep-datta.dev",
-    "name": "Subhadeep Datta — Tech Leader & Full Stack Engineer",
-    "description": "Portfolio of Subhadeep Datta — Tech Co-founder & CTO specializing in distributed systems, enterprise architecture, LLMs, MCP, and RAG solutions. 6+ years building scalable backend systems with 99.9% uptime.",
+    "name": "Subhadeep Datta — Full Stack Engineer & CTO",
+    "description": "Portfolio of Subhadeep Datta — Full Stack Engineer & CTO. Co-Founder of Hirerkey, Consulting CTO at Noisiv Consulting, and Tech Lead for Qid.",
     "ogImage": "/og-image.png",
     "twitter": "@SubhadeepDataa"
   },
@@ -32,135 +32,201 @@
       {
         "name": "Noisiv Consulting",
         "url": "https://noisivconsulting.com/"
+      },
+      {
+        "name": "Hirerkey",
+        "url": "https://www.hirerkey.com/"
+      },
+      {
+        "name": "Qid",
+        "url": "https://oneqid.com/"
+      },
+      {
+        "name": "Videtorrium",
+        "url": "https://www.videtorrium.com/"
       }
     ]
   },
   "projects": [
     {
+      "title": "Hirerkey — Workplace Intelligence Platform",
+      "description": "Built the core architecture for a modern AI-based Human Capital Management platform. Designed the infrastructure using Java and Node.js, and integrated RAG pipelines to automate complex HR workflows.",
+      "tech": ["Java", "Node.js", "AI/LLM", "RAG", "MongoDB"],
+      "href": "https://www.hirerkey.com/"
+    },
+    {
       "title": "Noisiv Consulting",
-      "description": "Co-founded and lead engineering at Noisiv — an enterprise technology consulting firm. Built scalable backend systems serving Fortune 500 clients, designed database architectures, and scaled the engineering team from 0 to 25+. Work spans Java, Python, Node.js, and modern DevOps. It's where most of my learnings on distributed systems and team leadership come from.",
-      "tech": [
-        "Java",
-        "Python",
-        "Node.js",
-        "MongoDB",
-        "PostgreSQL",
-        "Kafka",
-        "AWS",
-        "Kubernetes"
-      ],
+      "description": "Architected backend infrastructure for enterprise clients that processes millions of requests a day. Focused heavily on database schema optimization and implementing robust message queues to drop latency and guarantee 99.9% uptime.",
+      "tech": ["Java", "Python", "Node.js", "Kafka", "PostgreSQL"],
       "href": "https://noisivconsulting.com/"
     },
     {
-      "title": "QID — Digital Verification Platform",
-      "description": "Built and led the team for a digital check-in platform used for verifications. The interesting part wasn't the frontend — it was handling offline-first sync and integrating with India's identity systems. Worked with constraints: low bandwidth, critical accuracy, and massive scale.",
-      "tech": [
-        "Angular",
-        "NestJS",
-        "MongoDB",
-        "Offline-first architecture",
-        "Identity APIs"
-      ],
-      "href": "https://github.com/subhoS"
+      "title": "Qid — India's #1 ID Gateway",
+      "description": "Led the engineering team to build a secure digital check-in gateway processing 100,000+ verifications. The biggest challenge was ensuring real-time data sync in low-bandwidth environments, which we solved using an offline-first architecture and aggressive Redis caching.",
+      "tech": ["NestJS", "Kafka", "Redis", "Distributed Systems"],
+      "href": "https://oneqid.com/"
     },
     {
-      "title": "Realtime Analytics Dashboard",
-      "description": "A WebSocket-based analytics dashboard. The challenge was handling real-time updates for thousands of data points without blocking the UI. Learned a lot about rendering optimization and efficient state management here.",
-      "tech": ["React", "Next.js", "WebSockets", "TypeScript"],
-      "href": "https://github.com/subhoS"
+      "title": "Videtorrium",
+      "description": "Helped build the early versions of Videtorrium, a hiring platform focused on matching students with high-paying opportunities. Worked across the stack with React and Node.js to ship features fast.",
+      "tech": ["React", "Node.js", "Full Stack Development"],
+      "href": "https://www.videtorrium.com/"
     }
   ],
   "experience": [
     {
+      "company": "Hirerkey",
+      "role": "Co-Founder & CTO",
+      "period": "January 2025 - Present",
+      "summary": "Leading technical strategy and product engineering. Architected the main platform with Java, Node.js, MongoDB, and Kafka. Integrated LLMs and RAG models to automate HR processes, directly contributing to our $2.5M valuation."
+    },
+    {
       "company": "Noisiv Consulting",
-      "role": "Tech Co-founder & CTO",
-      "period": "2024 - Present",
-      "summary": "Leading engineering teams building enterprise solutions. Focused on architecture, performance, and scaling systems that matter."
+      "role": "Consulting CTO",
+      "period": "June 2023 - Present",
+      "summary": "Designing systems that handle millions of daily API requests. Reduced database response times by 60% through schema optimization and implemented Kafka/Redis queues processing 75,000+ messages per second."
     },
     {
-      "company": "QID Platform (FITT IIT Delhi)",
-      "role": "Tech Lead",
-      "period": "2022 - 2024",
-      "summary": "Built and scaled a digital verification platform from ground up. Led team of engineers, handled everything from API design to infrastructure."
+      "company": "Qid",
+      "role": "Technology Lead",
+      "period": "September 2021 - November 2024",
+      "summary": "Managed a team of 5 engineers to build a digital check-in platform. Integrated with India Stack APIs for identity verification and set up Redis caching layers that reduced our database load by 40%."
     },
     {
-      "company": "Videtorrium & Unlock.fit",
+      "company": "Videtorrium",
       "role": "Software Engineer",
       "period": "2020 - 2021",
-      "summary": "Early-stage work building products and learning the craft. Mentored developers and shipped features that reached users."
+      "summary": "Built core product features using React and Node.js. Mentored junior developers and helped establish our early engineering practices."
     }
   ],
   "awards": [
     {
-      "title": "COVID-19 Hero",
-      "issuer": "Bharat Oxygen Initiative",
-      "year": 2021,
-      "description": "Built and launched Bharat Oxygen platform in 72 hours, connecting 1,500+ users with life-saving oxygen and medical resources during the COVID-19 crisis."
+      "title": "McKinsey.org Forward Program",
+      "issuer": "McKinsey & Company",
+      "year": 2025,
+      "description": "Selected for the McKinsey.org Forward Program, enhancing leadership and strategic problem-solving skills."
+    },
+    {
+      "title": "Strategy Consultant Job Simulation",
+      "issuer": "BCG",
+      "year": 2025,
+      "description": "Completed BCG's comprehensive Strategy Consultant Job Simulation program."
+    },
+    {
+      "title": "Apptio Cloudability Technical Sales",
+      "issuer": "IBM",
+      "year": 2024,
+      "description": "Certified in Apptio Cloudability Technical Sales by IBM."
+    },
+    {
+      "title": "Turbonomic Technical Sales",
+      "issuer": "IBM",
+      "year": 2023,
+      "description": "Achieved Turbonomic Technical Sales certification from IBM."
+    },
+    {
+      "title": "CS50",
+      "issuer": "Harvard University",
+      "year": 2020,
+      "description": "Completed Harvard University's rigorous CS50 program."
+    },
+    {
+      "title": "JavaScript Algorithms & Data Structures",
+      "issuer": "freeCodeCamp",
+      "year": 2020,
+      "description": "Earned certification in JavaScript Algorithms and Data Structures."
+    },
+    {
+      "title": "Responsive Web Design",
+      "issuer": "freeCodeCamp",
+      "year": 2019,
+      "description": "Certified in advanced Responsive Web Design."
     }
   ],
   "leadership": [
     {
-      "organization": "Noisiv Consulting",
-      "role": "Tech Co-founder & CTO",
-      "period": "2024 - Present",
-      "summary": "Leading 25+ engineers across backend, frontend, and DevOps teams. Architecting enterprise solutions for Fortune 500 clients."
+      "organization": "Hirerkey",
+      "role": "Co-Founder & CTO",
+      "period": "January 2025 - Present",
+      "summary": "Directing product and engineering strategy, moving from zero to a $2.5M valuation."
     },
     {
-      "organization": "QID Platform",
-      "role": "Technical Lead",
-      "period": "2022 - 2024",
-      "summary": "Led cross-functional engineering team delivering mission-critical check-in platform with 99.9% uptime."
+      "organization": "Noisiv Consulting",
+      "role": "Consulting CTO",
+      "period": "June 2023 - Present",
+      "summary": "Advising enterprise teams on system architecture and helping scale their engineering organizations."
+    },
+    {
+      "organization": "Qid",
+      "role": "Technology Lead",
+      "period": "September 2021 - November 2024",
+      "summary": "Led a cross-functional engineering team, delivering a high-stakes identity platform with 99.9% uptime."
     }
   ],
   "education": {
     "degree": "Bachelor of Science in Information Technology",
-    "institution": "Jamia Hamdard University, New Delhi",
-    "graduationDate": "September 2024"
+    "institution": "Jamia Hamdard, New Delhi",
+    "graduationDate": "GPA: 3.45/4.0"
   },
   "skills": {
     "frontend": [
+      "JavaScript/TypeScript",
       "React.js",
-      "Angular",
-      "Ionic",
-      "Progressive Web Apps (PWA)",
-      "TypeScript",
-      "Next.js"
+      "Angular.js",
+      "Next.js",
+      "Flutter"
     ],
-    "backend": ["Node.js", "NestJS", "GoLang (Gin)", "Python (Flask)", "Java"],
-    "mobile": ["Android", "iOS", "Ionic"],
-    "databases": ["MongoDB", "PostgreSQL", "Redis", "Elasticsearch"],
-    "containerization": ["Docker", "Kubernetes"],
+    "backend": [
+      "Java",
+      "Python",
+      "Node.js",
+      "Golang",
+      "Express.js",
+      "Spring Boot",
+      "NestJS"
+    ],
+    "mobile": [
+      "Flutter",
+      "Android",
+      "iOS"
+    ],
+    "databases": [
+      "MongoDB",
+      "Redis",
+      "Kafka",
+      "MySQL",
+      "PostgreSQL"
+    ],
+    "containerization": [
+      "Docker",
+      "Kubernetes"
+    ],
     "cloudDevOps": [
       "AWS",
-      "Google Cloud",
-      "Vercel",
-      "SaaS (Software as a Service)",
-      "Git (Version Control)",
-      "Kubernetes",
       "Docker",
+      "Kubernetes",
+      "CI/CD",
+      "Microservices",
       "Terraform",
-      "CI/CD"
+      "Jenkins"
     ],
-    "aiMl": ["Artificial Intelligence (AI)", "Machine Learning (ML)", "LLMs"],
+    "aiMl": [
+      "Custom Models",
+      "RAG Models",
+      "Fine-tuning",
+      "LLMs",
+      "Vector Databases"
+    ],
     "systemDesign": [
-      "Cloud Computing",
+      "System Design",
       "Distributed Systems",
-      "Architecture",
-      "Performance Optimization",
-      "System Design"
+      "Enterprise Architecture"
     ],
     "professional": [
-      "Software Development",
-      "Project Management",
+      "CTO Leadership",
       "Team Management",
-      "Agile / Scrum Methodologies",
-      "Jira",
-      "Trello",
-      "Asana",
-      "ClickUp",
-      "Notion",
-      "Turbonomic",
-      "Apption"
+      "Agile/Scrum",
+      "Technical Roadmapping"
     ]
   }
 }

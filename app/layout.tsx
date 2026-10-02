@@ -3,38 +3,39 @@ import Analytics from "../components/Analytics";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ThemeProviderClient from "../components/ThemeProviderClient";
+import ScrollProgress from "../components/ScrollProgress";
+import CursorGlow from "../components/CursorGlow";
+import GradientBackground from "../components/GradientBackground";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Subhadeep Datta — Full Stack Engineer & CTO",
+  title: "Subhadeep Datta — Full Stack Engineer & CTO | Noisiv, Qid, Hirerkey",
   description:
-    "Full stack engineer & CTO building fast, scalable systems. 6+ years specializing in distributed systems, enterprise architecture, and performance optimization. Tech leader at Noisiv Consulting.",
+    "Subhadeep Datta is a Full Stack Engineer & CTO. Co-Founder of Hirerkey, Consulting CTO at Noisiv Consulting, and Tech Lead for Qid & Videtorrium. Expert in distributed systems and scalable architecture.",
   keywords: [
+    "Subhadeep Datta",
+    "Subhadeep",
     "full stack engineer",
     "software engineer",
     "system design",
     "backend engineering",
+    "frontend engineering",
     "react",
     "node.js",
     "distributed systems",
     "CTO",
     "technical leader",
     "enterprise architecture",
-    "performance optimization",
+    "Noisiv Consulting",
+    "Qid",
+    "oneqid",
+    "Hirerkey",
+    "Videtorrium",
     "scalable systems",
     "LLM",
     "RAG",
     "MCP",
   ],
-  icons: {
-    icon: [
-      { url: "/sd-card.png", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-    ],
-    shortcut: "/sd-card.png",
-    apple: "/sd-card.png",
-  },
   metadataBase: new URL(process.env.SITE_URL || "https://subhadeep-datta.dev"),
   openGraph: {
     type: "website",
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     url: process.env.SITE_URL || "https://subhadeep-datta.dev",
     title: "Subhadeep Datta — Full Stack Engineer & CTO",
     description:
-      "Full stack engineer & CTO specializing in distributed systems, enterprise architecture, and scalable backend systems. 6+ years building robust solutions with 99.9% uptime.",
+      "Subhadeep Datta is a Full Stack Engineer & CTO building robust solutions for Noisiv Consulting, Qid, Hirerkey, and Videtorrium.",
     siteName: "Subhadeep Datta",
     images: [
       {
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Subhadeep Datta — Full Stack Engineer & CTO",
     description:
-      "Full stack engineer & CTO specializing in distributed systems and enterprise architecture.",
+      "Subhadeep Datta is a Full Stack Engineer & CTO specializing in distributed systems and enterprise architecture.",
     creator: "@SubhadeepDataa",
     site: "@SubhadeepDataa",
     images: ["/og-image.png"],
@@ -91,7 +92,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Search Console verification - set SEARCH_CONSOLE_VERIFICATION env var in production */}
+        {/* Google Fonts — Inter + JetBrains Mono */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        />
+
+        {/* Search Console verification */}
         {process.env.SEARCH_CONSOLE_VERIFICATION && (
           <meta
             name="google-site-verification"
@@ -99,11 +112,10 @@ export default function RootLayout({
           />
         )}
 
-        {/* Additional SEO Meta Tags */}
         <meta name="author" content="Subhadeep Datta" />
         <meta
           name="copyright"
-          content="© 2024 Subhadeep Datta. All rights reserved."
+          content="© 2025 Subhadeep Datta. All rights reserved."
         />
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
@@ -112,25 +124,9 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
 
-        {/* Favicon declarations for better compatibility */}
-        <link rel="icon" type="image/png" href="/sd-card.png" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="shortcut icon" href="/sd-card.png" />
-        <link rel="apple-touch-icon" href="/sd-card.png" />
         <link rel="manifest" href="/manifest.json" />
 
-        {/* JSON-LD Structured Data for SEO */}
+        {/* JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -141,23 +137,40 @@ export default function RootLayout({
               url: process.env.SITE_URL || "https://subhadeep-datta.dev",
               jobTitle: "Full Stack Engineer & CTO",
               description:
-                "Full stack engineer specializing in distributed systems and enterprise architecture",
+                "Subhadeep Datta is a Full Stack Engineer & CTO specializing in distributed systems, enterprise architecture, and AI/LLM integrations.",
               image: "/subhadeep-datta.jpg",
               sameAs: [
                 "https://github.com/subhoS",
                 "https://linkedin.com/in/subhadeep-datta-cto",
                 "https://x.com/SubhadeepDataa",
               ],
-              worksFor: {
-                "@type": "Organization",
-                name: "Noisiv Consulting",
-                url: "https://noisivconsulting.com/",
-              },
+              worksFor: [
+                {
+                  "@type": "Organization",
+                  name: "Noisiv Consulting",
+                  url: "https://noisivconsulting.com/",
+                },
+                {
+                  "@type": "Organization",
+                  name: "Hirerkey",
+                  url: "https://www.hirerkey.com/",
+                },
+                {
+                  "@type": "Organization",
+                  name: "Qid",
+                  url: "https://oneqid.com/",
+                },
+                {
+                  "@type": "Organization",
+                  name: "Videtorrium",
+                  url: "https://www.videtorrium.com/",
+                }
+              ]
             }),
           }}
         />
 
-        {/* Theme initialization script to prevent FOUC (Flash of Unstyled Content) */}
+        {/* Theme initialization to prevent FOUC */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -185,10 +198,14 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProviderClient>
+          <GradientBackground />
+          <ScrollProgress />
+          <CursorGlow />
           <Header />
-          {/* Analytics will only add gtag if NEXT_PUBLIC_GA_ID is set */}
           <Analytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? null} />
-          <main style={{ minHeight: "70vh" }}>{children}</main>
+          <main style={{ minHeight: "70vh", position: "relative", zIndex: 1 }}>
+            {children}
+          </main>
           <Footer />
         </ThemeProviderClient>
       </body>

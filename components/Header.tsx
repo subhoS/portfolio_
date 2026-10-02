@@ -16,9 +16,11 @@ import { Menu as MenuIcon, Close as CloseIcon } from "@mui/icons-material";
 import SocialLinks from "./SocialLinks";
 import ThemeToggle from "./ThemeToggle";
 import profile from "../data/profile.json";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const navigationItems = [
     { label: "Projects", href: "/projects" },
@@ -36,14 +38,17 @@ export default function Header() {
         alignItems: "center",
         justifyContent: "space-between",
         px: { xs: 1.5, sm: 2, md: 3 },
-        py: { xs: 1.5, md: 2 },
+        py: { xs: 1, md: 1.5 },
         gap: 1,
         position: "sticky",
         top: 0,
         zIndex: 1200,
-        backdropFilter: "blur(6px)",
-        bgcolor: "var(--surface) !important",
+        backdropFilter: "blur(16px) saturate(180%)",
+        bgcolor: "rgba(var(--bg-rgb), 0.75) !important",
         borderColor: "var(--border) !important",
+        borderTop: "none",
+        borderLeft: "none",
+        borderRight: "none",
         color: "var(--foreground) !important",
       }}
     >
@@ -53,16 +58,26 @@ export default function Header() {
           display: "flex",
           alignItems: "center",
           textDecoration: "none",
-          gap: 8,
+          gap: 10,
           flex: 1,
         }}
       >
-        <img
-          src={profile.logo || "/logo.svg"}
+        <Box
+          component="img"
+          src="/logo.png"
           alt={`${profile.name || "Site"} logo`}
-          width={40}
-          height={40}
-          style={{ borderRadius: 6, flexShrink: 0 }}
+          sx={{
+            width: { xs: 36, md: 40 },
+            height: { xs: 36, md: 40 },
+            borderRadius: "10px",
+            flexShrink: 0,
+            filter: "drop-shadow(0 0 8px rgba(124,58,237,0.3))",
+            transition: "all 0.3s ease",
+            "&:hover": {
+              filter: "drop-shadow(0 0 16px rgba(124,58,237,0.5))",
+              transform: "scale(1.05)",
+            },
+          }}
         />
         <Typography
           level="title-lg"
@@ -71,6 +86,8 @@ export default function Header() {
             color: "var(--foreground) !important",
             fontSize: { xs: "16px", md: "18px" },
             display: { xs: "none", md: "block" },
+            fontFamily: "'Inter', sans-serif",
+            letterSpacing: "-0.02em",
           }}
         >
           {profile.name}
@@ -101,34 +118,58 @@ export default function Header() {
         sx={{
           display: { xs: "none", md: "flex" },
           alignItems: "center",
-          gap: 1,
+          gap: 0.5,
         }}
       >
         <nav
           aria-label="Primary"
-          style={{ display: "flex", gap: 2, alignItems: "center" }}
+          style={{ display: "flex", gap: 4, alignItems: "center" }}
         >
-          {navigationItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              style={{ textDecoration: "none" }}
-            >
-              <Button
-                variant="plain"
-                size="sm"
-                sx={{
-                  color: "var(--foreground) !important",
-                  fontSize: "14px",
-                  "&:hover": {
-                    bgcolor: "var(--surface-secondary)",
-                  },
-                }}
+          {navigationItems.map((item) => {
+            const isActive =
+              pathname === item.href ||
+              (item.href !== "/" && pathname?.startsWith(item.href));
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{ textDecoration: "none" }}
               >
-                {item.label}
-              </Button>
-            </Link>
-          ))}
+                <Button
+                  variant="plain"
+                  size="sm"
+                  sx={{
+                    color: isActive
+                      ? "var(--accent) !important"
+                      : "var(--text-secondary) !important",
+                    fontSize: "14px",
+                    fontWeight: isActive ? 600 : 500,
+                    fontFamily: "'Inter', sans-serif",
+                    position: "relative",
+                    "&:hover": {
+                      bgcolor: "var(--surface-secondary)",
+                      color: "var(--foreground) !important",
+                    },
+                    "&::after": isActive
+                      ? {
+                          content: '""',
+                          position: "absolute",
+                          bottom: 2,
+                          left: "20%",
+                          right: "20%",
+                          height: 2,
+                          borderRadius: 1,
+                          background: "var(--accent-gradient)",
+                        }
+                      : {},
+                  }}
+                >
+                  {item.label}
+                </Button>
+              </Link>
+            );
+          })}
         </nav>
 
         <ThemeToggle />

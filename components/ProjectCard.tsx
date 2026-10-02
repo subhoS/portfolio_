@@ -9,6 +9,7 @@ import {
   Sheet,
   Box,
 } from "@mui/joy";
+import TiltCard from "./TiltCard";
 
 type Props = {
   title: string;
@@ -23,105 +24,115 @@ export default function ProjectCard({
   tech = [],
   href,
 }: Props) {
+  const CardWrapper = href ? "a" : "div";
+
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        width: "100%",
-        minHeight: 240,
-        transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-        bgcolor: "var(--surface) !important",
-        borderColor: "var(--border) !important",
-        color: "var(--foreground) !important",
-        display: "flex",
-        flexDirection: "column",
-        "&:hover": {
-          transform: { xs: "none", md: "translateY(-8px) scale(1.02)" },
-          boxShadow: { xs: "sm", md: "lg" },
-          borderImage: "var(--accent-gradient) 1",
-          borderColor: "var(--accent) !important",
-        },
-        cursor: href ? "pointer" : "default",
-        "&:active": {
-          transform: { xs: "scale(0.98)", md: "none" },
-        },
-      }}
-      component={href ? "a" : "div"}
-      {...(href && {
-        href,
-        style: {
-          textDecoration: "none",
-          color: "inherit",
+    <TiltCard>
+      <Card
+        variant="outlined"
+        sx={{
+          width: "100%",
+          minHeight: 260,
+          bgcolor: "rgba(var(--surface-rgb), 0.6) !important",
+          borderColor: "var(--border) !important",
+          color: "var(--foreground) !important",
           display: "flex",
           flexDirection: "column",
-        },
-      })}
-    >
-      <CardContent sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-        <Typography
-          level="h4"
-          sx={{
-            fontSize: { xs: 16, md: 18 },
-            fontWeight: 700,
-            color: "var(--text-primary)",
-            lineHeight: 1.3,
-          }}
-        >
-          {title}
-        </Typography>
-        <Typography
-          level="body-sm"
-          sx={{
-            mt: { xs: 0.75, md: 1 },
-            color: "var(--text-secondary)",
-            fontSize: { xs: "14px", md: "15px" },
-            flex: 1,
-            lineHeight: 1.5,
-          }}
-        >
-          {description}
-        </Typography>
-        <Sheet
-          sx={{
+          backdropFilter: "blur(12px)",
+          transition: "all 0.4s cubic-bezier(0.21, 0.47, 0.32, 0.98)",
+          cursor: href ? "pointer" : "default",
+          "&:hover": {
+            borderColor: "var(--accent) !important",
+            boxShadow: "0 12px 40px rgba(124,58,237,0.25)",
+            transform: "translateY(-4px)",
+            bgcolor: "rgba(var(--surface-rgb), 0.8) !important",
+          },
+        }}
+        component={CardWrapper}
+        {...(href && {
+          href,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          style: {
+            textDecoration: "none",
+            color: "inherit",
             display: "flex",
-            gap: 0.75,
-            mt: { xs: 1.5, md: 2 },
-            flexWrap: "wrap",
-            bgcolor: "transparent",
-          }}
-        >
-          {tech.map((t) => (
-            <Chip
-              key={t}
-              size="sm"
-              variant="soft"
-              sx={{
-                bgcolor: "var(--surface-secondary) !important",
-                color: "var(--foreground) !important",
-                fontSize: "12px",
-                py: 0.5,
-              }}
-            >
-              {t}
-            </Chip>
-          ))}
-        </Sheet>
-      </CardContent>
-      {href && (
-        <CardOverflow>
-          <Box
+            flexDirection: "column",
+          },
+        })}
+      >
+        <CardContent sx={{ flex: 1, display: "flex", flexDirection: "column", position: "relative", zIndex: 2 }}>
+          <Typography
+            level="h4"
             sx={{
-              p: { xs: 1.25, md: 1.5 },
-              textAlign: "center",
-              fontWeight: 600,
-              color: "var(--accent)",
-              fontSize: { xs: "14px", md: "15px" },
+              fontSize: { xs: 16, md: 18 },
+              fontWeight: 700,
+              color: "var(--text-primary)",
+              lineHeight: 1.3,
+              fontFamily: "'Inter', sans-serif",
             }}
           >
-            View project →
-          </Box>
-        </CardOverflow>
-      )}
-    </Card>
+            {title}
+          </Typography>
+          <Typography
+            level="body-sm"
+            sx={{
+              mt: { xs: 0.75, md: 1 },
+              color: "var(--text-secondary)",
+              fontSize: { xs: "14px", md: "15px" },
+              flex: 1,
+              lineHeight: 1.6,
+            }}
+          >
+            {description}
+          </Typography>
+          <Sheet
+            sx={{
+              display: "flex",
+              gap: 0.75,
+              mt: { xs: 1.5, md: 2 },
+              flexWrap: "wrap",
+              bgcolor: "transparent",
+            }}
+          >
+            {tech.map((t) => (
+              <Chip
+                key={t}
+                size="sm"
+                variant="soft"
+                sx={{
+                  bgcolor: "rgba(124,58,237,0.1) !important",
+                  color: "var(--accent) !important",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  py: 0.5,
+                  borderRadius: "6px",
+                }}
+              >
+                {t}
+              </Chip>
+            ))}
+          </Sheet>
+        </CardContent>
+        {href && (
+          <CardOverflow>
+            <Box
+              sx={{
+                p: { xs: 1.25, md: 1.5 },
+                textAlign: "center",
+                fontWeight: 600,
+                color: "var(--accent)",
+                fontSize: { xs: "14px", md: "15px" },
+                borderTop: "1px solid var(--border)",
+                position: "relative",
+                zIndex: 2,
+              }}
+            >
+              View project →
+            </Box>
+          </CardOverflow>
+        )}
+      </Card>
+    </TiltCard>
   );
 }

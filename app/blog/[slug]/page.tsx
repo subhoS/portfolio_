@@ -1,5 +1,4 @@
 import { getPostBySlug, getPostSlugs } from "../../../lib/posts";
-import SEO from "../../../components/SEO";
 import { Box, Typography, Chip, Card, CardContent } from "@mui/joy";
 import Link from "next/link";
 
@@ -30,7 +29,7 @@ export default async function PostPage({ params }: Props) {
 
   try {
     const { meta, contentHtml, readingTime } = await getPostBySlug(slug);
-    const siteUrl = process.env.SITE_URL || "https://example.com";
+    const siteUrl = process.env.SITE_URL || "https://subhadeep-datta.dev";
     const postUrl = `${siteUrl}/blog/${slug}`;
     const formattedDate = meta.date
       ? new Date(meta.date).toLocaleDateString("en-US", {
@@ -42,18 +41,6 @@ export default async function PostPage({ params }: Props) {
 
     return (
       <>
-        <SEO
-          title={meta.title}
-          description={meta.description || meta.excerpt}
-          url={`/blog/${slug}`}
-          image={meta.featured_image}
-          keywords={meta.keywords}
-          author={meta.author}
-          type="article"
-          publishedDate={meta.date}
-          modifiedDate={meta.date}
-        />
-
         <Box
           sx={{
             px: { xs: 2, md: 4 },
@@ -344,7 +331,7 @@ export default async function PostPage({ params }: Props) {
         <Link
           href="/blog"
           style={{
-            color: "#0066cc",
+            color: "var(--accent)",
             textDecoration: "underline",
             marginTop: "20px",
             display: "inline-block",

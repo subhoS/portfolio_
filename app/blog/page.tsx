@@ -1,6 +1,5 @@
 import { getAllPosts } from "../../lib/posts";
 import Link from "next/link";
-import SEO from "../../components/SEO";
 import { Box, Typography, Card, CardContent, Chip } from "@mui/joy";
 import type { Metadata } from "next";
 
@@ -39,39 +38,53 @@ export default async function BlogPage() {
   return (
     <Box
       sx={{
-        px: { xs: 2, md: 4 },
-        py: { xs: 6, md: 10 },
+        px: { xs: 1.5, sm: 2, md: 3 },
+        py: { xs: 6, md: 12 },
         maxWidth: 900,
         mx: "auto",
       }}
     >
-      <SEO
-        title="Blog"
-        description="Thoughts on frontend engineering, performance optimization, and web development best practices"
-        url="/blog"
-      />
-
       {/* Header Section */}
       <Box sx={{ mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: { xs: 6, md: 8 } }}>
         <Typography
           level="h1"
           sx={{
-            fontSize: { xs: 28, md: 40 },
-            fontWeight: 800,
+            fontSize: { xs: 36, sm: 48, md: 56 },
+            fontWeight: 900,
             mb: 2,
-            color: "var(--text-primary)",
+            fontFamily: "'Inter', sans-serif",
+            letterSpacing: "-0.03em",
           }}
         >
-          📝 Blog
+          Technical{" "}
+          <Box
+            component="span"
+            sx={{
+              background: "var(--accent-gradient)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            writing
+          </Box>
         </Typography>
 
         <Typography
           level="body-lg"
-          sx={{ color: "var(--text-secondary)", mb: 2 }}
+          sx={{
+            color: "var(--text-secondary)",
+            fontSize: { xs: "16px", md: "18px" },
+            maxWidth: 600,
+            mx: "auto",
+            lineHeight: 1.6,
+          }}
         >
-          Thoughts on frontend engineering, performance optimization, and web
-          development
+          Thoughts on software engineering, system design, performance
+          optimization, and building products.
         </Typography>
+      </Box>
 
         <Typography
           level="body-sm"

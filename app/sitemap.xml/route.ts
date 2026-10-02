@@ -9,7 +9,7 @@ interface SitemapItem {
 }
 
 export async function GET() {
-  const baseUrl = process.env.SITE_URL || "https://example.com";
+  const baseUrl = process.env.SITE_URL || "https://subhadeep-datta.dev";
   const staticPages: SitemapItem[] = [
     { url: "/", priority: "1.0", changefreq: "weekly" },
     { url: "/about", priority: "0.8", changefreq: "monthly" },

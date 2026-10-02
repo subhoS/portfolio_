@@ -9,24 +9,24 @@ const theme = extendTheme({
     light: {
       palette: {
         primary: {
-          solidBg: "#0ea5a4",
-          solidHoverBg: "#089e9d",
-          plainColor: "#0ea5a4",
+          solidBg: "#7c3aed",
+          solidHoverBg: "#6d28d9",
+          plainColor: "#7c3aed",
         },
         background: {
-          surface: "#fafafa",
+          surface: "#f8f9fa",
         },
       },
     },
     dark: {
       palette: {
         primary: {
-          solidBg: "#06b6d4",
-          solidHoverBg: "#0891b2",
-          plainColor: "#06b6d4",
+          solidBg: "#a78bfa",
+          solidHoverBg: "#8b5cf6",
+          plainColor: "#a78bfa",
         },
         background: {
-          surface: "#1a1a1a",
+          surface: "#1e293b",
         },
       },
     },

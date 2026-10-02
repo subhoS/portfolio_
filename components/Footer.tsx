@@ -2,8 +2,6 @@ import {
   Box,
   Typography,
   Link as JoyLink,
-  Input,
-  Button,
   Stack,
 } from "@mui/joy";
 import SocialLinks from "./SocialLinks";
@@ -13,21 +11,34 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
-        mt: { xs: 6, md: 8 },
-        py: { xs: 6, md: 8 },
+        mt: { xs: 8, md: 12 },
+        py: { xs: 4, md: 6 },
         px: { xs: 1.5, sm: 2, md: 3 },
         borderTop: "1px solid var(--border)",
-        bgcolor: "var(--surface) !important",
-        color: "var(--foreground) !important",
+        position: "relative",
+        zIndex: 1,
       }}
     >
+      {/* Gradient divider */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: -1,
+          left: "10%",
+          right: "10%",
+          height: 1,
+          background: "var(--accent-gradient)",
+          opacity: 0.4,
+        }}
+      />
+
       <Box
         sx={{
           maxWidth: 980,
           mx: "auto",
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          gap: { xs: 4, md: 4 },
+          gap: { xs: 3, md: 4 },
           alignItems: "flex-start",
           justifyContent: "space-between",
         }}
@@ -35,21 +46,27 @@ export default function Footer() {
         <Box>
           <Typography
             level="title-md"
-            sx={{ fontWeight: 600, color: "var(--text-primary)" }}
+            sx={{
+              fontWeight: 700,
+              color: "var(--text-primary)",
+              fontFamily: "'Inter', sans-serif",
+              letterSpacing: "-0.01em",
+            }}
           >
-            About
+            Subhadeep Datta
           </Typography>
           <Typography
             level="body-sm"
             sx={{
-              mt: 1,
-              maxWidth: 420,
+              mt: 0.5,
+              maxWidth: 360,
               color: "var(--text-secondary)",
               fontSize: { xs: "14px", md: "15px" },
+              lineHeight: 1.6,
             }}
           >
-            Subhadeep Datta — software engineer building performant, accessible
-            web experiences. Find my work and get in touch.
+            Full stack engineer building performant, scalable systems.
+            Always shipping.
           </Typography>
           <Box sx={{ mt: 2 }}>
             <SocialLinks
@@ -62,79 +79,107 @@ export default function Footer() {
           </Box>
         </Box>
 
-        <Box sx={{ width: { xs: "100%", md: "auto" } }}>
-          <Typography
-            level="title-md"
-            sx={{ fontWeight: 600, color: "var(--text-primary)" }}
-          >
-            Newsletter
-          </Typography>
-          <Typography
-            level="body-sm"
-            sx={{
-              mt: 1,
-              color: "var(--text-secondary)",
-              fontSize: { xs: "14px", md: "15px" },
-            }}
-          >
-            Get occasional updates and posts.
-          </Typography>
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={{ xs: 1, md: 1 }}
-            sx={{ mt: 2 }}
-          >
-            <Input
-              placeholder="Your email"
-              aria-label="Email for newsletter"
+        <Stack
+          direction="row"
+          spacing={4}
+          sx={{ display: { xs: "none", md: "flex" } }}
+        >
+          <Box>
+            <Typography
+              level="body-xs"
               sx={{
-                borderColor: "var(--border) !important",
-                color: "var(--foreground) !important",
-                bgcolor: "var(--background) !important",
-                width: { xs: "100%", sm: "200px" },
-                "& input": {
-                  color: "var(--foreground) !important",
-                },
-                "& input::placeholder": {
-                  color: "var(--text-tertiary) !important",
-                },
-              }}
-            />
-            <Button
-              variant="solid"
-              color="primary"
-              sx={{
-                bgcolor: "var(--accent) !important",
-                color: "var(--background) !important",
-                width: { xs: "100%", sm: "auto" },
-                "&:hover": {
-                  bgcolor: "var(--accent-dark) !important",
-                },
+                fontWeight: 600,
+                color: "var(--text-secondary)",
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                mb: 1.5,
+                fontSize: "11px",
               }}
             >
-              Subscribe
-            </Button>
-          </Stack>
-        </Box>
+              Navigate
+            </Typography>
+            {["Projects", "Blog", "About", "Contact"].map((item) => (
+              <Typography
+                key={item}
+                component="a"
+                href={`/${item.toLowerCase()}`}
+                level="body-sm"
+                sx={{
+                  display: "block",
+                  color: "var(--text-secondary)",
+                  mb: 1,
+                  fontSize: "14px",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  "&:hover": { color: "var(--accent)" },
+                  "&::after": { display: "none" },
+                }}
+              >
+                {item}
+              </Typography>
+            ))}
+          </Box>
+          <Box>
+            <Typography
+              level="body-xs"
+              sx={{
+                fontWeight: 600,
+                color: "var(--text-secondary)",
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                mb: 1.5,
+                fontSize: "11px",
+              }}
+            >
+              Resources
+            </Typography>
+            {[
+              { label: "Resume", href: "/resume.pdf" },
+              { label: "GitHub", href: "https://github.com/subhoS" },
+              { label: "LinkedIn", href: "https://www.linkedin.com/in/subhadeep-datta-cto/" },
+            ].map((item) => (
+              <Typography
+                key={item.label}
+                component="a"
+                href={item.href}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                level="body-sm"
+                sx={{
+                  display: "block",
+                  color: "var(--text-secondary)",
+                  mb: 1,
+                  fontSize: "14px",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  "&:hover": { color: "var(--accent)" },
+                  "&::after": { display: "none" },
+                }}
+              >
+                {item.label}
+              </Typography>
+            ))}
+          </Box>
+        </Stack>
       </Box>
 
-      <Box sx={{ mt: { xs: 4, md: 6 }, textAlign: "center" }}>
+      <Box
+        sx={{
+          mt: { xs: 3, md: 5 },
+          textAlign: "center",
+          maxWidth: 980,
+          mx: "auto",
+        }}
+      >
         <Typography
-          level="body-sm"
+          level="body-xs"
           sx={{
-            color: "var(--text-secondary)",
-            fontSize: { xs: "13px", md: "14px" },
+            color: "var(--text-tertiary)",
+            fontSize: "12px",
+            fontFamily: "'JetBrains Mono', monospace",
           }}
         >
-          © {new Date().getFullYear()} Subhadeep Datta —{" "}
-          <JoyLink
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{ color: "var(--accent)" }}
-          >
-            Download resume
-          </JoyLink>
+          © {new Date().getFullYear()} Subhadeep Datta · Built with Next.js
         </Typography>
       </Box>
     </Box>
