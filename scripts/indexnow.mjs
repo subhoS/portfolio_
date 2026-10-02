@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Notifies IndexNow search engines (Bing, Yandex, Seznam, Naver and others) about every URL in the sitemap.
-// Run after a deploy: SITE_URL=https://subhadeep-datta.dev npm run indexnow
+// Run after a deploy: SITE_URL=https://www.subhadeepdatta.page npm run indexnow
 const KEY = "9766f587a8c58757bdc34d1be00dede5"; // must match public/9766f587a8c58757bdc34d1be00dede5.txt
-const site = (process.env.SITE_URL || "https://subhadeep-datta.dev").replace(
+const site = (process.env.SITE_URL || "https://www.subhadeepdatta.page").replace(
   /\/$/,
   "",
 );

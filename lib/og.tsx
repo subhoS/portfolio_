@@ -3,7 +3,7 @@ import path from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "./site";
 
-export const siteHost = new URL(site.url).host;
+export const siteHost = new URL(site.url).host.replace(/^www\./, "");
 
 export const ogSize = { width: 1200, height: 630 };
 

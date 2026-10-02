@@ -47,7 +47,7 @@ const faq = [
   },
   {
     q: "How can I contact Subhadeep Datta?",
-    a: `Email ${site.email}, connect on LinkedIn, or use the contact page on subhadeep-datta.dev. He is open to advisory, fractional CTO and architecture engagements.`,
+    a: `Email ${site.email}, connect on LinkedIn, or use the contact page on subhadeepdatta.page. He is open to advisory, fractional CTO and architecture engagements.`,
   },
 ];
 

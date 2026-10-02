@@ -4,7 +4,7 @@ const rawUrl =
   process.env.SITE_URL ||
   process.env.NEXT_PUBLIC_SITE_URL ||
   profile.site.url ||
-  "https://subhadeep-datta.dev";
+  "https://www.subhadeepdatta.page";
 
 export const site = {
   url: rawUrl.replace(/\/+$/, ""),
