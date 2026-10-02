@@ -1,4 +1,4 @@
-# subhadeep-datta.dev
+# subhadeepdatta.page
 
 Personal site and engineering blog of **Subhadeep Datta**, Full Stack Engineer & CTO.
 Built with Next.js (App Router), fully static, and designed to rank for the name "Subhadeep Datta" and for every article's topic.
@@ -50,7 +50,7 @@ an Open Graph image, related posts, topic pages, sitemap, RSS/JSON feeds and `ll
 
 | Variable | Purpose |
 | --- | --- |
-| `SITE_URL` | Production URL used for canonicals, sitemap and OG images (default `https://subhadeep-datta.dev`) |
+| `SITE_URL` | Production URL used for canonicals, sitemap and OG images (default `https://www.subhadeepdatta.page`) |
 | `GOOGLE_VERIFICATION_CODE` | Google Search Console verification |
 | `BING_VERIFICATION_CODE` | Bing Webmaster Tools verification |
 | `NEXT_PUBLIC_GA_ID` | Optional Google Analytics 4 ID |

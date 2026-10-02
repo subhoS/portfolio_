@@ -93,7 +93,7 @@ Search engines build a knowledge graph of **entities**: people, companies, place
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://subhadeep-datta.dev/#person",
+      "@id": "https://www.subhadeepdatta.page/#person",
       "name": "Subhadeep Datta",
       "jobTitle": "Co-Founder & CTO",
       "worksFor": [{ "@type": "Organization", "name": "Hirerkey" }],
@@ -106,8 +106,8 @@ Search engines build a knowledge graph of **entities**: people, companies, place
     },
     {
       "@type": "WebSite",
-      "@id": "https://subhadeep-datta.dev/#website",
-      "publisher": { "@id": "https://subhadeep-datta.dev/#person" }
+      "@id": "https://www.subhadeepdatta.page/#website",
+      "publisher": { "@id": "https://www.subhadeepdatta.page/#person" }
     }
   ]
 }

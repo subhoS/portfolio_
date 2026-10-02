@@ -100,7 +100,7 @@ export const websiteSchema = (): Json => ({
   "@id": ids.website,
   url: absoluteUrl("/"),
   name: site.name,
-  alternateName: ["Subhadeep Datta Portfolio", "subhadeep-datta.dev"],
+  alternateName: ["Subhadeep Datta Portfolio", "subhadeepdatta.page"],
   description: site.description,
   inLanguage: "en",
   publisher: { "@id": ids.person },
