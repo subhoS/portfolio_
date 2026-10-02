@@ -1,0 +1,100 @@
+[
+  {
+    "id": "launch",
+    "date": "2026-10-05",
+    "url": "https://www.subhadeepdatta.page/blog",
+    "linkedin": "I rebuilt my website from scratch and wrote 12 new deep-dive articles for it.\n\nSix years building backends at Hirerkey, Noisiv Consulting and Qid taught me a lot that never left Slack threads and postmortems. So I wrote it down: Redis caching, Kafka vs RabbitMQ, idempotency keys, rate limiting, PostgreSQL indexing, MCP, LLMs in production, offline-first, system design interviews, and what changes going from engineer to CTO.\n\nEvery article comes from systems I've built or debugged.\n\nWhich one should I go deeper on next?\n\n#SoftwareEngineering #SystemDesign #CTO",
+    "x": "I rebuilt my site and wrote 12 deep dives on building backends that handle millions of requests a day."
+  },
+  {
+    "id": "redis",
+    "date": "2026-10-08",
+    "url": "https://www.subhadeepdatta.page/blog/redis-caching-strategies",
+    "linkedin": "Adding a Redis cache at Qid cut our database load by 40%.\n\nIt's also the fix most likely to cause an incident a month later.\n\n• Always set a TTL, even when you invalidate explicitly\n• Add jitter so keys don't expire together\n• Protect hot keys from cache stampedes\n• Design for Redis being down\n\nFull guide with Node.js code:",
+    "x": "One popular cache key expiring at the wrong moment can push a database to 100% CPU. What Redis tutorials skip:"
+  },
+  {
+    "id": "kafka",
+    "date": "2026-10-12",
+    "url": "https://www.subhadeepdatta.page/blog/kafka-vs-rabbitmq-vs-redis-streams",
+    "linkedin": "\"Which message queue should we use?\" really asks one thing: are you moving tasks, or recording events?\n\nTasks → RabbitMQ (or a Postgres jobs table)\nEvents → Kafka\nAlready running Redis and the volume fits in memory → Redis Streams\n\nAnd whatever the docs say about exactly-once: make every consumer idempotent.",
+    "x": "Kafka vs RabbitMQ vs Redis Streams in one line: tasks → RabbitMQ, events → Kafka, already-have-Redis → Streams."
+  },
+  {
+    "id": "sysdesign",
+    "date": "2026-10-15",
+    "url": "https://www.subhadeepdatta.page/blog/system-design-interview-framework",
+    "linkedin": "The most common reason strong engineers fail system design interviews isn't knowledge. It's structure.\n\nMy 6 steps:\n1. Clarify requirements\n2. Estimate scale\n3. Define the API and data model\n4. Sketch the high-level design\n5. Deep-dive the hard parts\n6. Cover failure modes and trade-offs\n\nWorked example: a URL shortener.",
+    "x": "The #1 system design interview mistake is missing structure, not missing knowledge."
+  },
+  {
+    "id": "idempotency",
+    "date": "2026-10-19",
+    "url": "https://www.subhadeepdatta.page/blog/idempotency-keys-api-design",
+    "linkedin": "The payment went through. The network dropped. The user tapped \"Pay\" again.\n\nDid you just charge them twice?\n\nIdempotency keys make retries safe: execute once, then replay the stored response for every retry.",
+    "x": "Retries are inevitable. Double charges shouldn't be."
+  },
+  {
+    "id": "mcp",
+    "date": "2026-10-22",
+    "url": "https://www.subhadeepdatta.page/blog/model-context-protocol-mcp-explained",
+    "linkedin": "Ten AI tools × ten internal systems used to mean up to a hundred custom integrations. The Model Context Protocol (MCP) turns that into one server per system.\n\nMy guide covers the architecture, a TypeScript server you can run today, and the security rules I won't skip.",
+    "x": "MCP explained, plus how to build your first MCP server in TypeScript."
+  },
+  {
+    "id": "cto",
+    "date": "2026-10-26",
+    "url": "https://www.subhadeepdatta.page/blog/from-software-engineer-to-cto",
+    "linkedin": "Engineer → Tech Lead → Consulting CTO → Co-Founder & CTO.\n\nEngineer: your output is code.\nTech lead: your output is the team's output.\nCTO: your output is the company's ability to build.\n\nWhat changes on the way up, and my advice:",
+    "x": "Engineer: your output is code. CTO: your output is the company's ability to build."
+  },
+  {
+    "id": "ratelimit",
+    "date": "2026-10-29",
+    "url": "https://www.subhadeepdatta.page/blog/rate-limiting-algorithms-explained",
+    "linkedin": "A naive distributed rate limiter lets through far more than its limit under load.\n\nThe bug: two servers both read 99, both allow the request, both write 100.\n\nThe fix: make it atomic with a Redis Lua script. Token bucket vs sliding window, explained:",
+    "x": "Your Redis rate limiter probably has a race condition."
+  },
+  {
+    "id": "postgres",
+    "date": "2026-11-02",
+    "url": "https://www.subhadeepdatta.page/blog/postgresql-indexing-guide",
+    "linkedin": "One rule for composite indexes: equality columns first, then the range or sort column.\n\nIn the guide's example, one index takes a query from 186 ms to 0.1 ms.\n\nAlso covered: partial, covering, GIN and BRIN indexes, and finding the indexes you should delete.",
+    "x": "Composite index column order in one rule: equality first, then range or sort."
+  },
+  {
+    "id": "llm",
+    "date": "2026-11-05",
+    "url": "https://www.subhadeepdatta.page/blog/shipping-llm-features-to-production",
+    "linkedin": "An LLM demo takes an afternoon. An LLM feature people can trust takes engineering.\n\nMy checklist from Hirerkey:\n• evals in CI\n• structured outputs\n• grounding with citations\n• prompt-injection defenses\n• cost tracking per feature\n• a kill switch",
+    "x": "The model is the easy part to change. The production checklist for LLM features:"
+  },
+  {
+    "id": "offline",
+    "date": "2026-11-09",
+    "url": "https://www.subhadeepdatta.page/blog/offline-first-architecture",
+    "linkedin": "At Qid we processed 100,000+ verifications in six months, often where the network barely worked.\n\nThe key was offline-first: write locally, sync in the background, make the sync idempotent, and build for reconnect storms.",
+    "x": "Treat the network as an optimization, not a requirement."
+  },
+  {
+    "id": "monolith",
+    "date": "2026-11-12",
+    "url": "https://www.subhadeepdatta.page/blog/monolith-vs-microservices",
+    "linkedin": "Microservices solve organizational problems at the cost of distributed-systems problems. Make sure you have the first before paying for the second.\n\nStart with a modular monolith. Split only for real, current pain.",
+    "x": "If you have more services than engineers, something has gone wrong."
+  },
+  {
+    "id": "fractional",
+    "date": "2026-11-16",
+    "url": "https://www.subhadeepdatta.page/blog/what-does-a-fractional-cto-do",
+    "linkedin": "Many startups need senior technical judgment before they need a full-time CTO.\n\nWhat a fractional CTO actually does, the signs you need one, and how to choose the right person.\n\n(If that's you, my DMs are open.)",
+    "x": "Non-technical founder about to spend serious money on a product? That's what fractional CTOs are for."
+  },
+  {
+    "id": "seo",
+    "date": "2026-11-19",
+    "url": "https://www.subhadeepdatta.page/blog/building-an-seo-first-developer-portfolio",
+    "linkedin": "Search my name and this site should come up first. Here's exactly how I built it: structured data, consistent profiles, generated social images, and content that compounds.",
+    "x": "How I built my portfolio to rank for my own name."
+  }
+]
