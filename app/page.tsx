@@ -1,415 +1,253 @@
-import Hero from "../components/Hero";
-import { Box, Typography, Grid, Button } from "@mui/joy";
-import ProjectCard from "../components/ProjectCard";
-import BlogCard from "../components/BlogCard";
-import ScrollReveal from "../components/ScrollReveal";
-import AnimatedCounter from "../components/AnimatedCounter";
-import type { Metadata } from "next";
-import { getAllPosts } from "../lib/posts";
+import Image from "next/image";
 import Link from "next/link";
+import JsonLd from "../components/JsonLd";
+import { PostCard } from "../components/PostCard";
+import { ArrowRight, ArrowUpRight, Download } from "../components/icons";
 import profile from "../data/profile.json";
+import { getAllPosts } from "../lib/posts";
+import { graph } from "../lib/schema";
+import { pageMetadata } from "../lib/seo";
+import { absoluteUrl, ids, site } from "../lib/site";
+import portrait from "../public/subhadeep-datta.jpg";
 
-export const metadata: Metadata = {
-  title: profile.site.name,
-  description: profile.site.description,
-  openGraph: {
-    type: "website",
-    title: profile.site.name,
-    description: profile.site.description,
-  },
-};
+export const metadata = pageMetadata({
+  title: "Subhadeep Datta — Full Stack Engineer & CTO",
+  absoluteTitle: true,
+  description: site.description,
+  path: "/",
+  type: "profile",
+});
+
+const companies = [
+  { name: "Hirerkey", url: "https://www.hirerkey.com/" },
+  { name: "Noisiv Consulting", url: "https://noisivconsulting.com/" },
+  { name: "Qid", url: "https://oneqid.com/" },
+  { name: "Videtorrium", url: "https://www.videtorrium.com/" },
+];
+
+const stats = [
+  { value: "6+", label: "Years building production systems" },
+  { value: "75K", label: "Messages / second through Kafka & Redis" },
+  { value: "99.9%", label: "Uptime on systems I've architected" },
+  { value: "20+", label: "Client teams advised across countries" },
+];
+
+const skillGroups = [
+  { title: "Backend & APIs", items: profile.skills.backend },
+  { title: "Data & Messaging", items: profile.skills.databases },
+  { title: "Cloud & DevOps", items: profile.skills.cloudDevOps },
+  { title: "AI & LLMs", items: profile.skills.aiMl },
+  { title: "Frontend & Mobile", items: [...profile.skills.frontend, "Android", "iOS"] },
+  { title: "Leadership", items: [...profile.skills.systemDesign, ...profile.skills.professional] },
+];
 
 export default async function Home() {
   const posts = await getAllPosts();
-  const recentPosts = posts.slice(0, 3);
+  const featured = posts.filter((p) => p.featured);
+  const showcase = [...featured, ...posts.filter((p) => !p.featured)].slice(0, 6);
 
   return (
-    <Box
-      component="section"
-      sx={{ px: { xs: 1.5, sm: 2, md: 3 } }}
-    >
-      <Hero />
+    <>
+      <JsonLd
+        data={graph({
+          "@type": "ProfilePage",
+          "@id": absoluteUrl("/#profilepage"),
+          url: absoluteUrl("/"),
+          name: `${site.name} — Full Stack Engineer & CTO`,
+          isPartOf: { "@id": ids.website },
+          mainEntity: { "@id": ids.person },
+          about: { "@id": ids.person },
+          primaryImageOfPage: absoluteUrl(site.avatar),
+          inLanguage: "en",
+        })}
+      />
 
-      {/* Stats / Impact Section */}
-      <ScrollReveal>
-        <Box
-          sx={{
-            maxWidth: 980,
-            mx: "auto",
-            mt: { xs: 4, md: 6 },
-            display: "grid",
-            gridTemplateColumns: { xs: "repeat(2, 1fr)", md: "repeat(4, 1fr)" },
-            gap: { xs: 2, md: 3 },
-          }}
-        >
-          {[
-            { value: 6, suffix: "+", label: "Years Experience" },
-            { value: 25, suffix: "+", label: "Engineers Led" },
-            { value: 99, suffix: ".9%", label: "System Uptime" },
-            { value: 3, suffix: "M+", label: "Transactions Handled" },
-          ].map((stat, i) => (
-            <ScrollReveal key={stat.label} delay={i * 0.1}>
-              <Box
-                sx={{
-                  textAlign: "center",
-                  p: { xs: 3, md: 4 },
-                  borderRadius: "20px",
-                  bgcolor: "rgba(var(--surface-rgb), 0.4)",
-                  border: "1px solid rgba(124,58,237,0.1)",
-                  backdropFilter: "blur(16px)",
-                  transition: "all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)",
-                  "&:hover": {
-                    borderColor: "rgba(124,58,237,0.4)",
-                    transform: "translateY(-6px) scale(1.02)",
-                    boxShadow: "0 12px 32px rgba(124,58,237,0.15)",
-                    bgcolor: "rgba(var(--surface-rgb), 0.6)",
-                  },
-                }}
-              >
-                <Typography
-                  level="h2"
-                  sx={{
-                    fontSize: { xs: 28, md: 36 },
-                    fontWeight: 800,
-                    fontFamily: "'Inter', sans-serif",
-                    background: "linear-gradient(135deg, #6d28d9 0%, #7c3aed 50%, #a78bfa 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    lineHeight: 1.2,
-                    filter: "drop-shadow(0 0 8px rgba(124,58,237,0.2))",
-                  }}
-                >
-                  <AnimatedCounter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                  />
-                </Typography>
-                <Typography
-                  level="body-sm"
-                  sx={{
-                    color: "var(--text-secondary)",
-                    mt: 0.5,
-                    fontSize: "13px",
-                    fontWeight: 500,
-                    letterSpacing: "0.3px",
-                  }}
-                >
-                  {stat.label}
-                </Typography>
-              </Box>
-            </ScrollReveal>
-          ))}
-        </Box>
-      </ScrollReveal>
+      <section className="hero">
+        <div className="container hero-grid">
+          <div>
+            <span className="hero-badge">
+              <span className="status-dot" aria-hidden="true" />
+              Open to advisory, fractional CTO &amp; architecture work
+            </span>
+            <h1>
+              Subhadeep Datta
+              <span className="serif gradient-text">builds systems that scale.</span>
+            </h1>
+            <p className="hero-lede">
+              I&apos;m a <strong>Full Stack Engineer and CTO</strong> based in {site.location}. Co-Founder &amp; CTO at{" "}
+              <strong>Hirerkey</strong>, Consulting CTO at <strong>Noisiv Consulting</strong>, and former Technology
+              Lead at <strong>Qid</strong>. I design backends that handle millions of requests a day, and I write about
+              how to build them.
+            </p>
+            <div className="hero-ctas">
+              <Link className="btn btn-primary" href="/blog">
+                Read my writing <ArrowRight className="arrow" />
+              </Link>
+              <Link className="btn btn-ghost" href="/contact">
+                Work with me
+              </Link>
+              <a className="btn btn-ghost" href={site.resume}>
+                <Download /> Résumé
+              </a>
+            </div>
+          </div>
+          <div className="hero-portrait">
+            <div className="frame">
+              <Image
+                src={portrait}
+                alt="Portrait of Subhadeep Datta, Full Stack Engineer and CTO"
+                priority
+                sizes="(max-width: 900px) 200px, 360px"
+                placeholder="blur"
+              />
+            </div>
+            <div className="portrait-tag">
+              <span className="tag-icon">CTO</span>
+              <div>
+                <b>Hirerkey</b>
+                <span>AI-native HCM platform</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {/* Skills Bento Grid */}
-      <ScrollReveal>
-        <Box sx={{ maxWidth: 980, mx: "auto", mt: { xs: 6, md: 10 } }}>
-          <Typography
-            level="h2"
-            sx={{
-              fontSize: { xs: 24, sm: 30, md: 38 },
-              fontWeight: 800,
-              mb: 1,
-              fontFamily: "'Inter', sans-serif",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            What I{" "}
-            <Box
-              component="span"
-              sx={{
-                background: "var(--accent-gradient)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              work with
-            </Box>
-          </Typography>
-          <Typography
-            level="body-sm"
-            sx={{
-              color: "var(--text-secondary)",
-              mb: { xs: 3, md: 4 },
-              fontSize: { xs: "15px", md: "16px" },
-            }}
-          >
-            Technologies and tools I use to build things that scale.
-          </Typography>
-
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" },
-              gap: 2,
-            }}
-          >
-            {[
-              {
-                title: "Backend & Systems",
-                emoji: "⚙️",
-                skills: profile.skills?.backend || [],
-                color: "rgba(124,58,237,0.08)",
-              },
-              {
-                title: "Frontend & UI",
-                emoji: "🎨",
-                skills: profile.skills?.frontend || [],
-                color: "rgba(167,139,250,0.08)",
-              },
-              {
-                title: "Cloud & DevOps",
-                emoji: "☁️",
-                skills: profile.skills?.cloudDevOps || [],
-                color: "rgba(139,92,246,0.08)",
-              },
-              {
-                title: "Databases",
-                emoji: "🗄️",
-                skills: profile.skills?.databases || [],
-                color: "rgba(124,58,237,0.06)",
-              },
-              {
-                title: "AI & ML",
-                emoji: "🤖",
-                skills: profile.skills?.aiMl || [],
-                color: "rgba(167,139,250,0.06)",
-              },
-              {
-                title: "Architecture",
-                emoji: "🏗️",
-                skills: profile.skills?.systemDesign || [],
-                color: "rgba(139,92,246,0.06)",
-              },
-            ].map((category, i) => (
-              <ScrollReveal key={category.title} delay={i * 0.08}>
-                <Box
-                  sx={{
-                    p: 3,
-                    borderRadius: "16px",
-                    bgcolor: category.color,
-                    border: "1px solid var(--border)",
-                    backdropFilter: "blur(12px)",
-                    transition: "all 0.3s ease",
-                    height: "100%",
-                    "&:hover": {
-                      borderColor: "var(--accent)",
-                      transform: "translateY(-6px) scale(1.02)",
-                      boxShadow: "0 12px 32px rgba(124,58,237,0.25)",
-                      bgcolor: "rgba(var(--surface-rgb), 0.8)",
-                    },
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: "24px",
-                      mb: 1,
-                    }}
-                  >
-                    {category.emoji}
-                  </Typography>
-                  <Typography
-                    level="title-sm"
-                    sx={{
-                      fontWeight: 700,
-                      color: "var(--text-primary)",
-                      mb: 1.5,
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                  >
-                    {category.title}
-                  </Typography>
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75 }}>
-                    {category.skills.map((skill) => (
-                      <Typography
-                        key={skill}
-                        level="body-xs"
-                        sx={{
-                          px: 1.5,
-                          py: 0.5,
-                          borderRadius: "6px",
-                          bgcolor: "rgba(124,58,237,0.1)",
-                          color: "var(--accent)",
-                          fontWeight: 500,
-                          fontSize: "12px",
-                          fontFamily: "'JetBrains Mono', monospace",
-                        }}
-                      >
-                        {skill}
-                      </Typography>
-                    ))}
-                  </Box>
-                </Box>
-              </ScrollReveal>
+      <section className="companies" aria-label="Companies">
+        <div className="container">
+          <span className="label">Built at</span>
+          <ul>
+            {companies.map((c) => (
+              <li key={c.name}>
+                <a href={c.url} target="_blank" rel="noopener">
+                  {c.name}
+                </a>
+              </li>
             ))}
-          </Box>
-        </Box>
-      </ScrollReveal>
+          </ul>
+        </div>
+      </section>
 
-      {/* Work Section */}
-      <ScrollReveal>
-        <Box sx={{ maxWidth: 980, mx: "auto", mt: { xs: 6, md: 10 } }}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              mb: { xs: 3, md: 4 },
-            }}
-          >
-            <Box>
-              <Typography
-                level="h2"
-                sx={{
-                  fontSize: { xs: 24, sm: 30, md: 38 },
-                  fontWeight: 800,
-                  mb: 0.5,
-                  fontFamily: "'Inter', sans-serif",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Featured{" "}
-                <Box
-                  component="span"
-                  sx={{
-                    background: "var(--accent-gradient)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  Work
-                </Box>
-              </Typography>
-              <Typography
-                level="body-sm"
-                sx={{
-                  color: "var(--text-secondary)",
-                  fontSize: { xs: "15px", md: "16px" },
-                }}
-              >
-                Projects and things I've built. Real work on real problems.
-              </Typography>
-            </Box>
-            <Link href="/projects" style={{ textDecoration: "none" }}>
-              <Button
-                variant="plain"
-                sx={{
-                  color: "var(--accent) !important",
-                  fontSize: "14px",
-                  display: { xs: "none", sm: "flex" },
-                  "&:hover": { bgcolor: "transparent", textDecoration: "underline" },
-                }}
-              >
-                View all →
-              </Button>
+      <section className="section" aria-label="Impact in numbers">
+        <div className="container">
+          <div className="stats">
+            {stats.map((s) => (
+              <div className="stat" key={s.label}>
+                <div className="stat-value">{s.value}</div>
+                <div className="stat-label">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="writing-heading">
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">Writing</span>
+              <h2 id="writing-heading" className="section-title">
+                Field notes from <span className="serif">production</span>
+              </h2>
+              <p className="section-lede">
+                Deep dives on system design, performance and AI engineering, written from systems I&apos;ve actually
+                built and debugged.
+              </p>
+            </div>
+            <Link className="btn btn-ghost" href="/blog">
+              All {posts.length} articles <ArrowRight className="arrow" />
             </Link>
-          </Box>
-          <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
-            {(profile.projects || []).slice(0, 3).map((project: any, i: number) => (
-              <Grid xs={12} sm={6} md={4} key={project.title}>
-                <ScrollReveal delay={i * 0.1}>
-                  <ProjectCard {...project} />
-                </ScrollReveal>
-              </Grid>
+          </div>
+          <div className="grid-3">
+            {showcase.map((p, i) => (
+              <PostCard key={p.slug} post={p} feature={i === 0} />
             ))}
-          </Grid>
-        </Box>
-      </ScrollReveal>
+          </div>
+        </div>
+      </section>
 
-      {/* Writing Section */}
-      <ScrollReveal>
-        <Box
-          sx={{
-            maxWidth: 980,
-            mx: "auto",
-            mt: { xs: 6, md: 10 },
-            p: { xs: 3, sm: 4, md: 5 },
-            borderRadius: "24px",
-            bgcolor: "rgba(var(--surface-rgb), 0.3)",
-            border: "1px solid rgba(124,58,237,0.15)",
-            backdropFilter: "blur(20px)",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: 2,
-              flexDirection: { xs: "column", sm: "row" },
-              mb: { xs: 3, md: 4 },
-            }}
-          >
-            <Box>
-              <Typography
-                level="h2"
-                sx={{
-                  fontSize: { xs: 24, sm: 30, md: 38 },
-                  fontWeight: 800,
-                  mb: 0.5,
-                  fontFamily: "'Inter', sans-serif",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Technical{" "}
-                <Box
-                  component="span"
-                  sx={{
-                    background: "var(--accent-gradient)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  writing
-                </Box>
-              </Typography>
-              <Typography
-                level="body-sm"
-                sx={{
-                  color: "var(--text-secondary)",
-                  fontSize: { xs: "15px", md: "16px" },
-                }}
-              >
-                Thoughts on engineering, performance, and building products.
-              </Typography>
-            </Box>
-            <Link href="/blog" style={{ textDecoration: "none" }}>
-              <Button
-                variant="plain"
-                sx={{
-                  color: "var(--accent) !important",
-                  fontSize: { xs: "14px", md: "15px" },
-                  "&:hover": {
-                    bgcolor: "transparent",
-                    textDecoration: "underline",
-                  },
-                }}
-              >
-                View all →
-              </Button>
+      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="work-heading">
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">Experience</span>
+              <h2 id="work-heading" className="section-title">
+                Where I&apos;ve <span className="serif">built</span>
+              </h2>
+            </div>
+            <Link className="btn btn-ghost" href="/projects">
+              Case studies <ArrowRight className="arrow" />
             </Link>
-          </Box>
-          <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
-            {recentPosts.map((post, i) => (
-              <Grid xs={12} sm={6} md={4} key={post.slug}>
-                <ScrollReveal delay={i * 0.1}>
-                  <BlogCard
-                    title={post.title}
-                    description={post.description}
-                    date={post.date}
-                    slug={post.slug}
-                  />
-                </ScrollReveal>
-              </Grid>
+          </div>
+          <ol className="timeline">
+            {profile.experience.map((e) => (
+              <li key={`${e.company}-${e.role}`}>
+                <div className="period">{e.period}</div>
+                <div>
+                  <h3>
+                    {e.role} · <span className="org">{e.company}</span>
+                  </h3>
+                  <p>{e.summary}</p>
+                </div>
+              </li>
             ))}
-          </Grid>
-        </Box>
-      </ScrollReveal>
-    </Box>
+          </ol>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="stack-heading">
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">Toolbox</span>
+              <h2 id="stack-heading" className="section-title">
+                What I <span className="serif">work with</span>
+              </h2>
+            </div>
+          </div>
+          <div className="skills-grid">
+            {skillGroups.map((g, i) => (
+              <div className="skill-group" key={g.title}>
+                <h3>
+                  <span>0{i + 1}</span>
+                  {g.title}
+                </h3>
+                <ul>
+                  {[...new Set(g.items)].map((s) => (
+                    <li key={s} className="chip">
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <div className="cta-band">
+            <span className="eyebrow" style={{ color: "#a9a3c2" }}>
+              Let&apos;s talk
+            </span>
+            <h2 className="mt-2">
+              Scaling something hard? <span className="serif">I&apos;d love to hear about it.</span>
+            </h2>
+            <p>
+              Architecture reviews, fractional CTO engagements, performance firefighting, or AI/RAG systems that need to
+              work in production.
+            </p>
+            <div className="hero-ctas">
+              <Link className="btn btn-primary" href="/contact">
+                Start a conversation <ArrowRight className="arrow" />
+              </Link>
+              <a className="btn btn-ghost" href={site.socials.linkedin} target="_blank" rel="me noopener">
+                Connect on LinkedIn <ArrowUpRight />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

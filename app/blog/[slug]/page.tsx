@@ -1,345 +1,190 @@
-import { getPostBySlug, getPostSlugs } from "../../../lib/posts";
-import { Box, Typography, Chip, Card, CardContent } from "@mui/joy";
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import AuthorCard from "../../../components/AuthorCard";
+import Breadcrumbs from "../../../components/Breadcrumbs";
+import JsonLd from "../../../components/JsonLd";
+import { PostCard } from "../../../components/PostCard";
+import ShareButtons from "../../../components/ShareButtons";
+import Toc from "../../../components/Toc";
+import { formatDate, getAllPosts, getPostBySlug, getPostSlugs, getRelatedPosts, tagSlug } from "../../../lib/posts";
+import { articleSchema, breadcrumbSchema, faqSchema, graph } from "../../../lib/schema";
+import { pageMetadata } from "../../../lib/seo";
+import { absoluteUrl, site } from "../../../lib/site";
+import avatar from "../../../public/subhadeep-datta.jpg";
 
-type Props = {
-  params: Promise<{ slug: string }>;
-};
+type Props = { params: Promise<{ slug: string }> };
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  try {
-    const slugs = await getPostSlugs();
-    return slugs.map((s) => ({ slug: s }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
+  return (await getPostSlugs()).map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  if (!post) return {};
+  return pageMetadata({
+    title: post.title,
+    description: post.description,
+    path: `/blog/${post.slug}`,
+    keywords: [...post.keywords, ...post.tags],
+    type: "article",
+    article: {
+      publishedTime: `${post.date}T00:00:00+05:30`,
+      modifiedTime: `${post.updated}T00:00:00+05:30`,
+      tags: post.tags,
+    },
+  });
 }
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  if (!post) notFound();
 
-  if (!slug) {
-    return (
-      <Box sx={{ px: 2, py: 8, maxWidth: 800, mx: "auto" }}>
-        <Typography level="h1">Post not found</Typography>
-      </Box>
-    );
-  }
+  const [all, related] = await Promise.all([getAllPosts(), getRelatedPosts(post, 3)]);
+  const idx = all.findIndex((p) => p.slug === post.slug);
+  const newer = idx > 0 ? all[idx - 1] : null;
+  const older = idx < all.length - 1 ? all[idx + 1] : null;
 
-  try {
-    const { meta, contentHtml, readingTime } = await getPostBySlug(slug);
-    const siteUrl = process.env.SITE_URL || "https://subhadeep-datta.dev";
-    const postUrl = `${siteUrl}/blog/${slug}`;
-    const formattedDate = meta.date
-      ? new Date(meta.date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
-      : "";
+  const url = absoluteUrl(`/blog/${post.slug}`);
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: "Writing", path: "/blog" },
+    { name: post.category, path: `/blog/tag/${tagSlug(post.category)}` },
+    { name: post.title, path: `/blog/${post.slug}` },
+  ];
+  const headings = post.headings.filter((h) => h.depth === 2 || post.headings.length < 14);
+  const updated = post.updated && post.updated !== post.date;
 
-    return (
-      <>
-        <Box
-          sx={{
-            px: { xs: 2, md: 4 },
-            py: { xs: 6, md: 10 },
-            maxWidth: 800,
-            mx: "auto",
-          }}
-        >
-          {/* Breadcrumb Navigation */}
-          <Box
-            sx={{
-              mb: 4,
-              display: "flex",
-              gap: 1,
-              alignItems: "center",
-              fontSize: "sm",
-              color: "var(--text-secondary)",
-            }}
-          >
-            <Link href="/blog" style={{ color: "var(--accent)", opacity: 0.7 }}>
-              Blog
-            </Link>
-            <span>/</span>
-            <Typography
-              level="body-sm"
-              sx={{ opacity: 0.7, color: "var(--text-secondary)" }}
-            >
-              {meta.title}
-            </Typography>
-          </Box>
+  return (
+    <>
+      <div className="reading-progress" aria-hidden="true" />
+      <JsonLd
+        data={graph(
+          articleSchema(post),
+          breadcrumbSchema(crumbs),
+          ...(post.faq.length ? [faqSchema(post.faq)] : []),
+        )}
+      />
+      <div className="container">
+        <header className="article-header" style={{ maxWidth: 860 }}>
+          <Breadcrumbs items={crumbs} />
+          <h1>{post.title}</h1>
+          <p className="lede">{post.description}</p>
+          <div className="byline">
+            <Image src={avatar} alt={site.name} width={44} height={44} priority />
+            <div>
+              <div className="who">
+                <Link href="/about" rel="author">
+                  {site.name}
+                </Link>
+              </div>
+              <div className="byline-facts">
+                <span>
+                  <time dateTime={post.date}>{formatDate(post.date)}</time>
+                </span>
+                {updated && (
+                  <span>
+                    Updated <time dateTime={post.updated}>{formatDate(post.updated, "short")}</time>
+                  </span>
+                )}
+                <span>{post.readingTime} min read</span>
+              </div>
+            </div>
+          </div>
+        </header>
 
-          {/* Featured Image */}
-          {meta.featured_image && (
-            <Box
-              component="img"
-              src={meta.featured_image}
-              alt={meta.title}
-              sx={{
-                width: "100%",
-                height: "400px",
-                objectFit: "cover",
-                borderRadius: "12px",
-                mb: 4,
-              }}
-            />
-          )}
-
-          {/* Article Header */}
-          <Typography
-            level="h1"
-            sx={{
-              fontSize: { xs: 28, md: 40 },
-              fontWeight: 800,
-              mb: 2,
-              lineHeight: 1.2,
-              color: "var(--text-primary)",
-            }}
-          >
-            {meta.title}
-          </Typography>
-
-          {/* Article Meta Info */}
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 3,
-              mb: 4,
-              pb: 3,
-              borderBottom: "1px solid var(--border)",
-              opacity: 0.7,
-              fontSize: "14px",
-              color: "var(--text-secondary)",
-            }}
-          >
-            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-              <span>📅</span>
-              <span>{formattedDate}</span>
-            </Box>
-            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-              <span>⏱️</span>
-              <span>{readingTime} min read</span>
-            </Box>
-            {meta.author && (
-              <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-                <span>✍️</span>
-                <span>{meta.author}</span>
-              </Box>
+        <div className="article-layout">
+          <div>
+            {headings.length > 2 && (
+              <details className="toc-mobile">
+                <summary>In this article</summary>
+                <ol>
+                  {headings
+                    .filter((h) => h.depth === 2)
+                    .map((h) => (
+                      <li key={h.id}>
+                        <a href={`#${h.id}`}>{h.text}</a>
+                      </li>
+                    ))}
+                </ol>
+              </details>
             )}
-          </Box>
 
-          {/* Tags/Keywords */}
-          {meta.tags && meta.tags.length > 0 && (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 4 }}>
-              {meta.tags.map((tag: string) => (
-                <Chip
-                  key={tag}
-                  variant="soft"
-                  color="primary"
-                  sx={{ fontSize: "12px" }}
-                >
-                  {tag}
-                </Chip>
+            {/* biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, build-time rendered markdown from the repo */}
+            <article className="prose" dangerouslySetInnerHTML={{ __html: post.html }} />
+
+            {post.faq.length > 0 && (
+              <section className="faq" aria-labelledby="faq-heading">
+                <h2 id="faq-heading">Frequently asked questions</h2>
+                {post.faq.map((f) => (
+                  <details key={f.q}>
+                    <summary>{f.q}</summary>
+                    <p>{f.a}</p>
+                  </details>
+                ))}
+              </section>
+            )}
+
+            <div className="row mt-4">
+              {post.tags.map((t) => (
+                <Link key={t} href={`/blog/tag/${tagSlug(t)}`} className="chip">
+                  #{t}
+                </Link>
               ))}
-            </Box>
-          )}
+            </div>
 
-          {/* Article Content */}
-          <Box
-            component="article"
-            sx={{
-              "& h2": {
-                fontSize: { xs: 24, md: 28 },
-                fontWeight: 700,
-                mt: 6,
-                mb: 3,
-                lineHeight: 1.3,
-                color: "var(--text-primary)",
-              },
-              "& h3": {
-                fontSize: { xs: 20, md: 24 },
-                fontWeight: 600,
-                mt: 4,
-                mb: 2,
-                lineHeight: 1.3,
-                color: "var(--text-primary)",
-              },
-              "& h4": {
-                fontSize: { xs: 18, md: 20 },
-                fontWeight: 600,
-                mt: 3,
-                mb: 2,
-                color: "var(--text-primary)",
-              },
-              "& p": {
-                fontSize: { xs: 16, md: 17 },
-                lineHeight: 1.8,
-                mb: 2,
-                color: "var(--text-secondary)",
-              },
-              "& ul, & ol": {
-                fontSize: { xs: 16, md: 17 },
-                lineHeight: 1.8,
-                mb: 2,
-                pl: 3,
-              },
-              "& li": {
-                mb: 1,
-                color: "var(--text-secondary)",
-              },
-              "& blockquote": {
-                borderLeft: "4px solid var(--accent)",
-                pl: 3,
-                py: 1,
-                my: 3,
-                bgcolor: "var(--surface)",
-                color: "var(--text-secondary)",
-                borderRadius: "4px",
-                fontStyle: "italic",
-              },
-              "& code": {
-                background: "var(--surface)",
-                color: "var(--accent)",
-                px: "6px",
-                py: "3px",
-                borderRadius: "4px",
-                fontSize: "14px",
-                fontFamily: "monospace",
-              },
-              "& pre": {
-                background: "var(--surface-secondary)",
-                color: "var(--foreground)",
-                p: 3,
-                borderRadius: "8px",
-                overflow: "auto",
-                mb: 3,
-                fontSize: "14px",
-                lineHeight: 1.6,
-                border: "1px solid var(--border)",
-              },
-              "& pre code": {
-                background: "transparent",
-                color: "var(--foreground)",
-                border: "none",
-                px: 0,
-                py: 0,
-              },
-              "& a": {
-                color: "var(--accent)",
-                textDecoration: "underline",
-                "&:hover": {
-                  opacity: 0.8,
-                },
-              },
-              "& img": {
-                maxWidth: "100%",
-                height: "auto",
-                borderRadius: "8px",
-                my: 3,
-              },
-              "& table": {
-                width: "100%",
-                borderCollapse: "collapse",
-                my: 3,
-                border: "1px solid var(--border)",
-                borderRadius: "8px",
-                overflow: "hidden",
-              },
-              "& th": {
-                background: "var(--surface)",
-                color: "var(--text-primary)",
-                padding: "12px 16px",
-                textAlign: "left",
-                fontWeight: 600,
-                borderBottom: "2px solid var(--border)",
-              },
-              "& td": {
-                padding: "12px 16px",
-                borderBottom: "1px solid var(--border)",
-                color: "var(--text-secondary)",
-              },
-              "& tbody tr:hover": {
-                backgroundColor: "var(--surface)",
-              },
-              "& tbody tr:last-child td": {
-                borderBottom: "none",
-              },
-            }}
-            dangerouslySetInnerHTML={{ __html: contentHtml }}
-          />
+            <ShareButtons url={url} title={post.title} />
+            <AuthorCard />
 
-          {/* Call to Action / Share */}
-          <Box
-            sx={{
-              mt: 8,
-              pt: 4,
-              borderTop: "1px solid var(--border)",
-              opacity: 0.7,
-              color: "var(--text-secondary)",
-            }}
-          >
-            <Typography level="body-sm">
-              💡 Found this helpful? Share it with others!
-            </Typography>
-          </Box>
-        </Box>
+            {(older || newer) && (
+              <nav className="post-nav" aria-label="More articles">
+                {older && (
+                  <Link href={`/blog/${older.slug}`} rel="prev">
+                    <div className="dir">← Previous</div>
+                    <div className="t">{older.title}</div>
+                  </Link>
+                )}
+                {newer && (
+                  <Link href={`/blog/${newer.slug}`} rel="next" className="next">
+                    <div className="dir">Next →</div>
+                    <div className="t">{newer.title}</div>
+                  </Link>
+                )}
+              </nav>
+            )}
+          </div>
 
-        {/* JSON-LD BlogPosting for better search appearance */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BlogPosting",
-              headline: meta.title,
-              description: meta.description || meta.excerpt,
-              datePublished: meta.date,
-              dateModified: meta.date,
-              author: {
-                "@type": "Person",
-                name: meta.author || "Subhadeep Datta",
-              },
-              publisher: {
-                "@type": "Person",
-                name: "Subhadeep Datta",
-              },
-              mainEntityOfPage: {
-                "@type": "WebPage",
-                "@id": postUrl,
-              },
-              ...(meta.featured_image && {
-                image: meta.featured_image,
-              }),
-              keywords: meta.keywords?.join(", ") || "",
-            }),
-          }}
-        />
-      </>
-    );
-  } catch (error) {
-    console.error(`Error loading post: ${slug}`, error);
-    return (
-      <Box sx={{ px: 2, py: 8, maxWidth: 800, mx: "auto" }}>
-        <Typography level="h1">Error loading post</Typography>
-        <Typography level="body-lg" sx={{ mt: 2, color: "text.secondary" }}>
-          Sorry, we couldn't load this post. Please try again later.
-        </Typography>
-        <Link
-          href="/blog"
-          style={{
-            color: "var(--accent)",
-            textDecoration: "underline",
-            marginTop: "20px",
-            display: "inline-block",
-          }}
-        >
-          ← Back to Blog
-        </Link>
-      </Box>
-    );
-  }
+          {headings.length > 2 && <Toc headings={headings} />}
+        </div>
+      </div>
+
+      {related.length > 0 && (
+        <section className="section" aria-labelledby="related-heading">
+          <div className="container">
+            <div className="section-head">
+              <div>
+                <span className="eyebrow">Keep reading</span>
+                <h2 id="related-heading" className="section-title">
+                  Related <span className="serif">articles</span>
+                </h2>
+              </div>
+              <Link className="btn btn-ghost" href="/blog">
+                All writing
+              </Link>
+            </div>
+            <div className="grid-3">
+              {related.map((p) => (
+                <PostCard key={p.slug} post={p} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </>
+  );
 }

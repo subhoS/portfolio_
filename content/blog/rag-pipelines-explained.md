@@ -9,7 +9,7 @@ author: "Subhadeep Datta"
 featured_image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=600&fit=crop"
 ---
 
-## 🤖 Introduction: The Problem With Vanilla LLMs
+## Introduction: The Problem With Vanilla LLMs
 
 Large language models like GPT-4, Claude, and Gemini are impressive. They can write code, explain concepts, and reason about problems. But ask them about your company's internal docs, your product database, or yesterday's meeting notes, and they'll confidently make things up.
 
@@ -21,7 +21,7 @@ I've been building RAG systems for internal tools at Noisiv Consulting, and this
 
 ---
 
-## 🧩 How RAG Works (The Simple Version)
+## How RAG Works (The Simple Version)
 
 The core idea is straightforward:
 
@@ -59,7 +59,7 @@ That's it. The magic is in how well you do each step.
 
 ---
 
-## 📄 Step 1: Prepare Your Documents
+## Step 1: Prepare Your Documents
 
 Before anything, you need to get your data into a format the system can work with. This means:
 
@@ -117,7 +117,7 @@ function chunkDocument(text, options = {}) {
 
 ---
 
-## 🧮 Step 2: Generate Embeddings
+## Step 2: Generate Embeddings
 
 Embeddings convert text into numerical vectors that capture meaning. Similar texts produce similar vectors, which is how we find relevant chunks later.
 
@@ -163,7 +163,7 @@ For most use cases, `text-embedding-3-small` is the best starting point. It's fa
 
 ---
 
-## 🗄️ Step 3: Store in a Vector Database
+## Step 3: Store in a Vector Database
 
 Vector databases are optimized for similarity search — finding the vectors closest to a query vector.
 
@@ -235,7 +235,7 @@ If you're already using PostgreSQL, **pgvector** is the easiest path. No new inf
 
 ---
 
-## 💬 Step 4: Build the Prompt
+## Step 4: Build the Prompt
 
 This is where you combine the user's question with the retrieved context and send it to the LLM.
 
@@ -302,7 +302,7 @@ async function askRAG(question) {
 
 ---
 
-## 🛡️ Step 5: Reduce Hallucinations
+## Step 5: Reduce Hallucinations
 
 RAG doesn't eliminate hallucinations, but you can minimize them:
 
@@ -332,7 +332,7 @@ if (relevantChunks.length === 0) {
 
 ---
 
-## 🏗️ Production Considerations
+## Production Considerations
 
 ### Keep Your Index Fresh
 
@@ -373,7 +373,7 @@ For a knowledge base with 10,000 documents (~5M tokens total):
 
 ---
 
-## 🎯 Conclusion
+## Conclusion
 
 RAG isn't complicated. It's four steps: chunk your docs, embed them, store them, retrieve and prompt. The hard part is doing each step well — good chunking, the right similarity threshold, and a prompt that keeps the model honest.
 
@@ -383,7 +383,7 @@ Start with ChromaDB and `text-embedding-3-small`. You can have a working prototy
 
 ---
 
-## 📚 Key Takeaways
+## Key Takeaways
 
 - **RAG = Retrieve + Augment + Generate** — ground LLM answers in your actual data
 - **Chunking quality** determines retrieval quality — respect sentence boundaries

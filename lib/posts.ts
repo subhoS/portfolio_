@@ -1,145 +1,222 @@
-import fs from "fs/promises";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { cache } from "react";
 import matter from "gray-matter";
-import { remark } from "remark";
-import html from "remark-html";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkGfm from "remark-gfm";
+import remarkRehype from "remark-rehype";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeStringify from "rehype-stringify";
+import { toString as hastToString } from "hast-util-to-string";
+import { SKIP, visit } from "unist-util-visit";
+import type { Element, Root } from "hast";
 
-const postsPath = path.join(process.cwd(), "content", "blog");
+const postsDir = path.join(process.cwd(), "content", "blog");
 
-// Convert markdown tables to HTML
-function convertMarkdownTablesToHtml(markdown: string): string {
-  const lines = markdown.split("\n");
-  let result: string[] = [];
-  let i = 0;
-
-  while (i < lines.length) {
-    const line = lines[i];
-
-    // Check if this is a table header line
-    if (
-      line.includes("|") &&
-      i + 1 < lines.length &&
-      lines[i + 1].includes("---")
-    ) {
-      const headerCells = line
-        .split("|")
-        .map((cell) => cell.trim())
-        .filter((cell) => cell);
-      const separatorLine = lines[i + 1];
-
-      // Build table HTML
-      let tableHtml = "<table>\n<thead>\n<tr>\n";
-      headerCells.forEach((cell) => {
-        tableHtml += `<th>${cell}</th>\n`;
-      });
-      tableHtml += "</tr>\n</thead>\n<tbody>\n";
-
-      // Process table rows
-      i += 2;
-      while (
-        i < lines.length &&
-        lines[i].includes("|") &&
-        !lines[i].includes("---")
-      ) {
-        const rowCells = lines[i]
-          .split("|")
-          .map((cell) => cell.trim())
-          .filter((cell) => cell);
-
-        tableHtml += "<tr>\n";
-        rowCells.forEach((cell) => {
-          tableHtml += `<td>${cell}</td>\n`;
-        });
-        tableHtml += "</tr>\n";
-        i++;
-      }
-
-      tableHtml += "</tbody>\n</table>";
-      result.push(tableHtml);
-      continue;
-    }
-
-    result.push(line);
-    i++;
-  }
-
-  return result.join("\n");
-}
+export type Faq = { q: string; a: string };
+export type Heading = { id: string; text: string; depth: 2 | 3 };
 
 export type PostMeta = {
-  title: string;
-  description?: string;
-  excerpt?: string;
-  date?: string;
-  tags?: string[];
-  keywords?: string[];
-  author?: string;
-  featured_image?: string;
   slug: string;
+  title: string;
+  description: string;
+  date: string;
+  updated: string;
+  tags: string[];
+  keywords: string[];
+  category: string;
+  featured: boolean;
+  readingTime: number;
+  wordCount: number;
+  faq: Faq[];
 };
 
-export async function getPostSlugs() {
+export type Post = PostMeta & { html: string; headings: Heading[] };
+
+const toArray = (v: unknown): string[] => {
+  if (Array.isArray(v)) return v.map(String).map((s) => s.trim()).filter(Boolean);
+  if (typeof v === "string") return v.split(",").map((s) => s.trim()).filter(Boolean);
+  return [];
+};
+
+export const tagSlug = (tag: string) =>
+  tag
+    .toLowerCase()
+    .replace(/\+/g, "plus")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+const countWords = (text: string) => text.replace(/[#>*_`|[\]()-]/g, " ").split(/\s+/).filter(Boolean).length;
+
+/** Prose words, plus code weighted at half since readers skim it. */
+function wordCountOf(markdown: string) {
+  const code = (markdown.match(/```[\s\S]*?```/g) || []).join(" ");
+  return countWords(markdown.replace(/```[\s\S]*?```/g, " ")) + Math.round(countWords(code) / 2);
+}
+
+function parseMeta(slug: string, raw: string): { meta: PostMeta; body: string } {
+  const { data, content } = matter(raw);
+  const words = wordCountOf(content);
+  const date = String(data.date || "");
+  return {
+    body: content,
+    meta: {
+      slug,
+      title: String(data.title || slug),
+      description: String(data.description || data.excerpt || ""),
+      date,
+      updated: String(data.updated || date),
+      tags: toArray(data.tags),
+      keywords: toArray(data.keywords),
+      category: String(data.category || toArray(data.tags)[0] || "Engineering"),
+      featured: Boolean(data.featured),
+      readingTime: Math.max(1, Math.round(words / 230)),
+      wordCount: words,
+      faq: Array.isArray(data.faq) ? (data.faq as Faq[]) : [],
+    },
+  };
+}
+
+/** Collects h2/h3 headings (after rehype-slug assigned ids) for the table of contents. */
+function rehypeCollectHeadings(out: Heading[]) {
+  return () => (tree: Root) => {
+    visit(tree, "element", (node: Element) => {
+      if ((node.tagName === "h2" || node.tagName === "h3") && node.properties?.id) {
+        out.push({
+          id: String(node.properties.id),
+          text: hastToString(node).trim(),
+          depth: node.tagName === "h2" ? 2 : 3,
+        });
+      }
+    });
+  };
+}
+
+/** Lazy-load offscreen images and open external links safely. */
+function rehypeEnhanceElements() {
+  return (tree: Root) => {
+    visit(tree, "element", (node: Element) => {
+      if (node.tagName === "img") {
+        node.properties = { ...node.properties, loading: "lazy", decoding: "async" };
+      }
+      if (node.tagName === "a") {
+        const href = String(node.properties?.href || "");
+        if (/^https?:\/\//.test(href)) {
+          node.properties = { ...node.properties, target: "_blank", rel: ["noopener", "noreferrer"] };
+        }
+      }
+      if (node.tagName === "table") {
+        // Wrap tables so they scroll horizontally on small screens.
+        const table: Element = { ...node };
+        node.tagName = "div";
+        node.properties = { className: ["table-wrap"] };
+        node.children = [table];
+        return SKIP;
+      }
+    });
+  };
+}
+
+async function renderMarkdown(markdown: string) {
+  const headings: Heading[] = [];
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype)
+    .use(rehypeSlug)
+    .use(rehypeCollectHeadings(headings))
+    .use(rehypeAutolinkHeadings, {
+      behavior: "append",
+      properties: { className: ["heading-anchor"], ariaHidden: "true", tabIndex: -1 },
+      content: { type: "text", value: "#" },
+    })
+    .use(rehypePrettyCode, {
+      theme: { light: "github-light", dark: "github-dark-dimmed" },
+      keepBackground: false,
+      defaultLang: "plaintext",
+    })
+    .use(rehypeEnhanceElements)
+    .use(rehypeStringify)
+    .process(markdown);
+  return { html: String(file), headings };
+}
+
+export const getPostSlugs = cache(async (): Promise<string[]> => {
   try {
-    const files = await fs.readdir(postsPath);
-    const slugs = files
-      .filter((f) => f.endsWith(".md"))
-      .map((f) => f.replace(/\.md$/, ""));
-    console.log("Found blog post slugs:", slugs);
-    return slugs;
-  } catch (e) {
-    console.error("Error reading blog posts directory:", e);
+    const files = await fs.readdir(postsDir);
+    return files.filter((f) => f.endsWith(".md")).map((f) => f.replace(/\.md$/, ""));
+  } catch {
     return [];
   }
-}
+});
 
-// Calculate reading time based on word count
-function calculateReadingTime(text: string): number {
-  const wordsPerMinute = 200;
-  const wordCount = text.split(/\s+/).length;
-  return Math.ceil(wordCount / wordsPerMinute);
-}
-
-export async function getPostBySlug(slug: string) {
-  const fullPath = path.join(postsPath, `${slug}.md`);
-  const raw = await fs.readFile(fullPath, "utf8");
-  const { data, content } = matter(raw);
-
-  // Convert markdown tables to HTML first
-  const contentWithHtmlTables = convertMarkdownTablesToHtml(content);
-
-  const processed = await remark().use(html).process(contentWithHtmlTables);
-  const contentHtml = processed.toString();
-  const readingTime = calculateReadingTime(content);
-
-  const meta: PostMeta = {
-    title: data.title || slug,
-    description: data.description || data.excerpt || "",
-    excerpt: data.excerpt || "",
-    date: data.date || "",
-    tags: data.tags || [],
-    keywords: data.keywords?.split(",").map((k: string) => k.trim()) || [],
-    author: data.author || "Subhadeep Datta",
-    featured_image: data.featured_image || data.image || "",
-    slug,
-  };
-  return { meta, contentHtml, readingTime };
-}
-
-export async function getAllPosts() {
+export const getAllPosts = cache(async (): Promise<PostMeta[]> => {
   const slugs = await getPostSlugs();
-  const items = await Promise.all(
+  const metas = await Promise.all(
     slugs.map(async (slug) => {
-      const fullPath = path.join(postsPath, `${slug}.md`);
-      const raw = await fs.readFile(fullPath, "utf8");
-      const { data } = matter(raw);
-      return {
-        slug,
-        title: data.title || slug,
-        description: data.description || "",
-        date: data.date || "",
-      };
-    })
+      const raw = await fs.readFile(path.join(postsDir, `${slug}.md`), "utf8");
+      return parseMeta(slug, raw).meta;
+    }),
   );
-  // sort by date desc when possible
-  return items.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  return metas.sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title));
+});
+
+export const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
+  const raw = await fs.readFile(path.join(postsDir, `${slug}.md`), "utf8").catch(() => null);
+  if (raw === null) return null;
+  const { meta, body } = parseMeta(slug, raw);
+  // Rendering errors are real bugs: let them fail the build instead of silently 404ing.
+  const { html, headings } = await renderMarkdown(body);
+  return { ...meta, html, headings };
+});
+
+/** A post's topics: its category plus its tags, de-duplicated by slug. */
+export function topicsOf(post: PostMeta) {
+  const seen = new Map<string, string>();
+  for (const t of [post.category, ...post.tags]) if (!seen.has(tagSlug(t))) seen.set(tagSlug(t), t);
+  return [...seen.values()];
+}
+
+export const getAllTags = cache(async () => {
+  const posts = await getAllPosts();
+  const counts = new Map<string, { tag: string; slug: string; count: number }>();
+  for (const p of posts) {
+    for (const tag of topicsOf(p)) {
+      const slug = tagSlug(tag);
+      const entry = counts.get(slug) ?? { tag, slug, count: 0 };
+      entry.count += 1;
+      counts.set(slug, entry);
+    }
+  }
+  return [...counts.values()].sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+});
+
+export async function getPostsByTag(slug: string) {
+  const posts = await getAllPosts();
+  return posts.filter((p) => topicsOf(p).some((t) => tagSlug(t) === slug));
+}
+
+/** Related posts ranked by shared tags, then recency. */
+export async function getRelatedPosts(post: PostMeta, limit = 3) {
+  const posts = await getAllPosts();
+  const mine = new Set(post.tags.map(tagSlug));
+  return posts
+    .filter((p) => p.slug !== post.slug)
+    .map((p) => ({ p, score: p.tags.filter((t) => mine.has(tagSlug(t))).length }))
+    .sort((a, b) => b.score - a.score || b.p.date.localeCompare(a.p.date))
+    .slice(0, limit)
+    .map(({ p }) => p);
+}
+
+export function formatDate(date: string, month: "long" | "short" = "long") {
+  if (!date) return "";
+  return new Date(`${date}T00:00:00Z`).toLocaleDateString("en-US", {
+    year: "numeric",
+    month,
+    day: "numeric",
+    timeZone: "UTC",
+  });
 }

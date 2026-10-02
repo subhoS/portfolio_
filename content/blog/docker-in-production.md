@@ -9,7 +9,7 @@ author: "Subhadeep Datta"
 featured_image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&h=600&fit=crop"
 ---
 
-## 🐳 Introduction: Docker Isn't Just "Build and Ship"
+## Introduction: Docker Isn't Just "Build and Ship"
 
 Docker is one of those tools that seems simple on day one. You write a Dockerfile, run `docker build`, push the image, and congratulate yourself. Then production happens.
 
@@ -19,7 +19,7 @@ I've made all these mistakes across multiple projects at Noisiv Consulting. This
 
 ---
 
-## 📦 1. Your Docker Images Are Too Big
+## 1. Your Docker Images Are Too Big
 
 The most common issue. You start with `node:18` as your base image. That's 900MB before you've added a single line of your own code.
 
@@ -76,7 +76,7 @@ CMD ["node", "dist/server.js"]
 
 ---
 
-## 🔒 2. Security: Stop Baking Secrets Into Images
+## 2. Security: Stop Baking Secrets Into Images
 
 This one is scary common. I've seen API keys, database passwords, and even private certificates committed inside Docker images.
 
@@ -130,7 +130,7 @@ env:
 
 ---
 
-## 🏥 3. Health Checks: Know When Your Container Is Actually Healthy
+## 3. Health Checks: Know When Your Container Is Actually Healthy
 
 A running container isn't necessarily a healthy container. Your process might be up but stuck in a deadlock, out of memory, or unable to reach the database.
 
@@ -177,7 +177,7 @@ A good health check verifies your dependencies, not just that your process is al
 
 ---
 
-## 📝 4. Logging: Where Do Your Logs Go?
+## 4. Logging: Where Do Your Logs Go?
 
 In development, `console.log` works fine. In production with 20 containers, good luck finding anything.
 
@@ -219,7 +219,7 @@ Or if you're on AWS: `Container → CloudWatch Logs → CloudWatch Insights`
 
 ---
 
-## 🚀 5. Deployment Patterns That Actually Work
+## 5. Deployment Patterns That Actually Work
 
 ### Zero-Downtime Deployments
 
@@ -296,7 +296,7 @@ services:
 
 ---
 
-## 🧭 My Docker Production Checklist
+## My Docker Production Checklist
 
 Before deploying any container to production, I run through this:
 
@@ -313,7 +313,7 @@ Before deploying any container to production, I run through this:
 
 ---
 
-## 🎯 Conclusion
+## Conclusion
 
 Docker in production is less about the technology and more about discipline. The patterns aren't complicated — they're just easy to skip when you're moving fast.
 
@@ -323,7 +323,7 @@ The best Docker setup is one you don't have to think about.
 
 ---
 
-## 📚 Key Takeaways
+## Key Takeaways
 
 - **Multi-stage builds** cut image sizes by 80-90%
 - **Never bake secrets** into Docker images — use runtime injection

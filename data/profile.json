@@ -51,26 +51,91 @@
     {
       "title": "Hirerkey — Workplace Intelligence Platform",
       "description": "Built the core architecture for a modern AI-based Human Capital Management platform. Designed the infrastructure using Java and Node.js, and integrated RAG pipelines to automate complex HR workflows.",
-      "tech": ["Java", "Node.js", "AI/LLM", "RAG", "MongoDB"],
-      "href": "https://www.hirerkey.com/"
+      "tech": [
+        "Java",
+        "Node.js",
+        "AI/LLM",
+        "RAG",
+        "MongoDB"
+      ],
+      "href": "https://www.hirerkey.com/",
+      "role": "Co-Founder & CTO",
+      "period": "2025 — Present",
+      "highlights": [
+        "Architected the core platform on Java, Python, Node.js, MongoDB and Kafka",
+        "Shipped LLM and RAG features that automate HR workflows",
+        "Took the product from zero to a $2.5M valuation"
+      ]
     },
     {
       "title": "Noisiv Consulting",
       "description": "Architected backend infrastructure for enterprise clients that processes millions of requests a day. Focused heavily on database schema optimization and implementing robust message queues to drop latency and guarantee 99.9% uptime.",
-      "tech": ["Java", "Python", "Node.js", "Kafka", "PostgreSQL"],
-      "href": "https://noisivconsulting.com/"
+      "tech": [
+        "Java",
+        "Python",
+        "Node.js",
+        "Kafka",
+        "PostgreSQL"
+      ],
+      "href": "https://noisivconsulting.com/",
+      "role": "Consulting CTO",
+      "period": "2021 — Present",
+      "highlights": [
+        "Backends serving millions of API requests a day at 99.9% uptime",
+        "Kafka + Redis pipeline: 75,000+ messages/sec at sub-50ms latency",
+        "60% faster database responses and 45% higher throughput via schema work"
+      ]
     },
     {
       "title": "Qid — India's #1 ID Gateway",
       "description": "Led the engineering team to build a secure digital check-in gateway processing 100,000+ verifications. The biggest challenge was ensuring real-time data sync in low-bandwidth environments, which we solved using an offline-first architecture and aggressive Redis caching.",
-      "tech": ["NestJS", "Kafka", "Redis", "Distributed Systems"],
-      "href": "https://oneqid.com/"
+      "tech": [
+        "NestJS",
+        "Kafka",
+        "Redis",
+        "Distributed Systems"
+      ],
+      "href": "https://oneqid.com/",
+      "role": "Technology Lead",
+      "period": "2021 — 2024",
+      "highlights": [
+        "100,000+ verifications processed in the first six months",
+        "Absorbed traffic spikes of 5x normal load at peak hours",
+        "Redis caching layer cut database load by 40%"
+      ]
+    },
+    {
+      "title": "Sounf — Project Workflow Platform",
+      "description": "Built a platform that centralizes project workflows for social media marketers, improving team productivity by 40%. MongoDB for flexible data storage and Redis caching to support thousands of concurrent users.",
+      "tech": [
+        "Node.js",
+        "MongoDB",
+        "Redis",
+        "React"
+      ],
+      "href": "",
+      "role": "Engineer & Architect",
+      "period": "2022 — Present",
+      "highlights": [
+        "Centralized marketing project workflows, improving productivity by 40%",
+        "MongoDB + Redis architecture supporting thousands of concurrent users"
+      ]
     },
     {
       "title": "Videtorrium",
       "description": "Helped build the early versions of Videtorrium, a hiring platform focused on matching students with high-paying opportunities. Worked across the stack with React and Node.js to ship features fast.",
-      "tech": ["React", "Node.js", "Full Stack Development"],
-      "href": "https://www.videtorrium.com/"
+      "tech": [
+        "React",
+        "Node.js",
+        "Full Stack Development"
+      ],
+      "href": "https://www.videtorrium.com/",
+      "role": "Software Engineer",
+      "period": "2020 — 2021",
+      "highlights": [
+        "Shipped core product features in React and Node.js",
+        "Helped establish early engineering practices and mentored juniors"
+      ]
     }
   ],
   "experience": [
@@ -78,25 +143,36 @@
       "company": "Hirerkey",
       "role": "Co-Founder & CTO",
       "period": "January 2025 - Present",
-      "summary": "Leading technical strategy and product engineering. Architected the main platform with Java, Node.js, MongoDB, and Kafka. Integrated LLMs and RAG models to automate HR processes, directly contributing to our $2.5M valuation."
+      "summary": "Leading technical strategy and product engineering. Architected the main platform with Java, Node.js, MongoDB, and Kafka. Integrated LLMs and RAG models to automate HR processes, directly contributing to our $2.5M valuation.",
+      "url": "https://www.hirerkey.com/"
     },
     {
       "company": "Noisiv Consulting",
       "role": "Consulting CTO",
       "period": "June 2023 - Present",
-      "summary": "Designing systems that handle millions of daily API requests. Reduced database response times by 60% through schema optimization and implemented Kafka/Redis queues processing 75,000+ messages per second."
+      "summary": "Designing systems that handle millions of daily API requests. Reduced database response times by 60% through schema optimization and implemented Kafka/Redis queues processing 75,000+ messages per second.",
+      "url": "https://noisivconsulting.com/"
     },
     {
       "company": "Qid",
       "role": "Technology Lead",
       "period": "September 2021 - November 2024",
-      "summary": "Managed a team of 5 engineers to build a digital check-in platform. Integrated with India Stack APIs for identity verification and set up Redis caching layers that reduced our database load by 40%."
+      "summary": "Managed a team of 5 engineers to build a digital check-in platform. Integrated with India Stack APIs for identity verification and set up Redis caching layers that reduced our database load by 40%.",
+      "url": "https://oneqid.com/"
+    },
+    {
+      "company": "Noisiv Consulting",
+      "role": "Partner Technology Manager",
+      "period": "September 2021 - June 2023",
+      "summary": "Managed the technology lifecycle for 20+ clients across multiple countries. Implemented MongoDB and Kafka solutions that boosted performance by 35%, and deployed microservices that cut downtime by 60%.",
+      "url": "https://noisivconsulting.com/"
     },
     {
       "company": "Videtorrium",
       "role": "Software Engineer",
       "period": "2020 - 2021",
-      "summary": "Built core product features using React and Node.js. Mentored junior developers and helped establish our early engineering practices."
+      "summary": "Built core product features using React and Node.js. Mentored junior developers and helped establish our early engineering practices.",
+      "url": "https://www.videtorrium.com/"
     }
   ],
   "awards": [
@@ -228,5 +304,6 @@
       "Agile/Scrum",
       "Technical Roadmapping"
     ]
-  }
+  },
+  "location": "New Delhi, India"
 }
