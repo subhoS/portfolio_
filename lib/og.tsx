@@ -54,6 +54,11 @@ async function avatarDataUrl() {
   return `data:image/jpeg;base64,${buf.toString("base64")}`;
 }
 
+async function logoDataUrl() {
+  const buf = await fs.readFile(path.join(process.cwd(), "public", "logo.svg"));
+  return `data:image/svg+xml;base64,${buf.toString("base64")}`;
+}
+
 const bg = {
   background: "#0a0e19",
   backgroundImage:
@@ -73,7 +78,11 @@ export async function renderOg({
   subtitle,
   footer = siteHost,
 }: OgInput) {
-  const [fonts, avatar] = await Promise.all([loadFonts(), avatarDataUrl()]);
+  const [fonts, avatar, logo] = await Promise.all([
+    loadFonts(),
+    avatarDataUrl(),
+    logoDataUrl(),
+  ]);
   const titleSize = title.length > 90 ? 52 : title.length > 60 ? 60 : 70;
 
   return new ImageResponse(
@@ -101,7 +110,14 @@ export async function renderOg({
           textTransform: "uppercase",
         }}
       >
-        <div style={{ width: 36, height: 2, background: "#a78bfa" }} />
+        {/* biome-ignore lint/performance/noImgElement: satori renders plain img only */}
+        <img
+          src={logo}
+          width={52}
+          height={52}
+          alt=""
+          style={{ marginRight: 8 }}
+        />
         {eyebrow}
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>

@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { site } from "../lib/site";
-import logo from "../public/logo.png";
 import { GitHub, LinkedIn } from "./icons";
+import Logo from "./Logo";
 import MobileNav from "./MobileNav";
 import NavLinks from "./NavLinks";
 import ThemeToggle from "./ThemeToggle";
@@ -12,8 +11,10 @@ export default function SiteHeader() {
     <header className="site-header">
       <div className="container">
         <Link href="/" className="brand" aria-label={`${site.name} — home`}>
-          <Image src={logo} alt="" width={32} height={32} priority />
-          <span>{site.name}</span>
+          <Logo id="sd-header" />
+          <span>
+            Subhadeep <span className="serif">Datta</span>
+          </span>
         </Link>
         <nav className="nav" aria-label="Primary">
           <NavLinks />
