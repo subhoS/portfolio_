@@ -2,14 +2,24 @@
 title: "RAG Pipelines Explained: Building AI That Actually Knows Your Data"
 date: "2026-02-18"
 excerpt: "RAG (Retrieval-Augmented Generation) is how you make LLMs useful with your own data. Here's a practical breakdown of how it works, when to use it, and how to build one that doesn't hallucinate."
-description: "A practical guide to building RAG (Retrieval-Augmented Generation) pipelines. Covers embeddings, vector databases, chunking strategies, prompt engineering, and production patterns for building AI systems grounded in your own data."
+description: "A practical guide to RAG pipelines: embeddings, vector databases, chunking, retrieval quality and prompt design for AI grounded in your own data."
 keywords: "RAG pipeline, retrieval augmented generation, vector database, embeddings, LLM with custom data, AI knowledge base, Pinecone, ChromaDB, OpenAI embeddings"
-tags: ["AI", "LLM", "RAG", "System Design", "Tutorial"]
+tags: ["AI Engineering", "LLM", "RAG", "System Design", "Tutorial"]
 author: "Subhadeep Datta"
-featured_image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=600&fit=crop"
+category: "AI Engineering"
+updated: "2026-10-02"
+faq:
+  - q: "What is a RAG pipeline?"
+    a: "Retrieval-augmented generation (RAG) is a pattern where relevant documents are retrieved from your own data, usually with embeddings and a vector database, and added to the prompt so the LLM answers from those sources instead of from memory."
+  - q: "When should I use RAG instead of fine-tuning?"
+    a: "Use RAG when answers depend on specific, changing or private information, such as documentation, policies or records. Use fine-tuning to change a model's style, format or behavior. Many production systems use RAG first because the data can be updated without retraining."
+  - q: "What chunk size should I use for RAG?"
+    a: "A common starting point is a few hundred tokens per chunk with some overlap, split along natural boundaries like headings and paragraphs. Tune it with an evaluation set, because the best size depends on your documents and questions."
+  - q: "How do I reduce hallucinations in RAG?"
+    a: "Improve retrieval quality first, instruct the model to answer only from the provided context and to say when it doesn't know, require citations to source chunks, and evaluate answers against a test set of real questions."
 ---
 
-## 🤖 Introduction: The Problem With Vanilla LLMs
+## Introduction: The Problem With Vanilla LLMs
 
 Large language models like GPT-4, Claude, and Gemini are impressive. They can write code, explain concepts, and reason about problems. But ask them about your company's internal docs, your product database, or yesterday's meeting notes, and they'll confidently make things up.
 
@@ -21,7 +31,7 @@ I've been building RAG systems for internal tools at Noisiv Consulting, and this
 
 ---
 
-## 🧩 How RAG Works (The Simple Version)
+## How RAG Works (The Simple Version)
 
 The core idea is straightforward:
 
@@ -59,7 +69,7 @@ That's it. The magic is in how well you do each step.
 
 ---
 
-## 📄 Step 1: Prepare Your Documents
+## Step 1: Prepare Your Documents
 
 Before anything, you need to get your data into a format the system can work with. This means:
 
@@ -117,7 +127,7 @@ function chunkDocument(text, options = {}) {
 
 ---
 
-## 🧮 Step 2: Generate Embeddings
+## Step 2: Generate Embeddings
 
 Embeddings convert text into numerical vectors that capture meaning. Similar texts produce similar vectors, which is how we find relevant chunks later.
 
@@ -163,7 +173,7 @@ For most use cases, `text-embedding-3-small` is the best starting point. It's fa
 
 ---
 
-## 🗄️ Step 3: Store in a Vector Database
+## Step 3: Store in a Vector Database
 
 Vector databases are optimized for similarity search — finding the vectors closest to a query vector.
 
@@ -235,7 +245,7 @@ If you're already using PostgreSQL, **pgvector** is the easiest path. No new inf
 
 ---
 
-## 💬 Step 4: Build the Prompt
+## Step 4: Build the Prompt
 
 This is where you combine the user's question with the retrieved context and send it to the LLM.
 
@@ -302,7 +312,7 @@ async function askRAG(question) {
 
 ---
 
-## 🛡️ Step 5: Reduce Hallucinations
+## Step 5: Reduce Hallucinations
 
 RAG doesn't eliminate hallucinations, but you can minimize them:
 
@@ -332,7 +342,7 @@ if (relevantChunks.length === 0) {
 
 ---
 
-## 🏗️ Production Considerations
+## Production Considerations
 
 ### Keep Your Index Fresh
 
@@ -373,7 +383,7 @@ For a knowledge base with 10,000 documents (~5M tokens total):
 
 ---
 
-## 🎯 Conclusion
+## Conclusion
 
 RAG isn't complicated. It's four steps: chunk your docs, embed them, store them, retrieve and prompt. The hard part is doing each step well — good chunking, the right similarity threshold, and a prompt that keeps the model honest.
 
@@ -383,7 +393,7 @@ Start with ChromaDB and `text-embedding-3-small`. You can have a working prototy
 
 ---
 
-## 📚 Key Takeaways
+## Key Takeaways
 
 - **RAG = Retrieve + Augment + Generate** — ground LLM answers in your actual data
 - **Chunking quality** determines retrieval quality — respect sentence boundaries

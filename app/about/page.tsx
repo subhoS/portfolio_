@@ -1,421 +1,319 @@
-import { Box, Typography, Stack, Chip } from "@mui/joy";
-import type { Metadata } from "next";
-import ScrollReveal from "../../components/ScrollReveal";
+import Image from "next/image";
+import Link from "next/link";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import { ArrowRight, Download } from "../../components/icons";
+import JsonLd from "../../components/JsonLd";
 import profile from "../../data/profile.json";
-import FloatingSparkles from "../../components/FloatingSparkles";
+import { breadcrumbSchema, faqSchema, graph } from "../../lib/schema";
+import { pageMetadata } from "../../lib/seo";
+import { absoluteUrl, ids, site } from "../../lib/site";
+import portrait from "../../public/subhadeep-datta.jpg";
 
-export const metadata: Metadata = {
-  title: `About — ${profile.displayName || profile.name}`,
-  description: profile.shortBio,
-};
+export const metadata = pageMetadata({
+  title: "About Subhadeep Datta — CTO, Full Stack Engineer & Systems Architect",
+  absoluteTitle: true,
+  description:
+    "Who is Subhadeep Datta? Co-Founder & CTO of Hirerkey, Consulting CTO at Noisiv, ex-Tech Lead at Qid. Biography, career timeline, skills and contact.",
+  path: "/about",
+  type: "profile",
+  keywords: [
+    "Subhadeep Datta",
+    "who is Subhadeep Datta",
+    "Subhadeep Datta biography",
+    "Subhadeep Datta CTO",
+  ],
+});
 
-export default function About() {
-  const experience = profile.experience || [];
-  
-  const skillCategories = [
-    {
-      category: "Backend & Systems",
-      emoji: "⚙️",
-      skills: profile.skills?.backend || [],
-    },
-    {
-      category: "Frontend & UI",
-      emoji: "🎨",
-      skills: profile.skills?.frontend || [],
-    },
-    {
-      category: "Cloud & DevOps",
-      emoji: "☁️",
-      skills: profile.skills?.cloudDevOps || [],
-    },
-    {
-      category: "Databases & Data",
-      emoji: "🗄️",
-      skills: profile.skills?.databases || [],
-    },
-    {
-      category: "AI & ML",
-      emoji: "🤖",
-      skills: profile.skills?.aiMl || [],
-    },
-    {
-      category: "Architecture & Leadership",
-      emoji: "🏗️",
-      skills: [...(profile.skills?.systemDesign || []), ...(profile.skills?.professional || [])],
-    },
+const faq = [
+  {
+    q: "Who is Subhadeep Datta?",
+    a: "Subhadeep Datta is a Full Stack Engineer and CTO based in New Delhi, India. He is the Co-Founder & CTO of Hirerkey, an AI-native Human Capital Management platform based in Dubai, and the Consulting CTO at Noisiv Consulting. He previously led technology at Qid, a digital identity and check-in platform.",
+  },
+  {
+    q: "What does Subhadeep Datta work on?",
+    a: "He designs and builds backend and distributed systems — high-throughput APIs, Kafka and Redis messaging pipelines, database performance, and AI/LLM features such as retrieval-augmented generation (RAG). He also leads engineering teams and sets technical strategy.",
+  },
+  {
+    q: "Which companies has Subhadeep Datta worked with?",
+    a: "Hirerkey (Co-Founder & CTO, 2025–present), Noisiv Consulting (Consulting CTO since 2023, Partner Technology Manager 2021–2023), Qid (Technology Lead, 2021–2024) and Videtorrium (Software Engineer, 2020–2021).",
+  },
+  {
+    q: "What technologies does Subhadeep Datta use?",
+    a: "Primarily Java, Node.js, Python and Go on the backend; React, Next.js and Flutter on the frontend; MongoDB, PostgreSQL, Redis and Kafka for data; and AWS, Docker, Kubernetes and Terraform for infrastructure, along with LLMs, RAG and vector databases.",
+  },
+  {
+    q: "Where did Subhadeep Datta study?",
+    a: "He holds a Bachelor of Science in Information Technology from Jamia Hamdard, New Delhi, and completed Harvard's CS50.",
+  },
+  {
+    q: "How can I contact Subhadeep Datta?",
+    a: `Email ${site.email}, connect on LinkedIn, or use the contact page on subhadeep-datta.dev. He is open to advisory, fractional CTO and architecture engagements.`,
+  },
+];
+
+const values = [
+  {
+    title: "Measure, then optimize",
+    body: "Every performance win I've shipped started with a profiler or a slow-query log, not a hunch. Numbers first, opinions second.",
+  },
+  {
+    title: "Boring technology, sharp execution",
+    body: "Postgres, Redis and Kafka will outlive most frameworks. I pick proven tools and spend the innovation budget on the product.",
+  },
+  {
+    title: "Design for the failure case",
+    body: "Networks drop, queues back up, and third-party APIs time out. Systems should degrade gracefully, not fall over.",
+  },
+  {
+    title: "Teams scale systems",
+    body: "Architecture is a people problem too. Clear ownership, good reviews and written decisions are what let a codebase grow.",
+  },
+];
+
+export default function AboutPage() {
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
   ];
 
   return (
-    <Box
-      sx={{
-        px: { xs: 1.5, sm: 2, md: 3 },
-        py: { xs: 6, md: 12 },
-        maxWidth: 780,
-        mx: "auto",
-      }}
-    >
-      {/* Header */}
-      <Box sx={{ textAlign: "center", mb: { xs: 4, md: 6 } }}>
-        <ScrollReveal>
-          <Box sx={{ display: "inline-block", position: "relative" }}>
-            <Box sx={{ position: "absolute", top: -20, right: -40 }}>
-              <FloatingSparkles />
-            </Box>
-            <Typography
-              level="h1"
-              sx={{
-                fontSize: { xs: 36, sm: 48, md: 64 },
-                fontWeight: 900,
-                fontFamily: "'Inter', sans-serif",
-                lineHeight: 1.1,
-                letterSpacing: "-0.04em",
-                color: "var(--text-primary)",
-              }}
-            >
-              Behind the{" "}
-              <Box
-                component="span"
-                sx={{
-                  background: "var(--accent-gradient)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  position: "relative",
-                  display: "inline-block",
-                }}
-              >
-                code
-              </Box>
-            </Typography>
-          </Box>
-        </ScrollReveal>
+    <>
+      <JsonLd
+        data={graph(
+          {
+            "@type": "ProfilePage",
+            "@id": absoluteUrl("/about#profilepage"),
+            url: absoluteUrl("/about"),
+            name: `About ${site.name}`,
+            isPartOf: { "@id": ids.website },
+            mainEntity: { "@id": ids.person },
+            about: { "@id": ids.person },
+            primaryImageOfPage: absoluteUrl(site.avatar),
+            dateModified: new Date().toISOString().slice(0, 10),
+          },
+          breadcrumbSchema(crumbs),
+          faqSchema(faq),
+        )}
+      />
+      <div className="container">
+        <header className="page-header">
+          <Breadcrumbs items={crumbs} />
+          <h1 className="mt-3">
+            About <span className="serif">Subhadeep Datta</span>
+          </h1>
+          <p className="lede">
+            Engineer, CTO and writer. I&apos;ve spent the last six years
+            building backends that stay up when traffic doesn&apos;t behave, and
+            helping teams ship them.
+          </p>
+        </header>
 
-        <ScrollReveal delay={0.1}>
-          <Typography
-            level="body-lg"
-            sx={{
-              mt: 3,
-              mx: "auto",
-              color: "var(--text-secondary)",
-              fontSize: { xs: "16px", md: "18px" },
-              lineHeight: 1.8,
-              maxWidth: 640,
-            }}
-          >
-            {profile.longBio}
-          </Typography>
-        </ScrollReveal>
-      </Box>
+        <section className="about-intro" aria-label="Biography">
+          <div className="prose">
+            <p>
+              I&apos;m Subhadeep Datta, a Full Stack Engineer and CTO based in{" "}
+              {site.location}. Today I&apos;m the{" "}
+              <strong>Co-Founder &amp; CTO of Hirerkey</strong>, an AI-native
+              Human Capital Management platform based in Dubai, where I lead
+              technical strategy and built the core platform on Java, Python,
+              Node.js, MongoDB and Kafka. Alongside that I&apos;m the{" "}
+              <strong>Consulting CTO at Noisiv Consulting</strong>, designing
+              backend systems that serve millions of API requests a day at 99.9%
+              uptime.
+            </p>
+            <p>
+              Before that I was the <strong>Technology Lead at Qid</strong>,
+              where I led a team of five engineers building a secure digital
+              check-in platform integrated with India Stack. It processed over
+              100,000 verifications in its first six months, often in places
+              with unreliable connectivity, which taught me more about
+              offline-first design and caching than any textbook. My first role
+              was as a software engineer at <strong>Videtorrium</strong>,
+              shipping React and Node.js features for a student hiring platform.
+            </p>
+            <p>
+              The work I enjoy most sits where performance meets product:
+              cutting database response times by 60% through schema redesign,
+              building a Kafka and Redis pipeline that moves 75,000+ messages
+              per second at sub-50ms latency, or wiring LLMs and RAG pipelines
+              into workflows that people actually use.
+            </p>
+            <p>
+              I write on this site to document what works in production, and
+              what doesn&apos;t. If you&apos;re working on something hard,{" "}
+              <Link href="/contact">I&apos;d like to hear about it</Link>.
+            </p>
+            <div className="row mt-3">
+              <Link className="btn btn-primary" href="/blog">
+                Read my writing <ArrowRight className="arrow" />
+              </Link>
+              <a className="btn btn-ghost" href={site.resume}>
+                <Download /> Download résumé
+              </a>
+            </div>
+          </div>
 
-      {/* Experience Timeline */}
-      <Box sx={{ mt: { xs: 6, md: 8 } }}>
-        <ScrollReveal>
-          <Typography
-            level="h2"
-            sx={{
-              fontSize: { xs: 22, sm: 26, md: 30 },
-              fontWeight: 800,
-              color: "var(--text-primary)",
-              fontFamily: "'Inter', sans-serif",
-              letterSpacing: "-0.02em",
-              mb: { xs: 3, md: 4 },
-            }}
-          >
-            Experience
-          </Typography>
-        </ScrollReveal>
-
-        <Box sx={{ position: "relative", pl: { xs: 3, md: 4 } }}>
-          {/* Timeline line */}
-          <Box
-            sx={{
-              position: "absolute",
-              left: { xs: 6, md: 8 },
-              top: 8,
-              bottom: 8,
-              width: 2,
-              background: "var(--accent-gradient)",
-              opacity: 0.3,
-              borderRadius: 1,
-            }}
-          />
-
-          {experience.map((exp, i) => (
-            <ScrollReveal key={exp.company} delay={i * 0.15}>
-              <Box
-                sx={{
-                  position: "relative",
-                  mb: { xs: 4, md: 5 },
-                  "&:last-child": { mb: 0 },
-                }}
-              >
-                {/* Timeline dot */}
-                <Box
-                  sx={{
-                    position: "absolute",
-                    left: { xs: -24, md: -28 },
-                    top: 24,
-                    width: 14,
-                    height: 14,
-                    borderRadius: "50%",
-                    background: "var(--accent-gradient)",
-                    border: "3px solid var(--background)",
-                    zIndex: 2,
-                    boxShadow: "0 0 10px rgba(124,58,237,0.5)",
-                  }}
-                />
-
-                <Box
-                  sx={{
-                    p: { xs: 3, md: 4 },
-                    borderRadius: "20px",
-                    bgcolor: "rgba(var(--surface-rgb), 0.4)",
-                    border: "1px solid rgba(124,58,237,0.1)",
-                    backdropFilter: "blur(12px)",
-                    transition: "all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)",
-                    "&:hover": {
-                      borderColor: "rgba(124,58,237,0.4)",
-                      transform: "translateX(8px)",
-                      boxShadow: "0 12px 32px rgba(124,58,237,0.15)",
-                      bgcolor: "rgba(var(--surface-rgb), 0.6)",
-                    },
-                  }}
-                >
-                  <Typography
-                    level="body-xs"
-                    sx={{
-                      color: "var(--accent)",
-                      fontWeight: 600,
-                      fontSize: "12px",
-                      fontFamily: "'JetBrains Mono', monospace",
-                      letterSpacing: "0.5px",
-                      textTransform: "uppercase",
-                      mb: 0.5,
-                    }}
+          <aside className="facts" aria-label="Quick facts">
+            <Image
+              src={portrait}
+              alt="Subhadeep Datta"
+              sizes="(max-width: 900px) 420px, 340px"
+              placeholder="blur"
+              priority
+            />
+            <dl>
+              <div>
+                <dt>Name</dt>
+                <dd>Subhadeep Datta</dd>
+              </div>
+              <div>
+                <dt>Role</dt>
+                <dd>Co-Founder &amp; CTO, Hirerkey</dd>
+              </div>
+              <div>
+                <dt>Also</dt>
+                <dd>Consulting CTO, Noisiv Consulting</dd>
+              </div>
+              <div>
+                <dt>Based in</dt>
+                <dd>{site.location}</dd>
+              </div>
+              <div>
+                <dt>Focus</dt>
+                <dd>Distributed systems, backend performance, AI/LLMs</dd>
+              </div>
+              <div>
+                <dt>Education</dt>
+                <dd>B.Sc. IT, Jamia Hamdard</dd>
+              </div>
+              <div>
+                <dt>Elsewhere</dt>
+                <dd>
+                  <a
+                    href={site.socials.linkedin}
+                    rel="me noopener"
+                    target="_blank"
                   >
-                    {exp.period}
-                  </Typography>
-
-                  <Typography
-                    level="h4"
-                    sx={{
-                      fontWeight: 700,
-                      color: "var(--text-primary)",
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: { xs: 18, md: 22 },
-                      lineHeight: 1.3,
-                    }}
+                    LinkedIn
+                  </a>{" "}
+                  ·{" "}
+                  <a
+                    href={site.socials.github}
+                    rel="me noopener"
+                    target="_blank"
                   >
-                    {exp.role}
-                  </Typography>
-                  <Typography
-                    level="body-sm"
-                    sx={{
-                      color: "var(--text-secondary)",
-                      fontWeight: 500,
-                      mb: 2,
-                      fontSize: "15px",
-                    }}
-                  >
-                    {exp.company}
-                  </Typography>
+                    GitHub
+                  </a>{" "}
+                  ·{" "}
+                  <a href={site.socials.x} rel="me noopener" target="_blank">
+                    X
+                  </a>
+                </dd>
+              </div>
+            </dl>
+          </aside>
+        </section>
 
-                  <Stack spacing={1}>
-                      <Typography
-                        level="body-sm"
-                        sx={{
-                          color: "var(--text-secondary)",
-                          position: "relative",
-                          fontSize: "15px",
-                          lineHeight: 1.7,
-                        }}
+        <section className="section" aria-labelledby="career-heading">
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">Career</span>
+              <h2 id="career-heading" className="section-title">
+                Timeline
+              </h2>
+            </div>
+          </div>
+          <ol className="timeline">
+            {profile.experience.map((e) => (
+              <li key={`${e.company}-${e.role}`}>
+                <div className="period">{e.period}</div>
+                <div>
+                  <h3>
+                    {e.role} ·{" "}
+                    {e.url ? (
+                      <a
+                        className="org"
+                        href={e.url}
+                        target="_blank"
+                        rel="noopener"
                       >
-                        {exp.summary}
-                      </Typography>
-                  </Stack>
-                </Box>
-              </Box>
-            </ScrollReveal>
-          ))}
-        </Box>
-      </Box>
-
-      {/* Skills Grid */}
-      <Box sx={{ mt: { xs: 6, md: 8 } }}>
-        <ScrollReveal>
-          <Typography
-            level="h2"
-            sx={{
-              fontSize: { xs: 22, sm: 26, md: 30 },
-              fontWeight: 800,
-              color: "var(--text-primary)",
-              fontFamily: "'Inter', sans-serif",
-              letterSpacing: "-0.02em",
-              mb: { xs: 3, md: 4 },
-            }}
-          >
-            Tech stack
-          </Typography>
-        </ScrollReveal>
-
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" },
-            gap: 2,
-          }}
-        >
-          {skillCategories.map((cat, i) => (
-            <ScrollReveal key={cat.category} delay={i * 0.08}>
-              <Box
-                sx={{
-                  p: 3,
-                  borderRadius: "16px",
-                  bgcolor: "rgba(var(--surface-rgb), 0.5)",
-                  border: "1px solid var(--border)",
-                  backdropFilter: "blur(12px)",
-                  transition: "all 0.3s ease",
-                  height: "100%",
-                  "&:hover": {
-                    borderColor: "var(--accent)",
-                    transform: "translateY(-6px) scale(1.02)",
-                    boxShadow: "0 12px 32px rgba(124,58,237,0.25)",
-                    bgcolor: "rgba(var(--surface-rgb), 0.8)",
-                  },
-                }}
-              >
-                <Typography sx={{ fontSize: "24px", mb: 1 }}>
-                  {cat.emoji}
-                </Typography>
-                <Typography
-                  level="title-sm"
-                  sx={{
-                    fontWeight: 700,
-                    color: "var(--text-primary)",
-                    fontFamily: "'Inter', sans-serif",
-                    mb: 1.5,
-                  }}
-                >
-                  {cat.category}
-                </Typography>
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75 }}>
-                  {cat.skills.map((skill) => (
-                    <Chip
-                      key={skill}
-                      size="sm"
-                      variant="soft"
-                      sx={{
-                        bgcolor: "rgba(124,58,237,0.1) !important",
-                        color: "var(--accent) !important",
-                        fontSize: "12px",
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontWeight: 500,
-                        borderRadius: "6px",
-                      }}
-                    >
-                      {skill}
-                    </Chip>
-                  ))}
-                </Box>
-              </Box>
-            </ScrollReveal>
-          ))}
-        </Box>
-      </Box>
-
-      {/* What I Value */}
-      <ScrollReveal>
-        <Box
-          sx={{
-            mt: { xs: 6, md: 8 },
-            p: { xs: 3, md: 4 },
-            borderRadius: "20px",
-            bgcolor: "rgba(var(--surface-rgb), 0.4)",
-            border: "1px solid var(--border)",
-            backdropFilter: "blur(12px)",
-          }}
-        >
-          <Typography
-            level="h3"
-            sx={{
-              fontWeight: 700,
-              color: "var(--text-primary)",
-              fontFamily: "'Inter', sans-serif",
-              fontSize: { xs: 18, md: 22 },
-              mb: 2,
-            }}
-          >
-            What I value
-          </Typography>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)" },
-              gap: 2,
-            }}
-          >
-            {[
-              {
-                icon: "⚡",
-                title: "Performance",
-                desc: "Every millisecond matters. I obsess over load times, bundle sizes, and runtime efficiency.",
-              },
-              {
-                icon: "🧱",
-                title: "Clean architecture",
-                desc: "Code should be simple to understand, easy to change, and hard to break. No clever hacks.",
-              },
-              {
-                icon: "🚀",
-                title: "Shipping",
-                desc: "The best code is code that's deployed. I bias toward action and iterating fast.",
-              },
-              {
-                icon: "🤝",
-                title: "Team growth",
-                desc: "Great products come from great teams. I invest in mentoring, code reviews, and culture.",
-              },
-            ].map((value) => (
-              <Box
-                key={value.title}
-                sx={{
-                  p: 2,
-                  borderRadius: "12px",
-                  transition: "all 0.2s ease",
-                  "&:hover": {
-                    bgcolor: "rgba(124,58,237,0.04)",
-                  },
-                }}
-              >
-                <Typography sx={{ fontSize: "20px", mb: 0.5 }}>
-                  {value.icon}
-                </Typography>
-                <Typography
-                  level="title-sm"
-                  sx={{
-                    fontWeight: 700,
-                    color: "var(--text-primary)",
-                    fontFamily: "'Inter', sans-serif",
-                    mb: 0.5,
-                  }}
-                >
-                  {value.title}
-                </Typography>
-                <Typography
-                  level="body-sm"
-                  sx={{
-                    color: "var(--text-secondary)",
-                    fontSize: "14px",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {value.desc}
-                </Typography>
-              </Box>
+                        {e.company}
+                      </a>
+                    ) : (
+                      <span className="org">{e.company}</span>
+                    )}
+                  </h3>
+                  <p>{e.summary}</p>
+                </div>
+              </li>
             ))}
-          </Box>
-        </Box>
-      </ScrollReveal>
-    </Box>
+          </ol>
+        </section>
+
+        <section
+          className="section"
+          style={{ paddingTop: 0 }}
+          aria-labelledby="values-heading"
+        >
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">Principles</span>
+              <h2 id="values-heading" className="section-title">
+                How I <span className="serif">work</span>
+              </h2>
+            </div>
+          </div>
+          <div className="values">
+            {values.map((v, i) => (
+              <div className="card value" key={v.title}>
+                <span className="num">0{i + 1}</span>
+                <h3>{v.title}</h3>
+                <p>{v.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="section"
+          style={{ paddingTop: 0 }}
+          aria-labelledby="certs-heading"
+        >
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">Learning</span>
+              <h2 id="certs-heading" className="section-title">
+                Certifications &amp; programs
+              </h2>
+            </div>
+          </div>
+          <ul className="cert-list">
+            {profile.awards.map((a) => (
+              <li key={a.title}>
+                <div>
+                  <b>{a.title}</b>
+                  <span>{a.issuer}</span>
+                </div>
+                <span className="yr">{a.year}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section
+          className="faq container-narrow"
+          style={{ paddingInline: 0 }}
+          aria-labelledby="faq-heading"
+        >
+          <h2 id="faq-heading">Frequently asked questions</h2>
+          {faq.map((f) => (
+            <details key={f.q}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </section>
+      </div>
+    </>
   );
 }

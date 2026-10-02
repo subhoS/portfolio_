@@ -2,14 +2,24 @@
 title: "Why Your API Is Slow (And How to Fix It)"
 date: "2025-12-15"
 excerpt: "Most API performance issues come from the same handful of mistakes. Here's how to identify and fix the most common bottlenecks in your backend, with real examples and practical solutions."
-description: "A practical guide to diagnosing and fixing slow APIs. Covers N+1 queries, missing indexes, payload bloat, connection pooling, and caching strategies with code examples in Node.js and SQL."
+description: "Diagnose and fix slow APIs: N+1 queries, missing indexes, payload bloat, connection pool exhaustion and caching, with Node.js and SQL examples."
 keywords: "API performance, slow API fix, N+1 query problem, database indexing, API caching, connection pooling, backend optimization, Node.js performance"
 tags: ["Backend", "Performance", "Node.js", "System Design", "Tutorial"]
 author: "Subhadeep Datta"
-featured_image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=600&fit=crop"
+category: "Backend"
+updated: "2026-10-02"
+faq:
+  - q: "What are the most common causes of a slow API?"
+    a: "N+1 database queries, missing indexes, oversized response payloads, exhausted or missing connection pools, and no caching for frequently read data. Together these explain the large majority of slow endpoints."
+  - q: "How do I find out why my API is slow?"
+    a: "Measure before optimizing: enable slow-query logging, add request timing middleware, use an APM or distributed tracing tool to see where time is spent, and run EXPLAIN ANALYZE on the slowest database queries."
+  - q: "What is the N+1 query problem?"
+    a: "It happens when code runs one query to fetch a list and then one additional query per item in that list, so 100 items cause 101 queries. Fix it with a JOIN, a single batched IN query, or your ORM's eager loading."
+  - q: "How much can caching speed up an API?"
+    a: "For read-heavy endpoints, serving from an in-memory cache like Redis typically cuts response times from hundreds of milliseconds to a few milliseconds and removes most of the load from the database."
 ---
 
-## 🐢 Introduction: The Slow API Problem
+## Introduction: The Slow API Problem
 
 You've shipped your API. It works. Users are signing up. And then someone pings you on Slack: "Hey, the dashboard takes 8 seconds to load."
 
@@ -19,7 +29,7 @@ This article covers the most frequent reasons your API is slow and how to fix ea
 
 ---
 
-## 🔍 1. The N+1 Query Problem
+## 1. The N+1 Query Problem
 
 This is the silent killer. Your code looks clean, your logic is correct, but your database is screaming.
 
@@ -71,7 +81,7 @@ const users = await prisma.user.findMany({
 
 ---
 
-## 📊 2. Missing Database Indexes
+## 2. Missing Database Indexes
 
 If you've never thought about indexes, your queries are doing full table scans. On a table with a million rows, that's the difference between 2ms and 2 seconds.
 
@@ -105,7 +115,7 @@ ON orders (user_id, status);
 
 ---
 
-## 📦 3. Payload Bloat
+## 3. Payload Bloat
 
 Your API returns everything. The client needs 5 fields. You're sending 47.
 
@@ -167,7 +177,7 @@ app.get("/api/users", async (req, res) => {
 
 ---
 
-## 🔌 4. Connection Pool Exhaustion
+## 4. Connection Pool Exhaustion
 
 Every time you open a new database connection, there's overhead: TCP handshake, authentication, setting up the session. If you're creating a new connection per request, you'll hit a wall fast.
 
@@ -215,7 +225,7 @@ For most web apps, 10–20 connections per instance is a safe starting point. Mo
 
 ---
 
-## 🧊 5. No Caching Strategy
+## 5. No Caching Strategy
 
 If you're hitting the database for data that barely changes, you're wasting cycles.
 
@@ -267,7 +277,7 @@ The hard part. Three strategies:
 
 ---
 
-## 🧭 Putting It Together: A Performance Checklist
+## Putting It Together: A Performance Checklist
 
 Before you start optimizing, profile first. Don't guess — measure.
 
@@ -286,7 +296,7 @@ Before you start optimizing, profile first. Don't guess — measure.
 
 ---
 
-## 🎯 Conclusion
+## Conclusion
 
 Slow APIs aren't a mystery. They're almost always one of these five things. The good news is that fixing them is straightforward, and the performance gains are dramatic.
 
@@ -296,7 +306,7 @@ Your users won't know what changed. They'll just notice that everything feels fa
 
 ---
 
-## 📚 Key Takeaways
+## Key Takeaways
 
 - **N+1 queries** are the #1 cause of slow APIs — always check your query count
 - **Database indexes** are free performance — use `EXPLAIN ANALYZE` to find missing ones

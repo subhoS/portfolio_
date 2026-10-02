@@ -1,213 +1,139 @@
-import type { Metadata } from "next";
-import Analytics from "../components/Analytics";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import ThemeProviderClient from "../components/ThemeProviderClient";
-import ScrollProgress from "../components/ScrollProgress";
-import CursorGlow from "../components/CursorGlow";
-import GradientBackground from "../components/GradientBackground";
+import type { Metadata, Viewport } from "next";
+import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
+import JsonLd from "../components/JsonLd";
+import SiteFooter from "../components/SiteFooter";
+import SiteHeader from "../components/SiteHeader";
+import { themeScript } from "../components/ThemeToggle";
+import { graph, personSchema, websiteSchema } from "../lib/schema";
+import { site } from "../lib/site";
+import Analytics from "./analytics";
 import "./globals.css";
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+const instrument = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+  variable: "--font-instrument",
+  display: "swap",
+});
+// Mono is only used for small labels and code blocks, so it shouldn't compete with the hero for bandwidth.
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+  preload: false,
+});
+
 export const metadata: Metadata = {
-  title: "Subhadeep Datta — Full Stack Engineer & CTO | Noisiv, Qid, Hirerkey",
-  description:
-    "Subhadeep Datta is a Full Stack Engineer & CTO. Co-Founder of Hirerkey, Consulting CTO at Noisiv Consulting, and Tech Lead for Qid & Videtorrium. Expert in distributed systems and scalable architecture.",
+  metadataBase: new URL(site.url),
+  title: {
+    default: `${site.name} — Full Stack Engineer & CTO`,
+    template: `%s | ${site.name}`,
+  },
+  description: site.description,
+  applicationName: site.name,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  publisher: site.name,
   keywords: [
     "Subhadeep Datta",
-    "Subhadeep",
+    "Subhadeep Datta CTO",
+    "Subhadeep Datta Hirerkey",
+    "Subhadeep Datta Noisiv",
+    "Subhadeep Datta Qid",
     "full stack engineer",
-    "software engineer",
-    "system design",
-    "backend engineering",
-    "frontend engineering",
-    "react",
-    "node.js",
-    "distributed systems",
     "CTO",
-    "technical leader",
-    "enterprise architecture",
-    "Noisiv Consulting",
-    "Qid",
-    "oneqid",
-    "Hirerkey",
-    "Videtorrium",
-    "scalable systems",
-    "LLM",
-    "RAG",
-    "MCP",
+    "system design",
+    "distributed systems",
+    "backend engineering",
   ],
-  metadataBase: new URL(process.env.SITE_URL || "https://subhadeep-datta.dev"),
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: process.env.SITE_URL || "https://subhadeep-datta.dev",
-    title: "Subhadeep Datta — Full Stack Engineer & CTO",
-    description:
-      "Subhadeep Datta is a Full Stack Engineer & CTO building robust solutions for Noisiv Consulting, Qid, Hirerkey, and Videtorrium.",
-    siteName: "Subhadeep Datta",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Subhadeep Datta — Tech Leader & Full Stack Engineer",
-      },
-    ],
+    locale: site.locale,
+    siteName: site.name,
+    title: `${site.name} — Full Stack Engineer & CTO`,
+    description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Subhadeep Datta — Full Stack Engineer & CTO",
-    description:
-      "Subhadeep Datta is a Full Stack Engineer & CTO specializing in distributed systems and enterprise architecture.",
-    creator: "@SubhadeepDataa",
-    site: "@SubhadeepDataa",
-    images: ["/og-image.png"],
+    site: site.twitter,
+    creator: site.twitter,
   },
   robots: {
     index: true,
     follow: true,
-    nocache: false,
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
+      "max-video-preview": -1,
     },
   },
-  alternates: {
-    canonical: process.env.SITE_URL || "https://subhadeep-datta.dev",
-  },
   verification: {
-    google: process.env.GOOGLE_VERIFICATION_CODE,
+    google:
+      process.env.GOOGLE_VERIFICATION_CODE ||
+      process.env.SEARCH_CONSOLE_VERIFICATION,
+    other: process.env.BING_VERIFICATION_CODE
+      ? { "msvalidate.01": process.env.BING_VERIFICATION_CODE }
+      : undefined,
   },
-  category: "Technology",
+  category: "technology",
+  formatDetection: { telephone: false },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfaf8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0e19" },
+  ],
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${instrument.variable} ${mono.variable}`}
+    >
       <head>
-        {/* Google Fonts — Inter + JetBrains Mono */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: theme must be set before first paint */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
+          rel="alternate"
+          type="application/rss+xml"
+          href="/rss.xml"
+          title={`${site.name} — Writing`}
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
+          rel="alternate"
+          type="application/feed+json"
+          href="/feed.json"
+          title={`${site.name} — Writing`}
         />
-
-        {/* Search Console verification */}
-        {process.env.SEARCH_CONSOLE_VERIFICATION && (
-          <meta
-            name="google-site-verification"
-            content={process.env.SEARCH_CONSOLE_VERIFICATION}
-          />
-        )}
-
-        <meta name="author" content="Subhadeep Datta" />
-        <meta
-          name="copyright"
-          content="© 2025 Subhadeep Datta. All rights reserved."
-        />
-        <meta name="language" content="English" />
-        <meta name="revisit-after" content="7 days" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, viewport-fit=cover"
-        />
-
-        <link rel="manifest" href="/manifest.json" />
-
-        {/* JSON-LD */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Subhadeep Datta",
-              url: process.env.SITE_URL || "https://subhadeep-datta.dev",
-              jobTitle: "Full Stack Engineer & CTO",
-              description:
-                "Subhadeep Datta is a Full Stack Engineer & CTO specializing in distributed systems, enterprise architecture, and AI/LLM integrations.",
-              image: "/subhadeep-datta.jpg",
-              sameAs: [
-                "https://github.com/subhoS",
-                "https://linkedin.com/in/subhadeep-datta-cto",
-                "https://x.com/SubhadeepDataa",
-              ],
-              worksFor: [
-                {
-                  "@type": "Organization",
-                  name: "Noisiv Consulting",
-                  url: "https://noisivconsulting.com/",
-                },
-                {
-                  "@type": "Organization",
-                  name: "Hirerkey",
-                  url: "https://www.hirerkey.com/",
-                },
-                {
-                  "@type": "Organization",
-                  name: "Qid",
-                  url: "https://oneqid.com/",
-                },
-                {
-                  "@type": "Organization",
-                  name: "Videtorrium",
-                  url: "https://www.videtorrium.com/",
-                }
-              ]
-            }),
-          }}
-        />
-
-        {/* Theme initialization to prevent FOUC */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  const savedMode = localStorage.getItem('themeMode') || 'system';
-                  let theme = 'light';
-                  
-                  if (savedMode === 'light') {
-                    theme = 'light';
-                  } else if (savedMode === 'dark') {
-                    theme = 'dark';
-                  } else {
-                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  }
-                  
-                  document.documentElement.setAttribute('data-theme', theme);
-                  document.documentElement.classList.add(theme);
-                  document.documentElement.classList.remove(theme === 'dark' ? 'light' : 'dark');
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
+        <JsonLd data={graph(personSchema(), websiteSchema())} />
       </head>
       <body>
-        <ThemeProviderClient>
-          <GradientBackground />
-          <ScrollProgress />
-          <CursorGlow />
-          <Header />
-          <Analytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? null} />
-          <main style={{ minHeight: "70vh", position: "relative", zIndex: 1 }}>
-            {children}
-          </main>
-          <Footer />
-        </ThemeProviderClient>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
+        <div className="page-bg" aria-hidden="true" />
+        <SiteHeader />
+        <main id="main">{children}</main>
+        <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );

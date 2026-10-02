@@ -2,14 +2,24 @@
 title: "Scaling Node.js: From Single Server to Handling Millions of Requests"
 date: "2026-02-01"
 excerpt: "Node.js can handle massive traffic if you know how to scale it. Here's what I've learned from scaling systems from 1,000 to 3 million daily requests — clustering, load balancing, caching, and the patterns that actually work."
-description: "A complete guide to scaling Node.js applications in production. Covers Node.js clustering, horizontal scaling, load balancing with Nginx, Redis caching, worker threads, and monitoring strategies with real-world examples."
+description: "Scale Node.js from one server to millions of requests: clustering, horizontal scaling, load balancing, Redis caching, worker threads and monitoring."
 keywords: "Node.js scaling, Node.js performance, Node.js clustering, horizontal scaling, load balancing Node.js, Redis caching Node.js, worker threads, Node.js production"
 tags: ["Node.js", "Backend", "Performance", "System Design", "Architecture"]
 author: "Subhadeep Datta"
-featured_image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=1200&h=600&fit=crop"
+category: "Backend"
+updated: "2026-10-02"
+faq:
+  - q: "Can Node.js handle millions of requests?"
+    a: "Yes. Node.js handles I/O-bound workloads very efficiently. Combined with clustering across CPU cores, horizontal scaling behind a load balancer, caching and asynchronous job queues, it can serve millions of requests per day."
+  - q: "How do I use all CPU cores in Node.js?"
+    a: "Run one Node.js process per core using the built-in cluster module or a process manager like PM2, or run multiple containers or instances behind a load balancer. Use worker threads for CPU-heavy tasks inside a process."
+  - q: "Why is my Node.js server slow under load?"
+    a: "The most common causes are blocking the event loop with synchronous or CPU-heavy work, slow database queries, too few database connections, and missing caching. Measure event-loop lag and profile before changing architecture."
+  - q: "Should I use worker threads or the cluster module?"
+    a: "Use cluster (or multiple instances) to scale request handling across cores. Use worker threads to move CPU-intensive work, such as image processing or heavy parsing, off the main event loop."
 ---
 
-## 🚀 Introduction: Node.js Can Scale — If You Let It
+## Introduction: Node.js Can Scale — If You Let It
 
 There's a myth that Node.js can't handle heavy loads because it's single-threaded. I used to believe it too. Then I scaled a Node.js system to handle 3 million daily transactions at Noisiv Consulting, and it's been running at 99.9% uptime for over two years.
 
@@ -19,7 +29,7 @@ This article covers what I've learned — the practical stuff, not the theoretic
 
 ---
 
-## 🧠 1. Understanding the Event Loop (The 60-Second Version)
+## 1. Understanding the Event Loop (The 60-Second Version)
 
 Node.js is single-threaded, but that doesn't mean it can only do one thing at a time. It uses an **event loop** to handle concurrent I/O without blocking.
 
@@ -39,7 +49,7 @@ This works beautifully for I/O-heavy workloads (APIs, web servers, chat apps). I
 
 ---
 
-## 📈 2. Vertical Scaling: Use All Your CPU Cores
+## 2. Vertical Scaling: Use All Your CPU Cores
 
 By default, Node.js uses one CPU core. If you're running on an 8-core machine, 87.5% of your compute is sitting idle.
 
@@ -94,7 +104,7 @@ pm2 reload api
 
 ---
 
-## 🌐 3. Horizontal Scaling: Multiple Servers
+## 3. Horizontal Scaling: Multiple Servers
 
 Once you've maxed out a single machine, add more machines. This is where load balancing comes in.
 
@@ -151,7 +161,7 @@ For horizontal scaling to work, your app can't store state in memory. Move these
 
 ---
 
-## 🧊 4. Caching: The Biggest Performance Win
+## 4. Caching: The Biggest Performance Win
 
 Before adding more servers, ask yourself: can I just cache this?
 
@@ -210,7 +220,7 @@ async function updateUser(userId, data) {
 
 ---
 
-## ⚡ 5. Worker Threads: When You Need CPU Power
+## 5. Worker Threads: When You Need CPU Power
 
 For CPU-intensive work (image processing, PDF generation, data transformations), don't block the event loop. Offload to worker threads:
 
@@ -263,7 +273,7 @@ new BullWorker("reports", async (job) => {
 
 ---
 
-## 📊 6. Monitoring: You Can't Scale What You Can't Measure
+## 6. Monitoring: You Can't Scale What You Can't Measure
 
 ### Essential Metrics
 
@@ -326,7 +336,7 @@ setInterval(() => {
 
 ---
 
-## 🎯 Scaling Playbook: What to Do at Each Stage
+## Scaling Playbook: What to Do at Each Stage
 
 | Traffic Level | Strategy |
 |--------------|----------|
@@ -337,7 +347,7 @@ setInterval(() => {
 
 ---
 
-## 🎯 Conclusion
+## Conclusion
 
 Scaling Node.js isn't about rewriting everything in Go or switching to a "more scalable" language. It's about understanding the event loop, using all available cores, caching aggressively, and distributing load.
 
@@ -347,7 +357,7 @@ Start with PM2 clustering and Redis. You'll be surprised how far that gets you.
 
 ---
 
-## 📚 Key Takeaways
+## Key Takeaways
 
 - **Cluster mode** is free performance — use all your CPU cores
 - **Horizontal scaling** requires stateless design (move sessions and cache to Redis)

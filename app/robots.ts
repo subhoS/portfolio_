@@ -1,14 +1,10 @@
 import type { MetadataRoute } from "next";
+import { absoluteUrl } from "../lib/site";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.SITE_URL || "https://subhadeep-datta.dev";
-
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/api/", "/*.json$"],
-    },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    // Search and AI answer engines are all welcome: the goal is maximum discoverability.
+    rules: [{ userAgent: "*", allow: "/" }],
+    sitemap: absoluteUrl("/sitemap.xml"),
   };
 }

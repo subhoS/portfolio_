@@ -19,14 +19,14 @@ function prompt(q) {
     rl.question(q, (ans) => {
       rl.close();
       res(ans);
-    })
+    }),
   );
 }
 
 async function main() {
   if (!fs.existsSync(filePath)) {
     console.error(
-      "data/profile.json not found. Run this script from project root."
+      "data/profile.json not found. Run this script from project root.",
     );
     process.exit(1);
   }
@@ -34,7 +34,7 @@ async function main() {
   const profile = JSON.parse(raw);
 
   console.log(
-    "Fill profile values. Press enter to keep current value in [brackets].\n"
+    "Fill profile values. Press enter to keep current value in [brackets].\n",
   );
 
   profile.name =
@@ -97,8 +97,8 @@ async function main() {
     const projectCount =
       parseInt(
         await prompt(
-          `How many featured projects to add? [${profile.projects.length}]: `
-        )
+          `How many featured projects to add? [${profile.projects.length}]: `,
+        ),
       ) || profile.projects.length;
     const projects = [];
     for (let i = 0; i < projectCount; i++) {
