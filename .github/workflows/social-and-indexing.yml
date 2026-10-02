@@ -1,0 +1,51 @@
+name: Social posts & search indexing
+
+on:
+  schedule:
+    # 03:45 UTC = 9:15 AM IST, every day. Only posts whose date has arrived are published.
+    - cron: "45 3 * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social-and-indexing
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Publish due social posts
+        if: github.event_name != 'push'
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: node scripts/social-post.mjs
+
+      - name: Record what was posted
+        if: always() && github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/social/posted.json
+          git diff --cached --quiet || (git commit -m "Record published social posts [skip ci]" && git push)
+
+      - name: Wait for the Vercel deploy
+        if: github.event_name == 'push'
+        run: sleep 180
+
+      - name: Ping IndexNow (Bing, Yandex and others)
+        run: node scripts/indexnow.mjs
