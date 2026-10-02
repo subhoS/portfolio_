@@ -20,7 +20,7 @@ if (!sitemapRes.ok)
   );
 const urlList = [
   ...(await sitemapRes.text()).matchAll(/<loc>([^<]+)<\/loc>/g),
-].map((m) => m[1].trim());
+].map((m) => m[1].replace(/\s+/g, "").replace(/&amp;/g, "&"));
 if (urlList.length === 0) fail(`${site}/sitemap.xml has no URLs.`);
 
 const foreign = urlList.filter((u) => new URL(u).host !== host);
@@ -39,28 +39,44 @@ if (keyText !== KEY)
     `key file ${site}/${KEY}.txt is missing or wrong (HTTP ${keyRes.status}). Deploy the latest main first.`,
   );
 
-// 3. Submit.
-const res = await fetch("https://api.indexnow.org/indexnow", {
-  method: "POST",
-  headers: { "Content-Type": "application/json; charset=utf-8" },
-  body: JSON.stringify({
-    host,
-    key: KEY,
-    keyLocation: `${site}/${KEY}.txt`,
-    urlList,
-  }),
-});
-const meaning = {
-  200: "OK",
-  202: "accepted (key validation pending)",
-  400: "bad request",
-  403: "key not valid",
-  422: "URLs don't match the host or key",
-  429: "too many requests, try again later",
-}[res.status];
+// 3. Submit. If IndexNow rejects the batch, split it in half until the bad URLs are isolated.
+const submit = (list) =>
+  fetch("https://api.indexnow.org/indexnow", {
+    method: "POST",
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+    body: JSON.stringify({
+      host,
+      key: KEY,
+      keyLocation: `${site}/${KEY}.txt`,
+      urlList: list,
+    }),
+  });
+
+const rejected = [];
+let accepted = 0;
+async function send(list) {
+  const res = await submit(list);
+  if (res.status === 200 || res.status === 202) {
+    accepted += list.length;
+    return;
+  }
+  const body = (await res.text()).trim();
+  if (res.status !== 400 || list.length === 1) {
+    rejected.push(
+      ...list.map((u) => `${JSON.stringify(u)} → HTTP ${res.status} ${body}`),
+    );
+    return;
+  }
+  const mid = Math.ceil(list.length / 2);
+  await send(list.slice(0, mid));
+  await send(list.slice(mid));
+}
+
+await send(urlList);
 console.log(
-  `IndexNow: submitted ${urlList.length} URLs for ${host} → HTTP ${res.status} ${meaning ?? ""}`,
+  `IndexNow: ${accepted} of ${urlList.length} URLs accepted for ${host}.`,
 );
-const body = (await res.text()).trim();
-if (body) console.log(body);
-if (res.status !== 200 && res.status !== 202) process.exit(1);
+if (rejected.length > 0) {
+  console.log(`Rejected:\n- ${rejected.join("\n- ")}`);
+  process.exit(1);
+}
