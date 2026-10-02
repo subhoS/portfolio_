@@ -20,7 +20,7 @@ faq:
 
 "Which message queue should we use?" is one of the first architecture questions a growing backend runs into, and one of the most expensive to get wrong. The three names that come up most are **Apache Kafka**, **RabbitMQ** and **Redis Streams**.
 
-I've run all three in production. At Noisiv Consulting, a Kafka and Redis pipeline I designed processes **more than 75,000 messages per second with sub-50ms latency**. At Qid, we used Kafka and Redis to keep verification data synchronized across regions on unreliable networks. Those systems taught me that the right choice depends less on benchmarks and more on one question: **are you moving tasks, or recording events?**
+Kafka and Redis are at the core of the systems I build. At Noisiv Consulting, a Kafka and Redis pipeline I designed processes **more than 75,000 messages per second with sub-50ms latency**. At Qid, we used Kafka and Redis to keep verification data synchronized across regions on unreliable networks. Those systems taught me that the right choice depends less on benchmarks and more on one question: **are you moving tasks, or recording events?**
 
 ## The one distinction that matters most
 

@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight, Download } from "../components/icons";
 import JsonLd from "../components/JsonLd";
 import { PostCard } from "../components/PostCard";
 import profile from "../data/profile.json";
-import { getAllPosts } from "../lib/posts";
+import { getAllPosts, getAllTags } from "../lib/posts";
 import { graph } from "../lib/schema";
 import { pageMetadata } from "../lib/seo";
 import { absoluteUrl, ids, site } from "../lib/site";
@@ -48,7 +48,7 @@ const skillGroups = [
 ];
 
 export default async function Home() {
-  const posts = await getAllPosts();
+  const [posts, tags] = await Promise.all([getAllPosts(), getAllTags()]);
   const featured = posts.filter((p) => p.featured);
   const showcase = [...featured, ...posts.filter((p) => !p.featured)].slice(
     0,
@@ -179,6 +179,20 @@ export default async function Home() {
               <PostCard key={p.slug} post={p} feature={i === 0} />
             ))}
           </div>
+          <nav className="tag-cloud mt-4" aria-label="Topics">
+            {tags
+              .filter((t) => t.count >= 2)
+              .slice(0, 12)
+              .map((t) => (
+                <Link
+                  key={t.slug}
+                  href={`/blog/tag/${t.slug}`}
+                  className="chip"
+                >
+                  {t.tag} <span className="count">{t.count}</span>
+                </Link>
+              ))}
+          </nav>
         </div>
       </section>
 

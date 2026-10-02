@@ -19,7 +19,7 @@ faq:
 
 Few architecture debates generate as much heat as monolith vs microservices. One side points at Netflix and Amazon; the other points at teams drowning in Kubernetes YAML to serve a few thousand users.
 
-I've worked on both ends: monoliths that should have been split years earlier, and microservice systems that should never have been split at all. As a consulting CTO I'm often called in after the second kind, and I've deployed microservices that genuinely cut downtime by 60% because they isolated failures that used to take down everything. The answer is never "always" or "never". It's "what problem are you solving?".
+Both failure modes are common: monoliths that should have been split years earlier, and microservice systems that should never have been split at all. I've also seen the upside: at Noisiv Consulting, moving client systems to microservices cut downtime by 60%. The answer is never "always" or "never". It's "what problem are you solving?".
 
 ## Definitions, quickly
 

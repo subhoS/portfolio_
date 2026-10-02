@@ -20,7 +20,7 @@ faq:
 
 Caching is the highest-leverage performance fix I know. At Qid, adding a Redis caching layer in front of our verification lookups **cut database load by 40%**, and that headroom is what let us absorb traffic spikes of five times normal load at peak hours.
 
-It's also the fix most likely to cause a subtle production incident a month later. Stale data, a cache stampede after a deploy, a single hot key pinning one Redis CPU core at 100%: none of these show up in a tutorial, and all of them showed up for me.
+It's also the fix most likely to cause a subtle production incident a month later. Stale data, a cache stampede after a deploy, a single hot key pinning one Redis CPU core at 100%: none of these show up in a tutorial, and all of them show up in production.
 
 This guide covers the four caching patterns, when to use each, and the production details that decide whether your cache helps or hurts.
 
@@ -137,7 +137,7 @@ It's one line of code and it removes a whole category of synchronized load spike
 
 ## Cache stampedes: the outage hiding in your hottest key
 
-A stampede (or thundering herd) happens when a popular key expires and hundreds of concurrent requests all miss at once. Every one of them runs the same expensive query, the database slows down, the rebuilds take longer, and more requests pile up. I've seen a single expiring key for a dashboard aggregate take a primary database to 100% CPU.
+A stampede (or thundering herd) happens when a popular key expires and hundreds of concurrent requests all miss at once. Every one of them runs the same expensive query, the database slows down, the rebuilds take longer, and more requests pile up. A single expiring key for an expensive dashboard aggregate is enough to push a primary database to 100% CPU.
 
 There are three good defenses, and they combine well.
 
