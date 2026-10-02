@@ -167,7 +167,7 @@ async function renderMarkdown(markdown: string) {
       content: { type: "text", value: "#" },
     })
     .use(rehypePrettyCode, {
-      theme: { light: "github-light", dark: "github-dark-dimmed" },
+      theme: { light: "github-light-default", dark: "github-dark-dimmed" },
       keepBackground: false,
       defaultLang: "plaintext",
     })

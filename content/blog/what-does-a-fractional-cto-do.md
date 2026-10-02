@@ -70,7 +70,7 @@ Many startups build their first version with an agency or freelancers. A fractio
 
 ## Fractional vs full-time CTO vs technical co-founder
 
-| | Fractional CTO | Full-time CTO | Technical co-founder |
+| Factor | Fractional CTO | Full-time CTO | Technical co-founder |
 | --- | --- | --- | --- |
 | Commitment | Part time, flexible | Full time | Full time, long term |
 | Cost | Retainer or day rate | Executive salary plus equity | Significant equity |

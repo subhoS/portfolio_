@@ -42,7 +42,7 @@ Once you know which of the two you need, most of the decision makes itself.
 
 ## Side-by-side comparison
 
-| | Kafka | RabbitMQ | Redis Streams |
+| Feature | Kafka | RabbitMQ | Redis Streams |
 | --- | --- | --- | --- |
 | Model | Distributed, partitioned log | Broker with routing to queues | In-memory append-only log |
 | Best at | High-throughput event streaming, replay | Task distribution, complex routing | Lightweight streams on existing Redis |

@@ -17,14 +17,16 @@ const inter = Inter({
 const instrument = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  style: ["normal", "italic"],
+  style: "italic",
   variable: "--font-instrument",
   display: "swap",
 });
+// Mono is only used for small labels and code blocks, so it shouldn't compete with the hero for bandwidth.
 const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
