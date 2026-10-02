@@ -258,13 +258,14 @@ p {
   font-size: 15px;
 }
 
-.brand img {
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  box-shadow:
-    0 0 0 1px var(--line),
-    0 4px 14px -4px var(--brand-glow);
+.brand .logo-mark {
+  flex: none;
+  filter: drop-shadow(0 4px 10px var(--brand-glow));
+  transition: transform 0.4s var(--ease);
+}
+
+.brand:hover .logo-mark {
+  transform: rotate(-6deg) scale(1.06);
 }
 
 .nav {
@@ -515,6 +516,11 @@ a.chip:hover {
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.01em;
+}
+
+.brand .serif {
+  font-size: 1.12em;
+  letter-spacing: 0;
 }
 
 .gradient-text {

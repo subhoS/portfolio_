@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getAllPosts } from "../lib/posts";
 import { site } from "../lib/site";
 import { GitHub, LinkedIn, Mail, Rss, X } from "./icons";
+import Logo from "./Logo";
 
 export default async function SiteFooter() {
   const latest = (await getAllPosts()).slice(0, 4);
@@ -11,7 +12,10 @@ export default async function SiteFooter() {
         <div className="footer-grid">
           <div className="footer-about">
             <Link href="/" className="brand">
-              <span>{site.name}</span>
+              <Logo id="sd-footer" size={36} />
+              <span>
+                Subhadeep <span className="serif">Datta</span>
+              </span>
             </Link>
             <p>
               Full Stack Engineer &amp; CTO based in {site.location}. Co-Founder

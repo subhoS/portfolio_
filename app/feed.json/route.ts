@@ -12,7 +12,8 @@ export async function GET() {
     feed_url: `${site.url}/feed.json`,
     description:
       "Articles by Subhadeep Datta on system design, backend performance, distributed systems and AI engineering.",
-    icon: `${site.url}/apple-icon.png`,
+    icon: `${site.url}/icon-512.png`,
+    favicon: `${site.url}/icon-192.png`,
     authors: [
       {
         name: site.name,
