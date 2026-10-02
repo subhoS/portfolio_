@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { ArrowRight } from "./icons";
 
-const topics = ["Fractional CTO / advisory", "Architecture or performance review", "AI / RAG system", "Speaking or writing", "Something else"];
+const topics = [
+  "Fractional CTO / advisory",
+  "Architecture or performance review",
+  "AI / RAG system",
+  "Speaking or writing",
+  "Something else",
+];
 
 /** Builds a pre-filled email so messages land straight in the inbox, with no backend to fail. */
 export default function ContactForm({ email }: { email: string }) {
@@ -44,11 +50,18 @@ export default function ContactForm({ email }: { email: string }) {
       </div>
       <div className="field">
         <label htmlFor="message">Message</label>
-        <textarea id="message" name="message" required placeholder="What are you building, and where are you stuck?" />
+        <textarea
+          id="message"
+          name="message"
+          required
+          placeholder="What are you building, and where are you stuck?"
+        />
       </div>
       <div className="row" style={{ justifyContent: "space-between" }}>
         <span className="muted" style={{ fontSize: 14 }}>
-          {sent ? "Your email app should have opened. If not, write to " : "Opens your email app, pre-filled. Or write to "}
+          {sent
+            ? "Your email app should have opened. If not, write to "
+            : "Opens your email app, pre-filled. Or write to "}
           <a href={`mailto:${email}`} style={{ color: "var(--brand-ink)" }}>
             {email}
           </a>

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import JsonLd from "../../components/JsonLd";
 import { ArrowRight, Download } from "../../components/icons";
+import JsonLd from "../../components/JsonLd";
 import profile from "../../data/profile.json";
 import { breadcrumbSchema, faqSchema, graph } from "../../lib/schema";
 import { pageMetadata } from "../../lib/seo";
@@ -13,10 +13,15 @@ export const metadata = pageMetadata({
   title: "About Subhadeep Datta — CTO, Full Stack Engineer & Systems Architect",
   absoluteTitle: true,
   description:
-    "Who is Subhadeep Datta? Co-Founder & CTO of Hirerkey, Consulting CTO at Noisiv Consulting and former Technology Lead at Qid. Biography, career timeline, skills, certifications and how to get in touch.",
+    "Who is Subhadeep Datta? Co-Founder & CTO of Hirerkey, Consulting CTO at Noisiv, ex-Tech Lead at Qid. Biography, career timeline, skills and contact.",
   path: "/about",
   type: "profile",
-  keywords: ["Subhadeep Datta", "who is Subhadeep Datta", "Subhadeep Datta biography", "Subhadeep Datta CTO"],
+  keywords: [
+    "Subhadeep Datta",
+    "who is Subhadeep Datta",
+    "Subhadeep Datta biography",
+    "Subhadeep Datta CTO",
+  ],
 });
 
 const faq = [
@@ -97,35 +102,46 @@ export default function AboutPage() {
             About <span className="serif">Subhadeep Datta</span>
           </h1>
           <p className="lede">
-            Engineer, CTO and writer. I&apos;ve spent the last six years building backends that stay up when traffic
-            doesn&apos;t behave, and helping teams ship them.
+            Engineer, CTO and writer. I&apos;ve spent the last six years
+            building backends that stay up when traffic doesn&apos;t behave, and
+            helping teams ship them.
           </p>
         </header>
 
         <section className="about-intro" aria-label="Biography">
           <div className="prose">
             <p>
-              I&apos;m Subhadeep Datta, a Full Stack Engineer and CTO based in {site.location}. Today I&apos;m the{" "}
-              <strong>Co-Founder &amp; CTO of Hirerkey</strong>, an AI-native Human Capital Management platform based in
-              Dubai, where I lead technical strategy and built the core platform on Java, Python, Node.js, MongoDB and
-              Kafka. Alongside that I&apos;m the <strong>Consulting CTO at Noisiv Consulting</strong>, designing backend
-              systems that serve millions of API requests a day at 99.9% uptime.
+              I&apos;m Subhadeep Datta, a Full Stack Engineer and CTO based in{" "}
+              {site.location}. Today I&apos;m the{" "}
+              <strong>Co-Founder &amp; CTO of Hirerkey</strong>, an AI-native
+              Human Capital Management platform based in Dubai, where I lead
+              technical strategy and built the core platform on Java, Python,
+              Node.js, MongoDB and Kafka. Alongside that I&apos;m the{" "}
+              <strong>Consulting CTO at Noisiv Consulting</strong>, designing
+              backend systems that serve millions of API requests a day at 99.9%
+              uptime.
             </p>
             <p>
-              Before that I was the <strong>Technology Lead at Qid</strong>, where I led a team of five engineers
-              building a secure digital check-in platform integrated with India Stack. It processed over 100,000
-              verifications in its first six months, often in places with unreliable connectivity, which taught me more
-              about offline-first design and caching than any textbook. My first role was as a software engineer at{" "}
-              <strong>Videtorrium</strong>, shipping React and Node.js features for a student hiring platform.
+              Before that I was the <strong>Technology Lead at Qid</strong>,
+              where I led a team of five engineers building a secure digital
+              check-in platform integrated with India Stack. It processed over
+              100,000 verifications in its first six months, often in places
+              with unreliable connectivity, which taught me more about
+              offline-first design and caching than any textbook. My first role
+              was as a software engineer at <strong>Videtorrium</strong>,
+              shipping React and Node.js features for a student hiring platform.
             </p>
             <p>
-              The work I enjoy most sits where performance meets product: cutting database response times by 60% through
-              schema redesign, building a Kafka and Redis pipeline that moves 75,000+ messages per second at sub-50ms
-              latency, or wiring LLMs and RAG pipelines into workflows that people actually use.
+              The work I enjoy most sits where performance meets product:
+              cutting database response times by 60% through schema redesign,
+              building a Kafka and Redis pipeline that moves 75,000+ messages
+              per second at sub-50ms latency, or wiring LLMs and RAG pipelines
+              into workflows that people actually use.
             </p>
             <p>
-              I write on this site to document what works in production, and what doesn&apos;t. If you&apos;re
-              working on something hard, <Link href="/contact">I&apos;d like to hear about it</Link>.
+              I write on this site to document what works in production, and
+              what doesn&apos;t. If you&apos;re working on something hard,{" "}
+              <Link href="/contact">I&apos;d like to hear about it</Link>.
             </p>
             <div className="row mt-3">
               <Link className="btn btn-primary" href="/blog">
@@ -173,11 +189,19 @@ export default function AboutPage() {
               <div>
                 <dt>Elsewhere</dt>
                 <dd>
-                  <a href={site.socials.linkedin} rel="me noopener" target="_blank">
+                  <a
+                    href={site.socials.linkedin}
+                    rel="me noopener"
+                    target="_blank"
+                  >
                     LinkedIn
                   </a>{" "}
                   ·{" "}
-                  <a href={site.socials.github} rel="me noopener" target="_blank">
+                  <a
+                    href={site.socials.github}
+                    rel="me noopener"
+                    target="_blank"
+                  >
                     GitHub
                   </a>{" "}
                   ·{" "}
@@ -207,7 +231,12 @@ export default function AboutPage() {
                   <h3>
                     {e.role} ·{" "}
                     {e.url ? (
-                      <a className="org" href={e.url} target="_blank" rel="noopener">
+                      <a
+                        className="org"
+                        href={e.url}
+                        target="_blank"
+                        rel="noopener"
+                      >
                         {e.company}
                       </a>
                     ) : (
@@ -221,7 +250,11 @@ export default function AboutPage() {
           </ol>
         </section>
 
-        <section className="section" style={{ paddingTop: 0 }} aria-labelledby="values-heading">
+        <section
+          className="section"
+          style={{ paddingTop: 0 }}
+          aria-labelledby="values-heading"
+        >
           <div className="section-head">
             <div>
               <span className="eyebrow">Principles</span>
@@ -241,7 +274,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="section" style={{ paddingTop: 0 }} aria-labelledby="certs-heading">
+        <section
+          className="section"
+          style={{ paddingTop: 0 }}
+          aria-labelledby="certs-heading"
+        >
           <div className="section-head">
             <div>
               <span className="eyebrow">Learning</span>
@@ -263,7 +300,11 @@ export default function AboutPage() {
           </ul>
         </section>
 
-        <section className="faq container-narrow" style={{ paddingInline: 0 }} aria-labelledby="faq-heading">
+        <section
+          className="faq container-narrow"
+          style={{ paddingInline: 0 }}
+          aria-labelledby="faq-heading"
+        >
           <h2 id="faq-heading">Frequently asked questions</h2>
           {faq.map((f) => (
             <details key={f.q}>

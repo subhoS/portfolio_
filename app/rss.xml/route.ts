@@ -5,7 +5,9 @@ export const dynamic = "force-static";
 
 export async function GET() {
   const posts = await getFeedPosts(site.url);
-  const updated = posts[0] ? new Date(`${posts[0].updated}T00:00:00Z`).toUTCString() : new Date().toUTCString();
+  const updated = posts[0]
+    ? new Date(`${posts[0].updated}T00:00:00Z`).toUTCString()
+    : new Date().toUTCString();
 
   const items = posts
     .map(
@@ -44,7 +46,8 @@ ${items}
   return new Response(xml, {
     headers: {
       "Content-Type": "application/rss+xml; charset=utf-8",
-      "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+      "Cache-Control":
+        "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
     },
   });
 }

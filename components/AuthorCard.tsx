@@ -11,22 +11,40 @@ export default function AuthorCard() {
         <div className="name">
           <Link href="/about">{site.name}</Link>
         </div>
-        <div className="role">Co-Founder &amp; CTO, Hirerkey · Consulting CTO, Noisiv Consulting</div>
+        <div className="role">
+          Co-Founder &amp; CTO, Hirerkey · Consulting CTO, Noisiv Consulting
+        </div>
         <p>
-          Subhadeep builds backend systems that handle millions of requests a day, and writes about what actually works
-          in production: system design, performance, distributed systems and AI engineering.
+          Subhadeep builds backend systems that handle millions of requests a
+          day, and writes about what actually works in production: system
+          design, performance, distributed systems and AI engineering.
         </p>
         <div className="links">
           <Link className="chip" href="/about">
             Full bio
           </Link>
-          <a className="chip" href={site.socials.linkedin} rel="me noopener" target="_blank">
+          <a
+            className="chip"
+            href={site.socials.linkedin}
+            rel="me noopener"
+            target="_blank"
+          >
             LinkedIn
           </a>
-          <a className="chip" href={site.socials.x} rel="me noopener" target="_blank">
+          <a
+            className="chip"
+            href={site.socials.x}
+            rel="me noopener"
+            target="_blank"
+          >
             X / Twitter
           </a>
-          <a className="chip" href={site.socials.github} rel="me noopener" target="_blank">
+          <a
+            className="chip"
+            href={site.socials.github}
+            rel="me noopener"
+            target="_blank"
+          >
             GitHub
           </a>
           <a className="chip" href="/rss.xml">

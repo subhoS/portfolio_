@@ -2,11 +2,21 @@
 title: "RAG Pipelines Explained: Building AI That Actually Knows Your Data"
 date: "2026-02-18"
 excerpt: "RAG (Retrieval-Augmented Generation) is how you make LLMs useful with your own data. Here's a practical breakdown of how it works, when to use it, and how to build one that doesn't hallucinate."
-description: "A practical guide to building RAG (Retrieval-Augmented Generation) pipelines. Covers embeddings, vector databases, chunking strategies, prompt engineering, and production patterns for building AI systems grounded in your own data."
+description: "A practical guide to RAG pipelines: embeddings, vector databases, chunking, retrieval quality and prompt design for AI grounded in your own data."
 keywords: "RAG pipeline, retrieval augmented generation, vector database, embeddings, LLM with custom data, AI knowledge base, Pinecone, ChromaDB, OpenAI embeddings"
-tags: ["AI", "LLM", "RAG", "System Design", "Tutorial"]
+tags: ["AI Engineering", "LLM", "RAG", "System Design", "Tutorial"]
 author: "Subhadeep Datta"
-featured_image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=600&fit=crop"
+category: "AI Engineering"
+updated: "2026-10-02"
+faq:
+  - q: "What is a RAG pipeline?"
+    a: "Retrieval-augmented generation (RAG) is a pattern where relevant documents are retrieved from your own data, usually with embeddings and a vector database, and added to the prompt so the LLM answers from those sources instead of from memory."
+  - q: "When should I use RAG instead of fine-tuning?"
+    a: "Use RAG when answers depend on specific, changing or private information, such as documentation, policies or records. Use fine-tuning to change a model's style, format or behavior. Many production systems use RAG first because the data can be updated without retraining."
+  - q: "What chunk size should I use for RAG?"
+    a: "A common starting point is a few hundred tokens per chunk with some overlap, split along natural boundaries like headings and paragraphs. Tune it with an evaluation set, because the best size depends on your documents and questions."
+  - q: "How do I reduce hallucinations in RAG?"
+    a: "Improve retrieval quality first, instruct the model to answer only from the provided context and to say when it doesn't know, require citations to source chunks, and evaluate answers against a test set of real questions."
 ---
 
 ## Introduction: The Problem With Vanilla LLMs

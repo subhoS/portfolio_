@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "../lib/site";
+import logo from "../public/logo.png";
+import { GitHub, LinkedIn } from "./icons";
 import MobileNav from "./MobileNav";
 import NavLinks from "./NavLinks";
 import ThemeToggle from "./ThemeToggle";
-import { GitHub, LinkedIn } from "./icons";
-import logo from "../public/logo.png";
 
 export default function SiteHeader() {
   return (
@@ -19,10 +19,22 @@ export default function SiteHeader() {
           <NavLinks />
         </nav>
         <div className="header-actions">
-          <a className="icon-btn hide-sm" href={site.socials.github} aria-label="GitHub" rel="me noopener" target="_blank">
+          <a
+            className="icon-btn hide-sm"
+            href={site.socials.github}
+            aria-label="GitHub"
+            rel="me noopener"
+            target="_blank"
+          >
             <GitHub />
           </a>
-          <a className="icon-btn hide-sm" href={site.socials.linkedin} aria-label="LinkedIn" rel="me noopener" target="_blank">
+          <a
+            className="icon-btn hide-sm"
+            href={site.socials.linkedin}
+            aria-label="LinkedIn"
+            rel="me noopener"
+            target="_blank"
+          >
             <LinkedIn />
           </a>
           <ThemeToggle />

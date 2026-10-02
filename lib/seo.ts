@@ -13,10 +13,33 @@ type PageMeta = {
 };
 
 /** Full per-page metadata: canonical URL, Open Graph and Twitter all agree with each other. */
-export function pageMetadata({ title, description, path, absoluteTitle, keywords, type = "website", article }: PageMeta): Metadata {
-  const fullTitle = absoluteTitle ? title : `${title} | ${site.name}`;
+export function pageMetadata({
+  title,
+  description,
+  path,
+  absoluteTitle,
+  keywords,
+  type = "website",
+  article,
+}: PageMeta): Metadata {
+  // Search results show ~60 characters: only append the name when it still fits.
+  const suffixed = `${title} | ${site.name}`;
+  const useAbsolute = absoluteTitle || suffixed.length > 65;
+  const fullTitle = useAbsolute ? title : suffixed;
+  // Articles get a generated image from their own opengraph-image route; everything else shares the site card.
+  const images =
+    type === "article"
+      ? undefined
+      : [
+          {
+            url: "/opengraph-image",
+            width: 1200,
+            height: 630,
+            alt: site.title,
+          },
+        ];
   return {
-    title: absoluteTitle ? { absolute: title } : title,
+    title: useAbsolute ? { absolute: title } : title,
     description,
     keywords,
     alternates: { canonical: path },
@@ -27,7 +50,12 @@ export function pageMetadata({ title, description, path, absoluteTitle, keywords
       description,
       siteName: site.name,
       locale: site.locale,
-      ...(type === "profile" && { firstName: "Subhadeep", lastName: "Datta", username: "subhoS" }),
+      ...(images && { images }),
+      ...(type === "profile" && {
+        firstName: "Subhadeep",
+        lastName: "Datta",
+        username: "subhoS",
+      }),
       ...(article && {
         publishedTime: article.publishedTime,
         modifiedTime: article.modifiedTime,
@@ -41,6 +69,7 @@ export function pageMetadata({ title, description, path, absoluteTitle, keywords
       description,
       site: site.twitter,
       creator: site.twitter,
+      ...(images && { images }),
     },
   };
 }

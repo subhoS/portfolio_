@@ -1,7 +1,7 @@
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ContactForm from "../../components/ContactForm";
-import JsonLd from "../../components/JsonLd";
 import { GitHub, LinkedIn, Mail, MapPin, X } from "../../components/icons";
+import JsonLd from "../../components/JsonLd";
 import { breadcrumbSchema, graph } from "../../lib/schema";
 import { pageMetadata } from "../../lib/seo";
 import { absoluteUrl, ids, site } from "../../lib/site";
@@ -10,7 +10,7 @@ export const metadata = pageMetadata({
   title: "Contact Subhadeep Datta — Advisory, Fractional CTO & Architecture",
   absoluteTitle: true,
   description:
-    "Get in touch with Subhadeep Datta for fractional CTO work, architecture and performance reviews, AI/RAG systems, speaking or collaboration. Email, LinkedIn, X and GitHub.",
+    "Contact Subhadeep Datta for fractional CTO work, architecture and performance reviews, AI and RAG systems, speaking or collaboration.",
   path: "/contact",
 });
 
@@ -20,10 +20,30 @@ export default function ContactPage() {
     { name: "Contact", path: "/contact" },
   ];
   const channels = [
-    { label: "Email", value: site.email, href: `mailto:${site.email}`, Icon: Mail },
-    { label: "LinkedIn", value: "subhadeep-datta-cto", href: site.socials.linkedin, Icon: LinkedIn },
-    { label: "X / Twitter", value: site.twitter, href: site.socials.x, Icon: X },
-    { label: "GitHub", value: "subhoS", href: site.socials.github, Icon: GitHub },
+    {
+      label: "Email",
+      value: site.email,
+      href: `mailto:${site.email}`,
+      Icon: Mail,
+    },
+    {
+      label: "LinkedIn",
+      value: "subhadeep-datta-cto",
+      href: site.socials.linkedin,
+      Icon: LinkedIn,
+    },
+    {
+      label: "X / Twitter",
+      value: site.twitter,
+      href: site.socials.x,
+      Icon: X,
+    },
+    {
+      label: "GitHub",
+      value: "subhoS",
+      href: site.socials.github,
+      Icon: GitHub,
+    },
   ];
 
   return (
@@ -47,8 +67,9 @@ export default function ContactPage() {
             Let&apos;s build <span className="serif">something solid</span>
           </h1>
           <p className="lede">
-            Fractional CTO engagements, architecture and performance reviews, AI/RAG systems, or just a good engineering
-            conversation. I read every message and usually reply within two working days.
+            Fractional CTO engagements, architecture and performance reviews,
+            AI/RAG systems, or just a good engineering conversation. I read
+            every message and usually reply within two working days.
           </p>
         </header>
 
@@ -60,7 +81,10 @@ export default function ContactPage() {
                 key={label}
                 href={href}
                 className="card card-hover contact-item"
-                {...(href.startsWith("http") && { target: "_blank", rel: "me noopener" })}
+                {...(href.startsWith("http") && {
+                  target: "_blank",
+                  rel: "me noopener",
+                })}
               >
                 <span className="ic">
                   <Icon />

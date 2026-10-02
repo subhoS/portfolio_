@@ -2,11 +2,21 @@
 title: "Docker in Production: Lessons I Learned the Hard Way"
 date: "2026-01-10"
 excerpt: "Docker looks simple in tutorials. In production, it's a different story. Here are the mistakes I've made and the patterns that actually work when running containers at scale."
-description: "Practical guide to running Docker in production. Covers image optimization, multi-stage builds, security hardening, health checks, logging, and orchestration patterns from real-world experience."
+description: "Running Docker in production: smaller images with multi-stage builds, non-root containers, health checks, logging and hard-won orchestration lessons."
 keywords: "Docker production, Docker best practices, container security, multi-stage Docker build, Docker health checks, Docker logging, Kubernetes deployment, container orchestration"
 tags: ["Docker", "DevOps", "Cloud", "Backend", "Tutorial"]
 author: "Subhadeep Datta"
-featured_image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&h=600&fit=crop"
+category: "DevOps"
+updated: "2026-10-02"
+faq:
+  - q: "How do I make Docker images smaller?"
+    a: "Use multi-stage builds so build tools never reach the final image, start from slim or distroless base images, install only production dependencies, add a .dockerignore, and order layers so rarely changing steps come first."
+  - q: "Should containers run as root?"
+    a: "No. Create a non-root user in the Dockerfile and switch to it with the USER instruction. Running as root makes any container escape or application vulnerability far more dangerous."
+  - q: "What is a Docker health check?"
+    a: "A HEALTHCHECK instruction (or orchestrator probe) runs a command periodically to verify the application inside the container is actually working, so unhealthy containers can be restarted or removed from load balancing."
+  - q: "How should I handle logs in Docker containers?"
+    a: "Write logs to stdout and stderr as structured JSON, and let the container runtime or a log shipper forward them to a central system. Never write logs to files inside the container's filesystem."
 ---
 
 ## Introduction: Docker Isn't Just "Build and Ship"

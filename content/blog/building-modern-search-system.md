@@ -1,14 +1,22 @@
 ---
-title: "Building a Modern Search System: From Debouncing to Ranking and Real-Time Updates"
+title: "Building a Modern Search System: Debouncing, Ranking, Real-Time"
 date: "2025-10-25"
 author: "Subhadeep Datta"
+category: "System Design"
 excerpt: "Learn how to build a high-performance search system from scratch, covering frontend debouncing, backend ranking, Elasticsearch integration, and real-time updates with Change Data Capture (CDC)."
-featured_image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630&fit=crop"
-description: "A comprehensive guide to building production-grade search systems. Discover debouncing techniques, ranking algorithms, Elasticsearch fundamentals, and CDC patterns with code examples."
-tags:
-  ["search", "elasticsearch", "performance", "backend", "CDC", "system-design"]
+description: "How to build production search: frontend debouncing, ranking algorithms, Elasticsearch fundamentals and real-time index updates with change data capture."
+tags: ["Search", "Elasticsearch", "Performance", "Backend", "CDC", "System Design"]
 keywords: "search system, debouncing, ranking algorithms, elasticsearch, change data capture, CDC, system design"
-readingTime: 12
+updated: "2026-10-02"
+faq:
+  - q: "Why is search harder than it looks?"
+    a: "Good search combines fast input handling on the frontend, relevance ranking, typo tolerance, filtering and fresh data on the backend. Each part is simple alone; making them fast and accurate together at scale is the challenge."
+  - q: "When should I use Elasticsearch instead of database search?"
+    a: "Use Elasticsearch or OpenSearch when you need relevance ranking, fuzzy matching, faceted filtering or fast full-text search over large datasets. For small datasets or simple filters, PostgreSQL full-text search may be enough."
+  - q: "What is change data capture (CDC)?"
+    a: "CDC streams every insert, update and delete from a database's transaction log to other systems, for example through Debezium and Kafka. It keeps search indexes and caches in sync with the database without dual writes in application code."
+  - q: "How does debouncing help search performance?"
+    a: "Debouncing waits until the user pauses typing before sending a search request, which typically cuts requests from one per keystroke to one or two per search and reduces load on the search backend."
 ---
 
 ## Introduction: Why Search Is Harder Than It Looks

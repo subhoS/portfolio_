@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, ArrowUpRight, Download } from "../components/icons";
 import JsonLd from "../components/JsonLd";
 import { PostCard } from "../components/PostCard";
-import { ArrowRight, ArrowUpRight, Download } from "../components/icons";
 import profile from "../data/profile.json";
 import { getAllPosts } from "../lib/posts";
 import { graph } from "../lib/schema";
@@ -37,14 +37,23 @@ const skillGroups = [
   { title: "Data & Messaging", items: profile.skills.databases },
   { title: "Cloud & DevOps", items: profile.skills.cloudDevOps },
   { title: "AI & LLMs", items: profile.skills.aiMl },
-  { title: "Frontend & Mobile", items: [...profile.skills.frontend, "Android", "iOS"] },
-  { title: "Leadership", items: [...profile.skills.systemDesign, ...profile.skills.professional] },
+  {
+    title: "Frontend & Mobile",
+    items: [...profile.skills.frontend, "Android", "iOS"],
+  },
+  {
+    title: "Leadership",
+    items: [...profile.skills.systemDesign, ...profile.skills.professional],
+  },
 ];
 
 export default async function Home() {
   const posts = await getAllPosts();
   const featured = posts.filter((p) => p.featured);
-  const showcase = [...featured, ...posts.filter((p) => !p.featured)].slice(0, 6);
+  const showcase = [...featured, ...posts.filter((p) => !p.featured)].slice(
+    0,
+    6,
+  );
 
   return (
     <>
@@ -71,13 +80,17 @@ export default async function Home() {
             </span>
             <h1>
               Subhadeep Datta
-              <span className="serif gradient-text">builds systems that scale.</span>
+              <span className="serif gradient-text">
+                builds systems that scale.
+              </span>
             </h1>
             <p className="hero-lede">
-              I&apos;m a <strong>Full Stack Engineer and CTO</strong> based in {site.location}. Co-Founder &amp; CTO at{" "}
-              <strong>Hirerkey</strong>, Consulting CTO at <strong>Noisiv Consulting</strong>, and former Technology
-              Lead at <strong>Qid</strong>. I design backends that handle millions of requests a day, and I write about
-              how to build them.
+              I&apos;m a <strong>Full Stack Engineer and CTO</strong> based in{" "}
+              {site.location}. Co-Founder &amp; CTO at <strong>Hirerkey</strong>
+              , Consulting CTO at <strong>Noisiv Consulting</strong>, and former
+              Technology Lead at <strong>Qid</strong>. I design backends that
+              handle millions of requests a day, and I write about how to build
+              them.
             </p>
             <div className="hero-ctas">
               <Link className="btn btn-primary" href="/blog">
@@ -97,7 +110,7 @@ export default async function Home() {
                 src={portrait}
                 alt="Portrait of Subhadeep Datta, Full Stack Engineer and CTO"
                 priority
-                sizes="(max-width: 900px) 200px, 360px"
+                sizes="(max-width: 900px) 132px, 360px"
                 placeholder="blur"
               />
             </div>
@@ -140,7 +153,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="writing-heading">
+      <section
+        className="section"
+        style={{ paddingTop: 0 }}
+        aria-labelledby="writing-heading"
+      >
         <div className="container">
           <div className="section-head">
             <div>
@@ -149,8 +166,8 @@ export default async function Home() {
                 Field notes from <span className="serif">production</span>
               </h2>
               <p className="section-lede">
-                Deep dives on system design, performance and AI engineering, written from systems I&apos;ve actually
-                built and debugged.
+                Deep dives on system design, performance and AI engineering,
+                written from systems I&apos;ve actually built and debugged.
               </p>
             </div>
             <Link className="btn btn-ghost" href="/blog">
@@ -165,7 +182,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="work-heading">
+      <section
+        className="section"
+        style={{ paddingTop: 0 }}
+        aria-labelledby="work-heading"
+      >
         <div className="container">
           <div className="section-head">
             <div>
@@ -194,7 +215,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-labelledby="stack-heading">
+      <section
+        className="section"
+        style={{ paddingTop: 0 }}
+        aria-labelledby="stack-heading"
+      >
         <div className="container">
           <div className="section-head">
             <div>
@@ -231,17 +256,23 @@ export default async function Home() {
               Let&apos;s talk
             </span>
             <h2 className="mt-2">
-              Scaling something hard? <span className="serif">I&apos;d love to hear about it.</span>
+              Scaling something hard?{" "}
+              <span className="serif">I&apos;d love to hear about it.</span>
             </h2>
             <p>
-              Architecture reviews, fractional CTO engagements, performance firefighting, or AI/RAG systems that need to
-              work in production.
+              Architecture reviews, fractional CTO engagements, performance
+              firefighting, or AI/RAG systems that need to work in production.
             </p>
             <div className="hero-ctas">
               <Link className="btn btn-primary" href="/contact">
                 Start a conversation <ArrowRight className="arrow" />
               </Link>
-              <a className="btn btn-ghost" href={site.socials.linkedin} target="_blank" rel="me noopener">
+              <a
+                className="btn btn-ghost"
+                href={site.socials.linkedin}
+                target="_blank"
+                rel="me noopener"
+              >
                 Connect on LinkedIn <ArrowUpRight />
               </a>
             </div>

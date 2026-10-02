@@ -8,8 +8,20 @@ import JsonLd from "../../../components/JsonLd";
 import { PostCard } from "../../../components/PostCard";
 import ShareButtons from "../../../components/ShareButtons";
 import Toc from "../../../components/Toc";
-import { formatDate, getAllPosts, getPostBySlug, getPostSlugs, getRelatedPosts, tagSlug } from "../../../lib/posts";
-import { articleSchema, breadcrumbSchema, faqSchema, graph } from "../../../lib/schema";
+import {
+  formatDate,
+  getAllPosts,
+  getPostBySlug,
+  getPostSlugs,
+  getRelatedPosts,
+  tagSlug,
+} from "../../../lib/posts";
+import {
+  articleSchema,
+  breadcrumbSchema,
+  faqSchema,
+  graph,
+} from "../../../lib/schema";
 import { pageMetadata } from "../../../lib/seo";
 import { absoluteUrl, site } from "../../../lib/site";
 import avatar from "../../../public/subhadeep-datta.jpg";
@@ -45,7 +57,10 @@ export default async function PostPage({ params }: Props) {
   const post = await getPostBySlug(slug);
   if (!post) notFound();
 
-  const [all, related] = await Promise.all([getAllPosts(), getRelatedPosts(post, 3)]);
+  const [all, related] = await Promise.all([
+    getAllPosts(),
+    getRelatedPosts(post, 3),
+  ]);
   const idx = all.findIndex((p) => p.slug === post.slug);
   const newer = idx > 0 ? all[idx - 1] : null;
   const older = idx < all.length - 1 ? all[idx + 1] : null;
@@ -57,7 +72,9 @@ export default async function PostPage({ params }: Props) {
     { name: post.category, path: `/blog/tag/${tagSlug(post.category)}` },
     { name: post.title, path: `/blog/${post.slug}` },
   ];
-  const headings = post.headings.filter((h) => h.depth === 2 || post.headings.length < 14);
+  const headings = post.headings.filter(
+    (h) => h.depth === 2 || post.headings.length < 14,
+  );
   const updated = post.updated && post.updated !== post.date;
 
   return (
@@ -76,7 +93,13 @@ export default async function PostPage({ params }: Props) {
           <h1>{post.title}</h1>
           <p className="lede">{post.description}</p>
           <div className="byline">
-            <Image src={avatar} alt={site.name} width={44} height={44} priority />
+            <Image
+              src={avatar}
+              alt={site.name}
+              width={44}
+              height={44}
+              priority
+            />
             <div>
               <div className="who">
                 <Link href="/about" rel="author">
@@ -89,7 +112,10 @@ export default async function PostPage({ params }: Props) {
                 </span>
                 {updated && (
                   <span>
-                    Updated <time dateTime={post.updated}>{formatDate(post.updated, "short")}</time>
+                    Updated{" "}
+                    <time dateTime={post.updated}>
+                      {formatDate(post.updated, "short")}
+                    </time>
                   </span>
                 )}
                 <span>{post.readingTime} min read</span>
@@ -115,8 +141,11 @@ export default async function PostPage({ params }: Props) {
               </details>
             )}
 
-            {/* biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, build-time rendered markdown from the repo */}
-            <article className="prose" dangerouslySetInnerHTML={{ __html: post.html }} />
+            <article
+              className="prose"
+              // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, build-time rendered markdown from the repo
+              dangerouslySetInnerHTML={{ __html: post.html }}
+            />
 
             {post.faq.length > 0 && (
               <section className="faq" aria-labelledby="faq-heading">
@@ -150,7 +179,11 @@ export default async function PostPage({ params }: Props) {
                   </Link>
                 )}
                 {newer && (
-                  <Link href={`/blog/${newer.slug}`} rel="next" className="next">
+                  <Link
+                    href={`/blog/${newer.slug}`}
+                    rel="next"
+                    className="next"
+                  >
                     <div className="dir">Next →</div>
                     <div className="t">{newer.title}</div>
                   </Link>

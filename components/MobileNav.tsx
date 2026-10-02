@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import NavLinks from "./NavLinks";
 import { Close, Menu } from "./icons";
+import NavLinks from "./NavLinks";
 
 export default function MobileNav() {
   const ref = useRef<HTMLDetailsElement>(null);

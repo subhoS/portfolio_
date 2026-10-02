@@ -13,7 +13,8 @@ export const site = {
   title: `${profile.name} — ${profile.title}`,
   tagline: "Full Stack Engineer & CTO building systems that scale",
   description:
-    "Subhadeep Datta is a Full Stack Engineer and CTO — Co-Founder & CTO of Hirerkey, Consulting CTO at Noisiv Consulting, and former Technology Lead at Qid. He writes about system design, backend performance, distributed systems and AI/LLM engineering.",
+    "Subhadeep Datta is a Full Stack Engineer and CTO: Co-Founder of Hirerkey, Consulting CTO at Noisiv Consulting, writing on system design, scale and AI.",
+  bio: "Subhadeep Datta is a Full Stack Engineer and CTO — Co-Founder & CTO of Hirerkey, Consulting CTO at Noisiv Consulting, and former Technology Lead at Qid. He writes about system design, backend performance, distributed systems and AI/LLM engineering.",
   locale: "en_US",
   twitter: profile.site.twitter,
   email: profile.contact.email,

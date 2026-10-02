@@ -17,6 +17,17 @@ export async function generateStaticParams() {
   return (await getAllTags()).map((t) => ({ tag: t.slug }));
 }
 
+/** A topic description that stays within the ~160 characters search results display. */
+function describeTopic(tag: string, titles: string[]) {
+  let text = `${titles.length} ${titles.length === 1 ? "article" : "articles"} on ${tag} by Subhadeep Datta`;
+  for (const [i, t] of titles.entries()) {
+    const next = `${text}${i === 0 ? ": " : "; "}${t}`;
+    if (next.length > 155) break;
+    text = next;
+  }
+  return `${text}.`;
+}
+
 async function load(slug: string) {
   const tags = await getAllTags();
   const tag = tags.find((t) => t.slug === slug);
@@ -30,14 +41,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tag, posts } = data;
   const meta = pageMetadata({
     title: `${tag.tag} Articles`,
-    description: `${posts.length} ${posts.length === 1 ? "article" : "articles"} about ${tag.tag} by Subhadeep Datta: ${posts
-      .slice(0, 3)
-      .map((p) => p.title)
-      .join("; ")}.`.slice(0, 300),
+    description: describeTopic(
+      tag.tag,
+      posts.map((p) => p.title),
+    ),
     path: `/blog/tag/${tag.slug}`,
   });
   // Single-article topics are thin pages: keep them crawlable but out of the index.
-  return posts.length < 2 ? { ...meta, robots: { index: false, follow: true } } : meta;
+  return posts.length < 2
+    ? { ...meta, robots: { index: false, follow: true } }
+    : meta;
 }
 
 export default async function TagPage({ params }: Props) {
@@ -83,8 +96,9 @@ export default async function TagPage({ params }: Props) {
             {tag.tag} <span className="serif">articles</span>
           </h1>
           <p className="lede">
-            {posts.length} {posts.length === 1 ? "article" : "articles"} about {tag.tag}, written from hands-on
-            experience building and scaling production systems.
+            {posts.length} {posts.length === 1 ? "article" : "articles"} about{" "}
+            {tag.tag}, written from hands-on experience building and scaling
+            production systems.
           </p>
         </header>
 
@@ -104,7 +118,11 @@ export default async function TagPage({ params }: Props) {
             {tags
               .filter((t) => t.slug !== tag.slug)
               .map((t) => (
-                <Link key={t.slug} href={`/blog/tag/${t.slug}`} className="chip">
+                <Link
+                  key={t.slug}
+                  href={`/blog/tag/${t.slug}`}
+                  className="chip"
+                >
                   {t.tag} <span className="count">{t.count}</span>
                 </Link>
               ))}

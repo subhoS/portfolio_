@@ -8,6 +8,7 @@ export default function Image() {
   return renderOg({
     eyebrow: "Portfolio & Writing",
     title: "Subhadeep Datta",
-    subtitle: "Full Stack Engineer & CTO building systems that scale. Hirerkey · Noisiv Consulting · Qid",
+    subtitle:
+      "Full Stack Engineer & CTO building systems that scale. Hirerkey · Noisiv Consulting · Qid",
   });
 }

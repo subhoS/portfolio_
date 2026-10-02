@@ -1,5 +1,5 @@
 {
-  "name": "portfolio-seo",
+  "name": "subhadeep-datta-portfolio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
+    "audit:seo": "node scripts/seo-audit.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
     "fill-profile": "node scripts/fillProfile.js",
     "generate-favicon": "node scripts/generateFavicon.js"
   },

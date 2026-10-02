@@ -2,11 +2,21 @@
 title: "Scaling Node.js: From Single Server to Handling Millions of Requests"
 date: "2026-02-01"
 excerpt: "Node.js can handle massive traffic if you know how to scale it. Here's what I've learned from scaling systems from 1,000 to 3 million daily requests — clustering, load balancing, caching, and the patterns that actually work."
-description: "A complete guide to scaling Node.js applications in production. Covers Node.js clustering, horizontal scaling, load balancing with Nginx, Redis caching, worker threads, and monitoring strategies with real-world examples."
+description: "Scale Node.js from one server to millions of requests: clustering, horizontal scaling, load balancing, Redis caching, worker threads and monitoring."
 keywords: "Node.js scaling, Node.js performance, Node.js clustering, horizontal scaling, load balancing Node.js, Redis caching Node.js, worker threads, Node.js production"
 tags: ["Node.js", "Backend", "Performance", "System Design", "Architecture"]
 author: "Subhadeep Datta"
-featured_image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=1200&h=600&fit=crop"
+category: "Backend"
+updated: "2026-10-02"
+faq:
+  - q: "Can Node.js handle millions of requests?"
+    a: "Yes. Node.js handles I/O-bound workloads very efficiently. Combined with clustering across CPU cores, horizontal scaling behind a load balancer, caching and asynchronous job queues, it can serve millions of requests per day."
+  - q: "How do I use all CPU cores in Node.js?"
+    a: "Run one Node.js process per core using the built-in cluster module or a process manager like PM2, or run multiple containers or instances behind a load balancer. Use worker threads for CPU-heavy tasks inside a process."
+  - q: "Why is my Node.js server slow under load?"
+    a: "The most common causes are blocking the event loop with synchronous or CPU-heavy work, slow database queries, too few database connections, and missing caching. Measure event-loop lag and profile before changing architecture."
+  - q: "Should I use worker threads or the cluster module?"
+    a: "Use cluster (or multiple instances) to scale request handling across cores. Use worker threads to move CPU-intensive work, such as image processing or heavy parsing, off the main event loop."
 ---
 
 ## Introduction: Node.js Can Scale — If You Let It

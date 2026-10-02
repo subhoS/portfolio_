@@ -13,7 +13,12 @@ export default function ThemeToggle() {
   };
 
   return (
-    <button type="button" className="icon-btn theme-toggle" onClick={toggle} aria-label="Toggle dark mode">
+    <button
+      type="button"
+      className="icon-btn theme-toggle"
+      onClick={toggle}
+      aria-label="Toggle dark mode"
+    >
       <Moon className="icon-moon" />
       <Sun className="icon-sun" />
     </button>

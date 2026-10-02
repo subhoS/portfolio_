@@ -1,19 +1,24 @@
 import Link from "next/link";
 import Breadcrumbs from "../../components/Breadcrumbs";
+import { Rss } from "../../components/icons";
 import JsonLd from "../../components/JsonLd";
 import { PostCard, PostRow } from "../../components/PostCard";
-import { Rss } from "../../components/icons";
 import { getAllPosts, getAllTags } from "../../lib/posts";
 import { breadcrumbSchema, graph } from "../../lib/schema";
 import { pageMetadata } from "../../lib/seo";
 import { absoluteUrl, ids, site } from "../../lib/site";
 
 export const metadata = pageMetadata({
-  title: "Writing — System Design, Backend Performance & AI Engineering",
+  title: "Writing on System Design, Backend & AI Engineering",
   description:
-    "Articles by Subhadeep Datta on system design, scaling Node.js, Kafka, Redis, databases, Docker, RAG pipelines, LLM engineering and technical leadership — lessons from building production systems.",
+    "Articles by Subhadeep Datta on system design, Node.js, Kafka, Redis, PostgreSQL, Docker, RAG, LLMs and engineering leadership, from real production work.",
   path: "/blog",
-  keywords: ["Subhadeep Datta blog", "system design articles", "backend engineering blog", "software architecture"],
+  keywords: [
+    "Subhadeep Datta blog",
+    "system design articles",
+    "backend engineering blog",
+    "software architecture",
+  ],
 });
 
 export default async function BlogIndex() {
@@ -39,7 +44,8 @@ export default async function BlogIndex() {
             "@id": absoluteUrl("/blog#blog"),
             url: absoluteUrl("/blog"),
             name: `${site.name} — Writing`,
-            description: "Engineering articles on system design, backend performance, distributed systems and AI.",
+            description:
+              "Engineering articles on system design, backend performance, distributed systems and AI.",
             author: { "@id": ids.person },
             publisher: { "@id": ids.person },
             inLanguage: "en",
@@ -61,8 +67,10 @@ export default async function BlogIndex() {
             Writing on systems <span className="serif">that scale</span>
           </h1>
           <p className="lede">
-            {posts.length} in-depth articles on system design, backend performance, distributed systems, AI engineering
-            and engineering leadership. No fluff, just what I&apos;ve learned shipping production software.
+            {posts.length} in-depth articles on system design, backend
+            performance, distributed systems, AI engineering and engineering
+            leadership. No fluff, just what I&apos;ve learned shipping
+            production software.
           </p>
           <div className="row mt-3">
             <a className="btn btn-ghost" href="/rss.xml">
@@ -72,7 +80,11 @@ export default async function BlogIndex() {
         </header>
 
         {featured.length > 0 && (
-          <section aria-labelledby="featured-heading" className="section-tight" style={{ paddingTop: 0 }}>
+          <section
+            aria-labelledby="featured-heading"
+            className="section-tight"
+            style={{ paddingTop: 0 }}
+          >
             <h2 id="featured-heading" className="sr-only">
               Featured articles
             </h2>
@@ -98,8 +110,16 @@ export default async function BlogIndex() {
         </section>
 
         {[...byYear.entries()].map(([year, list]) => (
-          <section key={year} aria-labelledby={`y-${year}`} className="section-tight">
-            <h2 id={`y-${year}`} className="section-title" style={{ marginBottom: 12 }}>
+          <section
+            key={year}
+            aria-labelledby={`y-${year}`}
+            className="section-tight"
+          >
+            <h2
+              id={`y-${year}`}
+              className="section-title"
+              style={{ marginBottom: 12 }}
+            >
               {year}
             </h2>
             <ul className="post-list">

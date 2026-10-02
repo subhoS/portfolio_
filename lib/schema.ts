@@ -21,7 +21,7 @@ export const personSchema = (): Json => ({
   },
   email: `mailto:${site.email}`,
   jobTitle: "Co-Founder & CTO",
-  description: site.description,
+  description: site.bio,
   homeLocation: { "@type": "Place", name: site.location },
   address: {
     "@type": "PostalAddress",
@@ -29,8 +29,16 @@ export const personSchema = (): Json => ({
     addressCountry: "IN",
   },
   worksFor: [
-    { "@type": "Organization", name: "Hirerkey", url: "https://www.hirerkey.com/" },
-    { "@type": "Organization", name: "Noisiv Consulting", url: "https://noisivconsulting.com/" },
+    {
+      "@type": "Organization",
+      name: "Hirerkey",
+      url: "https://www.hirerkey.com/",
+    },
+    {
+      "@type": "Organization",
+      name: "Noisiv Consulting",
+      url: "https://noisivconsulting.com/",
+    },
   ],
   hasOccupation: profile.experience.map((e) => ({
     "@type": "Occupation",
@@ -41,7 +49,11 @@ export const personSchema = (): Json => ({
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "Jamia Hamdard",
-    address: { "@type": "PostalAddress", addressLocality: "New Delhi", addressCountry: "IN" },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "New Delhi",
+      addressCountry: "IN",
+    },
   },
   hasCredential: profile.awards.map((a) => ({
     "@type": "EducationalOccupationalCredential",
@@ -100,7 +112,9 @@ export const graph = (...nodes: Json[]) => ({
   "@graph": nodes,
 });
 
-export const breadcrumbSchema = (items: { name: string; path: string }[]): Json => ({
+export const breadcrumbSchema = (
+  items: { name: string; path: string }[],
+): Json => ({
   "@type": "BreadcrumbList",
   itemListElement: items.map((item, i) => ({
     "@type": "ListItem",
@@ -136,7 +150,12 @@ export const articleSchema = (post: PostMeta): Json => {
     },
     datePublished: `${post.date}T00:00:00+05:30`,
     dateModified: `${post.updated || post.date}T00:00:00+05:30`,
-    author: { "@id": ids.person, "@type": "Person", name: site.name, url: absoluteUrl("/about") },
+    author: {
+      "@id": ids.person,
+      "@type": "Person",
+      name: site.name,
+      url: absoluteUrl("/about"),
+    },
     publisher: { "@id": ids.person },
     isPartOf: { "@id": ids.website },
     inLanguage: "en",

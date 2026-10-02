@@ -51,13 +51,7 @@
     {
       "title": "Hirerkey — Workplace Intelligence Platform",
       "description": "Built the core architecture for a modern AI-based Human Capital Management platform. Designed the infrastructure using Java and Node.js, and integrated RAG pipelines to automate complex HR workflows.",
-      "tech": [
-        "Java",
-        "Node.js",
-        "AI/LLM",
-        "RAG",
-        "MongoDB"
-      ],
+      "tech": ["Java", "Node.js", "AI/LLM", "RAG", "MongoDB"],
       "href": "https://www.hirerkey.com/",
       "role": "Co-Founder & CTO",
       "period": "2025 — Present",
@@ -70,13 +64,7 @@
     {
       "title": "Noisiv Consulting",
       "description": "Architected backend infrastructure for enterprise clients that processes millions of requests a day. Focused heavily on database schema optimization and implementing robust message queues to drop latency and guarantee 99.9% uptime.",
-      "tech": [
-        "Java",
-        "Python",
-        "Node.js",
-        "Kafka",
-        "PostgreSQL"
-      ],
+      "tech": ["Java", "Python", "Node.js", "Kafka", "PostgreSQL"],
       "href": "https://noisivconsulting.com/",
       "role": "Consulting CTO",
       "period": "2021 — Present",
@@ -89,12 +77,7 @@
     {
       "title": "Qid — India's #1 ID Gateway",
       "description": "Led the engineering team to build a secure digital check-in gateway processing 100,000+ verifications. The biggest challenge was ensuring real-time data sync in low-bandwidth environments, which we solved using an offline-first architecture and aggressive Redis caching.",
-      "tech": [
-        "NestJS",
-        "Kafka",
-        "Redis",
-        "Distributed Systems"
-      ],
+      "tech": ["NestJS", "Kafka", "Redis", "Distributed Systems"],
       "href": "https://oneqid.com/",
       "role": "Technology Lead",
       "period": "2021 — 2024",
@@ -107,12 +90,7 @@
     {
       "title": "Sounf — Project Workflow Platform",
       "description": "Built a platform that centralizes project workflows for social media marketers, improving team productivity by 40%. MongoDB for flexible data storage and Redis caching to support thousands of concurrent users.",
-      "tech": [
-        "Node.js",
-        "MongoDB",
-        "Redis",
-        "React"
-      ],
+      "tech": ["Node.js", "MongoDB", "Redis", "React"],
       "href": "",
       "role": "Engineer & Architect",
       "period": "2022 — Present",
@@ -124,11 +102,7 @@
     {
       "title": "Videtorrium",
       "description": "Helped build the early versions of Videtorrium, a hiring platform focused on matching students with high-paying opportunities. Worked across the stack with React and Node.js to ship features fast.",
-      "tech": [
-        "React",
-        "Node.js",
-        "Full Stack Development"
-      ],
+      "tech": ["React", "Node.js", "Full Stack Development"],
       "href": "https://www.videtorrium.com/",
       "role": "Software Engineer",
       "period": "2020 — 2021",
@@ -261,22 +235,9 @@
       "Spring Boot",
       "NestJS"
     ],
-    "mobile": [
-      "Flutter",
-      "Android",
-      "iOS"
-    ],
-    "databases": [
-      "MongoDB",
-      "Redis",
-      "Kafka",
-      "MySQL",
-      "PostgreSQL"
-    ],
-    "containerization": [
-      "Docker",
-      "Kubernetes"
-    ],
+    "mobile": ["Flutter", "Android", "iOS"],
+    "databases": ["MongoDB", "Redis", "Kafka", "MySQL", "PostgreSQL"],
+    "containerization": ["Docker", "Kubernetes"],
     "cloudDevOps": [
       "AWS",
       "Docker",

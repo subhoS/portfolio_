@@ -10,9 +10,16 @@ export async function GET() {
     title: `${site.name} — Writing`,
     home_page_url: `${site.url}/blog`,
     feed_url: `${site.url}/feed.json`,
-    description: "Articles by Subhadeep Datta on system design, backend performance, distributed systems and AI engineering.",
+    description:
+      "Articles by Subhadeep Datta on system design, backend performance, distributed systems and AI engineering.",
     icon: `${site.url}/apple-icon.png`,
-    authors: [{ name: site.name, url: `${site.url}/about`, avatar: `${site.url}${site.avatar}` }],
+    authors: [
+      {
+        name: site.name,
+        url: `${site.url}/about`,
+        avatar: `${site.url}${site.avatar}`,
+      },
+    ],
     language: "en",
     items: posts.map((p) => ({
       id: p.url,
@@ -27,6 +34,9 @@ export async function GET() {
     })),
   };
   return Response.json(feed, {
-    headers: { "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" },
+    headers: {
+      "Cache-Control":
+        "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+    },
   });
 }

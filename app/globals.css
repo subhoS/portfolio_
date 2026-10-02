@@ -21,13 +21,20 @@
   --ok: #0f9d6b;
   --code-bg: #f6f4f1;
   --shadow-sm: 0 1px 2px rgba(21, 19, 29, 0.05);
-  --shadow-md: 0 1px 2px rgba(21, 19, 29, 0.04), 0 8px 24px -8px rgba(21, 19, 29, 0.12);
-  --shadow-lg: 0 2px 4px rgba(21, 19, 29, 0.04), 0 24px 48px -16px rgba(76, 29, 149, 0.22);
+  --shadow-md:
+    0 1px 2px rgba(21, 19, 29, 0.04), 0 8px 24px -8px rgba(21, 19, 29, 0.12);
+  --shadow-lg:
+    0 2px 4px rgba(21, 19, 29, 0.04), 0 24px 48px -16px rgba(76, 29, 149, 0.22);
   --grid-dot: rgba(21, 19, 29, 0.07);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-serif: var(--font-instrument), ui-serif, Georgia, "Times New Roman", serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+  --font-serif:
+    var(--font-instrument), ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono:
+    var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
 
   --radius-sm: 8px;
   --radius: 14px;
@@ -56,8 +63,10 @@
   --ok: #34d399;
   --code-bg: #0e1323;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.3), 0 30px 60px -20px rgba(91, 33, 182, 0.45);
+  --shadow-md:
+    0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lg:
+    0 2px 4px rgba(0, 0, 0, 0.3), 0 30px 60px -20px rgba(91, 33, 182, 0.45);
   --grid-dot: rgba(255, 255, 255, 0.05);
 }
 
@@ -202,7 +211,11 @@ p {
   pointer-events: none;
   background:
     radial-gradient(60rem 40rem at 85% -10%, var(--brand-glow), transparent 60%),
-    radial-gradient(40rem 30rem at -10% 10%, rgba(56, 189, 248, 0.08), transparent 60%);
+    radial-gradient(
+      40rem 30rem at -10% 10%,
+      rgba(56, 189, 248, 0.08),
+      transparent 60%
+    );
 }
 
 .page-bg::after {
@@ -222,7 +235,7 @@ p {
   top: 0;
   z-index: 50;
   height: var(--header-h);
-  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
   border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
@@ -249,7 +262,9 @@ p {
   width: 32px;
   height: 32px;
   border-radius: 9px;
-  box-shadow: 0 0 0 1px var(--line), 0 4px 14px -4px var(--brand-glow);
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 4px 14px -4px var(--brand-glow);
 }
 
 .nav {
@@ -265,7 +280,9 @@ p {
   font-size: 14px;
   font-weight: 500;
   color: var(--ink-2);
-  transition: color 0.2s, background-color 0.2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
 }
 
 .nav a:hover {
@@ -294,7 +311,10 @@ p {
   background: var(--bg-elev);
   color: var(--ink-2);
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, transform 0.2s var(--ease);
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.2s var(--ease);
 }
 
 .icon-btn:hover {
@@ -391,7 +411,11 @@ p {
   border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
-  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background-color 0.2s, border-color 0.2s;
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background-color 0.2s,
+    border-color 0.2s;
 }
 
 .btn svg {
@@ -412,7 +436,9 @@ p {
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 28px -10px var(--brand), 0 0 0 4px var(--brand-soft);
+  box-shadow:
+    0 10px 28px -10px var(--brand),
+    0 0 0 4px var(--brand-soft);
 }
 
 .btn-ghost {
@@ -443,7 +469,10 @@ p {
   border: 1px solid var(--line);
   background: var(--bg-elev);
   color: var(--ink-2);
-  transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s,
+    background-color 0.2s;
 }
 
 a.chip:hover {
@@ -489,7 +518,12 @@ a.chip:hover {
 }
 
 .gradient-text {
-  background: linear-gradient(100deg, var(--brand) 0%, #db2777 55%, #f59e0b 100%);
+  background: linear-gradient(
+    100deg,
+    var(--brand) 0%,
+    #db2777 55%,
+    #f59e0b 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -693,7 +727,14 @@ a.chip:hover {
   .hero-portrait {
     order: -1;
     justify-self: start;
-    max-width: 200px;
+    max-width: 132px;
+  }
+  .hero-portrait .frame {
+    border-radius: 22px;
+  }
+  .hero-portrait::before {
+    inset: -10px;
+    border-radius: 28px;
   }
   .portrait-tag {
     display: none;
@@ -798,7 +839,10 @@ a.chip:hover {
   background: var(--bg-elev);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s;
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    border-color 0.35s;
 }
 
 .card-hover:hover {
@@ -907,6 +951,10 @@ a.chip:hover {
     var(--bg-elev);
 }
 
+.post-card-feature .read {
+  margin-top: 8px;
+}
+
 .post-card-feature h3 {
   font-size: clamp(26px, 3.2vw, 40px);
   line-height: 1.1;
@@ -991,7 +1039,9 @@ a.chip:hover {
 
 .project-card .ext {
   color: var(--ink-3);
-  transition: color 0.2s, transform 0.2s var(--ease);
+  transition:
+    color 0.2s,
+    transform 0.2s var(--ease);
 }
 
 .project-card:hover .ext {
@@ -1121,8 +1171,16 @@ a.chip:hover {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(40rem 24rem at 90% 10%, rgba(139, 92, 246, 0.55), transparent 60%),
-    radial-gradient(30rem 20rem at 0% 100%, rgba(219, 39, 119, 0.3), transparent 60%);
+    radial-gradient(
+      40rem 24rem at 90% 10%,
+      rgba(139, 92, 246, 0.55),
+      transparent 60%
+    ),
+    radial-gradient(
+      30rem 20rem at 0% 100%,
+      rgba(219, 39, 119, 0.3),
+      transparent 60%
+    );
 }
 
 .cta-band::after {
@@ -1130,7 +1188,10 @@ a.chip:hover {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.08) 1px,
+    transparent 1px
+  );
   background-size: 20px 20px;
   mask-image: linear-gradient(to right, transparent, #000);
   -webkit-mask-image: linear-gradient(to right, transparent, #000);
@@ -1641,6 +1702,21 @@ a.chip:hover {
   color: var(--ink-3);
 }
 
+.prose .contains-task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.prose .task-list-item input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: 0 10px -3px 0;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--bg-elev);
+}
+
 .prose blockquote {
   border-left: 3px solid var(--brand);
   padding: 4px 0 4px 22px;
@@ -1887,7 +1963,9 @@ a.chip:hover {
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: var(--bg-elev);
-  transition: border-color 0.2s, transform 0.2s var(--ease);
+  transition:
+    border-color 0.2s,
+    transform 0.2s var(--ease);
 }
 
 .post-nav a:hover {
@@ -1927,15 +2005,6 @@ a.chip:hover {
   grid-template-columns: minmax(0, 1fr) 340px;
   gap: clamp(32px, 6vw, 80px);
   align-items: start;
-}
-
-.about-intro .prose p:first-child::first-letter {
-  float: left;
-  font-family: var(--font-serif);
-  font-size: 4.2em;
-  line-height: 0.85;
-  padding: 6px 10px 0 0;
-  color: var(--brand-ink);
 }
 
 .facts {
@@ -2095,7 +2164,9 @@ a.chip:hover {
   border: 1px solid var(--line);
   background: var(--bg);
   font-size: 16px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .field input:focus,
@@ -2209,7 +2280,7 @@ a.chip:hover {
   .reading-progress,
   .page-bg,
   .post-nav {
-    display: none !important;
+    display: none;
   }
   .prose {
     color: #000;

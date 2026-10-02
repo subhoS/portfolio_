@@ -1,18 +1,18 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { cache } from "react";
 import matter from "gray-matter";
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkGfm from "remark-gfm";
-import remarkRehype from "remark-rehype";
-import rehypeSlug from "rehype-slug";
+import type { Element, Root } from "hast";
+import { toString as hastToString } from "hast-util-to-string";
+import { cache } from "react";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
-import { toString as hastToString } from "hast-util-to-string";
+import remarkGfm from "remark-gfm";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import { unified } from "unified";
 import { SKIP, visit } from "unist-util-visit";
-import type { Element, Root } from "hast";
 
 const postsDir = path.join(process.cwd(), "content", "blog");
 
@@ -37,8 +37,16 @@ export type PostMeta = {
 export type Post = PostMeta & { html: string; headings: Heading[] };
 
 const toArray = (v: unknown): string[] => {
-  if (Array.isArray(v)) return v.map(String).map((s) => s.trim()).filter(Boolean);
-  if (typeof v === "string") return v.split(",").map((s) => s.trim()).filter(Boolean);
+  if (Array.isArray(v))
+    return v
+      .map(String)
+      .map((s) => s.trim())
+      .filter(Boolean);
+  if (typeof v === "string")
+    return v
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
   return [];
 };
 
@@ -49,15 +57,25 @@ export const tagSlug = (tag: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-const countWords = (text: string) => text.replace(/[#>*_`|[\]()-]/g, " ").split(/\s+/).filter(Boolean).length;
+const countWords = (text: string) =>
+  text
+    .replace(/[#>*_`|[\]()-]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean).length;
 
 /** Prose words, plus code weighted at half since readers skim it. */
 function wordCountOf(markdown: string) {
   const code = (markdown.match(/```[\s\S]*?```/g) || []).join(" ");
-  return countWords(markdown.replace(/```[\s\S]*?```/g, " ")) + Math.round(countWords(code) / 2);
+  return (
+    countWords(markdown.replace(/```[\s\S]*?```/g, " ")) +
+    Math.round(countWords(code) / 2)
+  );
 }
 
-function parseMeta(slug: string, raw: string): { meta: PostMeta; body: string } {
+function parseMeta(
+  slug: string,
+  raw: string,
+): { meta: PostMeta; body: string } {
   const { data, content } = matter(raw);
   const words = wordCountOf(content);
   const date = String(data.date || "");
@@ -84,7 +102,10 @@ function parseMeta(slug: string, raw: string): { meta: PostMeta; body: string } 
 function rehypeCollectHeadings(out: Heading[]) {
   return () => (tree: Root) => {
     visit(tree, "element", (node: Element) => {
-      if ((node.tagName === "h2" || node.tagName === "h3") && node.properties?.id) {
+      if (
+        (node.tagName === "h2" || node.tagName === "h3") &&
+        node.properties?.id
+      ) {
         out.push({
           id: String(node.properties.id),
           text: hastToString(node).trim(),
@@ -100,12 +121,20 @@ function rehypeEnhanceElements() {
   return (tree: Root) => {
     visit(tree, "element", (node: Element) => {
       if (node.tagName === "img") {
-        node.properties = { ...node.properties, loading: "lazy", decoding: "async" };
+        node.properties = {
+          ...node.properties,
+          loading: "lazy",
+          decoding: "async",
+        };
       }
       if (node.tagName === "a") {
         const href = String(node.properties?.href || "");
         if (/^https?:\/\//.test(href)) {
-          node.properties = { ...node.properties, target: "_blank", rel: ["noopener", "noreferrer"] };
+          node.properties = {
+            ...node.properties,
+            target: "_blank",
+            rel: ["noopener", "noreferrer"],
+          };
         }
       }
       if (node.tagName === "table") {
@@ -130,7 +159,11 @@ async function renderMarkdown(markdown: string) {
     .use(rehypeCollectHeadings(headings))
     .use(rehypeAutolinkHeadings, {
       behavior: "append",
-      properties: { className: ["heading-anchor"], ariaHidden: "true", tabIndex: -1 },
+      properties: {
+        className: ["heading-anchor"],
+        ariaHidden: "true",
+        tabIndex: -1,
+      },
       content: { type: "text", value: "#" },
     })
     .use(rehypePrettyCode, {
@@ -147,7 +180,9 @@ async function renderMarkdown(markdown: string) {
 export const getPostSlugs = cache(async (): Promise<string[]> => {
   try {
     const files = await fs.readdir(postsDir);
-    return files.filter((f) => f.endsWith(".md")).map((f) => f.replace(/\.md$/, ""));
+    return files
+      .filter((f) => f.endsWith(".md"))
+      .map((f) => f.replace(/\.md$/, ""));
   } catch {
     return [];
   }
@@ -161,28 +196,38 @@ export const getAllPosts = cache(async (): Promise<PostMeta[]> => {
       return parseMeta(slug, raw).meta;
     }),
   );
-  return metas.sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title));
+  return metas.sort(
+    (a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title),
+  );
 });
 
-export const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
-  const raw = await fs.readFile(path.join(postsDir, `${slug}.md`), "utf8").catch(() => null);
-  if (raw === null) return null;
-  const { meta, body } = parseMeta(slug, raw);
-  // Rendering errors are real bugs: let them fail the build instead of silently 404ing.
-  const { html, headings } = await renderMarkdown(body);
-  return { ...meta, html, headings };
-});
+export const getPostBySlug = cache(
+  async (slug: string): Promise<Post | null> => {
+    const raw = await fs
+      .readFile(path.join(postsDir, `${slug}.md`), "utf8")
+      .catch(() => null);
+    if (raw === null) return null;
+    const { meta, body } = parseMeta(slug, raw);
+    // Rendering errors are real bugs: let them fail the build instead of silently 404ing.
+    const { html, headings } = await renderMarkdown(body);
+    return { ...meta, html, headings };
+  },
+);
 
 /** A post's topics: its category plus its tags, de-duplicated by slug. */
 export function topicsOf(post: PostMeta) {
   const seen = new Map<string, string>();
-  for (const t of [post.category, ...post.tags]) if (!seen.has(tagSlug(t))) seen.set(tagSlug(t), t);
+  for (const t of [post.category, ...post.tags])
+    if (!seen.has(tagSlug(t))) seen.set(tagSlug(t), t);
   return [...seen.values()];
 }
 
 export const getAllTags = cache(async () => {
   const posts = await getAllPosts();
-  const counts = new Map<string, { tag: string; slug: string; count: number }>();
+  const counts = new Map<
+    string,
+    { tag: string; slug: string; count: number }
+  >();
   for (const p of posts) {
     for (const tag of topicsOf(p)) {
       const slug = tagSlug(tag);
@@ -191,7 +236,9 @@ export const getAllTags = cache(async () => {
       counts.set(slug, entry);
     }
   }
-  return [...counts.values()].sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+  return [...counts.values()].sort(
+    (a, b) => b.count - a.count || a.tag.localeCompare(b.tag),
+  );
 });
 
 export async function getPostsByTag(slug: string) {
@@ -205,7 +252,10 @@ export async function getRelatedPosts(post: PostMeta, limit = 3) {
   const mine = new Set(post.tags.map(tagSlug));
   return posts
     .filter((p) => p.slug !== post.slug)
-    .map((p) => ({ p, score: p.tags.filter((t) => mine.has(tagSlug(t))).length }))
+    .map((p) => ({
+      p,
+      score: p.tags.filter((t) => mine.has(tagSlug(t))).length,
+    }))
     .sort((a, b) => b.score - a.score || b.p.date.localeCompare(a.p.date))
     .slice(0, limit)
     .map(({ p }) => p);

@@ -32,5 +32,7 @@ ${posts.map((p) => `- [${p.title}](${site.url}/blog/${p.slug}): ${p.description}
 - [RSS](${site.url}/rss.xml)
 - [JSON Feed](${site.url}/feed.json)
 `;
-  return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
+  return new Response(body, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
 }
