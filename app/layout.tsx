@@ -123,6 +123,10 @@ export default function RootLayout({
           href="/feed.json"
           title={`${site.name} — Writing`}
         />
+        <link rel="me" href={site.socials.linkedin} />
+        <link rel="me" href={site.socials.github} />
+        <link rel="me" href={site.socials.x} />
+        <link rel="me" href={`mailto:${site.email}`} />
         <JsonLd data={graph(personSchema(), websiteSchema())} />
       </head>
       <body>

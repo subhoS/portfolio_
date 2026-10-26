@@ -301,6 +301,48 @@ export default function AboutPage() {
         </section>
 
         <section
+          className="section"
+          style={{ paddingTop: 0 }}
+          aria-labelledby="press-heading"
+          id="press"
+        >
+          <div className="section-head">
+            <div>
+              <span className="eyebrow">Press &amp; events</span>
+              <h2 id="press-heading" className="section-title">
+                Bio for <span className="serif">speakers &amp; press</span>
+              </h2>
+              <p className="section-lede">
+                Copy any of these for an event page, podcast or article. Please
+                link to subhadeepdatta.page.
+              </p>
+            </div>
+            <a className="btn btn-ghost" href={site.avatar} download>
+              <Download /> Download headshot
+            </a>
+          </div>
+          <div className="values">
+            <div className="card value">
+              <span className="num">Short</span>
+              <p>
+                Subhadeep Datta is a Full Stack Engineer and the Co-Founder
+                &amp; CTO of Hirerkey.
+              </p>
+            </div>
+            <div className="card value">
+              <span className="num">Medium</span>
+              <p>
+                Subhadeep Datta is a Full Stack Engineer and CTO based in New
+                Delhi. He is the Co-Founder &amp; CTO of Hirerkey, an AI-native
+                HR platform, and Consulting CTO at Noisiv Consulting, and
+                previously led technology at Qid. He writes about system design
+                and scaling at subhadeepdatta.page.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
           className="faq container-narrow"
           style={{ paddingInline: 0 }}
           aria-labelledby="faq-heading"
