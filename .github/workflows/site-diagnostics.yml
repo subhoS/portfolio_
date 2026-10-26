@@ -1,0 +1,41 @@
+name: Site diagnostics (temporary)
+
+# Runs only on pushes to claude/* working branches; never on main.
+on:
+  push:
+    branches: ["claude/**"]
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DNS
+        run: |
+          for h in www.subhadeepdatta.page subhadeepdatta.page; do
+            echo "== $h"
+            echo "A:     $(dig +short A $h | tr '\n' ' ')"
+            echo "AAAA:  $(dig +short AAAA $h | tr '\n' ' ')"
+            echo "CNAME: $(dig +short CNAME $h | tr '\n' ' ')"
+          done
+          echo "NS: $(dig +short NS subhadeepdatta.page | tr '\n' ' ')"
+          echo "Public resolvers (www A): google=$(dig +short @8.8.8.8 A www.subhadeepdatta.page | tr '\n' ' ') cloudflare=$(dig +short @1.1.1.1 A www.subhadeepdatta.page | tr '\n' ' ')"
+      - name: HTTPS (IPv4 / IPv6 / Googlebot UA)
+        run: |
+          for flags in "-4" "-6"; do
+            echo "== curl $flags https://www.subhadeepdatta.page/"
+            curl $flags -sS -o /dev/null --max-time 20 -w "HTTP %{http_code}  ip=%{remote_ip}  tls=%{ssl_verify_result}  time=%{time_total}s\n" https://www.subhadeepdatta.page/ || echo "FAILED (exit $?)"
+          done
+          echo "== Googlebot user agent"
+          curl -sS -o /dev/null --max-time 20 -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" -w "HTTP %{http_code}  ip=%{remote_ip}\n" https://www.subhadeepdatta.page/ || echo "FAILED (exit $?)"
+          echo "== apex redirect"
+          curl -sS -o /dev/null --max-time 20 -w "HTTP %{http_code}  -> %{redirect_url}\n" https://subhadeepdatta.page/ || echo "FAILED (exit $?)"
+          echo "== sitemap + robots"
+          curl -sS --max-time 20 https://www.subhadeepdatta.page/robots.txt || echo "FAILED (exit $?)"
+          echo
+          curl -sS --max-time 20 https://www.subhadeepdatta.page/sitemap.xml | grep -c "<loc>" || echo "FAILED"
+      - name: TLS handshake
+        run: |
+          echo | timeout 20 openssl s_client -connect www.subhadeepdatta.page:443 -servername www.subhadeepdatta.page 2>&1 \
+            | grep -E "subject=|issuer=|Verify return code|CONNECTED|errno|alert|Cipher is" || true
+      - name: Response headers
+        run: curl -sSI --max-time 20 https://www.subhadeepdatta.page/ || echo "FAILED (exit $?)"
