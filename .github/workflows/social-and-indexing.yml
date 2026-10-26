@@ -19,8 +19,8 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
 
@@ -47,5 +47,7 @@ jobs:
         if: github.event_name == 'push'
         run: sleep 180
 
+      # Only when the site changed: IndexNow asks for changed URLs, not daily resubmissions.
       - name: Ping IndexNow (Bing, Yandex and others)
+        if: github.event_name != 'schedule'
         run: node scripts/indexnow.mjs

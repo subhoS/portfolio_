@@ -7,13 +7,28 @@ const site = (
 ).replace(/\/$/, "");
 const host = new URL(site).host;
 
+// Retry transient network errors (connection resets, timeouts) with backoff.
+async function fetchRetry(url, init, attempts = 4) {
+  for (let i = 1; ; i++) {
+    try {
+      return await fetch(url, init);
+    } catch (err) {
+      if (i >= attempts) throw err;
+      console.log(
+        `IndexNow: ${err.cause?.code ?? err.message} fetching ${url}, retrying (${i}/${attempts - 1})`,
+      );
+      await new Promise((r) => setTimeout(r, 2000 * 2 ** (i - 1)));
+    }
+  }
+}
+
 const fail = (msg) => {
   console.error(`IndexNow: ${msg}`);
   process.exit(1);
 };
 
 // 1. The live sitemap must list URLs on exactly this host, or IndexNow rejects the batch.
-const sitemapRes = await fetch(`${site}/sitemap.xml`);
+const sitemapRes = await fetchRetry(`${site}/sitemap.xml`);
 if (!sitemapRes.ok)
   fail(
     `could not fetch ${site}/sitemap.xml (HTTP ${sitemapRes.status}). Is the site deployed?`,
@@ -32,7 +47,7 @@ The live site was built with a different SITE_URL. Fix it in Vercel and redeploy
 }
 
 // 2. The key file must be live, or IndexNow can't verify ownership.
-const keyRes = await fetch(`${site}/${KEY}.txt`);
+const keyRes = await fetchRetry(`${site}/${KEY}.txt`);
 const keyText = keyRes.ok ? (await keyRes.text()).trim() : "";
 if (keyText !== KEY)
   fail(
@@ -41,7 +56,7 @@ if (keyText !== KEY)
 
 // 3. Submit. If IndexNow rejects the batch, split it in half until the bad URLs are isolated.
 const submit = (list) =>
-  fetch("https://api.indexnow.org/indexnow", {
+  fetchRetry("https://api.indexnow.org/indexnow", {
     method: "POST",
     headers: { "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify({
