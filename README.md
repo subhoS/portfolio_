@@ -58,4 +58,5 @@ an Open Graph image, related posts, topic pages, sitemap, RSS/JSON feeds and `ll
 ## Launch checklist
 
 See [`docs/launch-kit.md`](docs/launch-kit.md) for Search Console setup, profile linking,
-and ready-to-post LinkedIn and X copy for every article.
+and ready-to-post LinkedIn and X copy for every article, and
+[`docs/rank-for-your-name.md`](docs/rank-for-your-name.md) for the off-site steps that make the name rank.

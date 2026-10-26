@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts, getAllTags } from "../lib/posts";
-import { absoluteUrl } from "../lib/site";
+import { absoluteUrl, site } from "../lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [posts, tags] = await Promise.all([getAllPosts(), getAllTags()]);
@@ -15,12 +15,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: latest,
       changeFrequency: "weekly",
       priority: 1,
+      images: [absoluteUrl(site.avatar)],
     },
     {
       url: absoluteUrl("/about"),
       lastModified: latest,
       changeFrequency: "monthly",
       priority: 0.9,
+      images: [absoluteUrl(site.avatar)],
     },
     {
       url: absoluteUrl("/blog"),
