@@ -18,7 +18,11 @@ const today = new Date().toISOString().slice(0, 10);
 const env = process.env;
 
 const linkedinReady = env.LINKEDIN_ACCESS_TOKEN && env.LINKEDIN_AUTHOR_URN;
-const xReady = env.X_API_KEY && env.X_API_SECRET && env.X_ACCESS_TOKEN && env.X_ACCESS_SECRET;
+const xReady =
+  env.X_API_KEY &&
+  env.X_API_SECRET &&
+  env.X_ACCESS_TOKEN &&
+  env.X_ACCESS_SECRET;
 
 async function postLinkedIn(text, url) {
   const res = await fetch("https://api.linkedin.com/rest/posts", {
@@ -33,18 +37,27 @@ async function postLinkedIn(text, url) {
       author: env.LINKEDIN_AUTHOR_URN,
       commentary: text.replace(/[\\|{}@[\]()<>#*_~]/g, (c) => `\\${c}`),
       visibility: "PUBLIC",
-      distribution: { feedDistribution: "MAIN_FEED", targetEntities: [], thirdPartyDistributionChannels: [] },
+      distribution: {
+        feedDistribution: "MAIN_FEED",
+        targetEntities: [],
+        thirdPartyDistributionChannels: [],
+      },
       content: { article: { source: url, title: "Read the article" } },
       lifecycleState: "PUBLISHED",
       isReshareDisabledByAuthor: false,
     }),
   });
-  if (!res.ok) throw new Error(`LinkedIn HTTP ${res.status}: ${await res.text()}`);
+  if (!res.ok)
+    throw new Error(`LinkedIn HTTP ${res.status}: ${await res.text()}`);
   return res.headers.get("x-restli-id") || "ok";
 }
 
 // OAuth 1.0a signing for the X API v2 (user context).
-const pct = (s) => encodeURIComponent(s).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
+const pct = (s) =>
+  encodeURIComponent(s).replace(
+    /[!'()*]/g,
+    (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`,
+  );
 function oauthHeader(method, url) {
   const p = {
     oauth_consumer_key: env.X_API_KEY,
@@ -54,23 +67,40 @@ function oauthHeader(method, url) {
     oauth_token: env.X_ACCESS_TOKEN,
     oauth_version: "1.0",
   };
-  const params = Object.keys(p).sort().map((k) => `${pct(k)}=${pct(p[k])}`).join("&");
+  const params = Object.keys(p)
+    .sort()
+    .map((k) => `${pct(k)}=${pct(p[k])}`)
+    .join("&");
   const base = [method, pct(url), pct(params)].join("&");
   const signingKey = `${pct(env.X_API_SECRET)}&${pct(env.X_ACCESS_SECRET)}`;
-  p.oauth_signature = crypto.createHmac("sha1", signingKey).update(base).digest("base64");
-  return `OAuth ${Object.keys(p).sort().map((k) => `${pct(k)}="${pct(p[k])}"`).join(", ")}`;
+  p.oauth_signature = crypto
+    .createHmac("sha1", signingKey)
+    .update(base)
+    .digest("base64");
+  return `OAuth ${Object.keys(p)
+    .sort()
+    .map((k) => `${pct(k)}="${pct(p[k])}"`)
+    .join(", ")}`;
 }
 
 async function postX(text) {
   const url = "https://api.x.com/2/tweets";
   const res = await fetch(url, {
     method: "POST",
-    headers: { Authorization: oauthHeader("POST", url), "Content-Type": "application/json" },
+    headers: {
+      Authorization: oauthHeader("POST", url),
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ text }),
   });
   if (!res.ok) throw new Error(`X HTTP ${res.status}: ${await res.text()}`);
   return (await res.json()).data?.id ?? "ok";
 }
+
+// At most this many posts per network per run, oldest first. A backlog (for example after
+// credentials are added late) then goes out one a day instead of all at once.
+const MAX_PER_RUN = Number(env.SOCIAL_MAX_PER_RUN || 1);
+const sentThisRun = { linkedin: 0, x: 0 };
 
 let failures = 0;
 const due = schedule.filter((p) => p.date <= today);
@@ -82,17 +112,20 @@ for (const p of due) {
   ];
   for (const [network, ready, run] of jobs) {
     if (record[network]) continue;
+    if (sentThisRun[network] >= MAX_PER_RUN) continue;
     if (!ready) {
       console.log(`skip ${p.id} on ${network}: credentials not configured`);
       continue;
     }
     if (DRY) {
       console.log(`[dry-run] would post ${p.id} to ${network}`);
+      sentThisRun[network] += 1;
       continue;
     }
     try {
       const id = await run();
       record[network] = { at: new Date().toISOString(), id };
+      sentThisRun[network] += 1;
       console.log(`posted ${p.id} to ${network} (${id})`);
     } catch (err) {
       failures += 1;
@@ -104,5 +137,7 @@ for (const p of due) {
 
 if (!DRY) fs.writeFileSync(postedPath, `${JSON.stringify(posted, null, 2)}\n`);
 const next = schedule.find((p) => p.date > today);
-console.log(`${due.length} due, next: ${next ? `${next.id} on ${next.date}` : "none"}`);
+console.log(
+  `${due.length} due, next: ${next ? `${next.id} on ${next.date}` : "none"}`,
+);
 if (failures) process.exit(1);
