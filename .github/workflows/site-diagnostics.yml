@@ -9,6 +9,12 @@ jobs:
   diagnose:
     runs-on: ubuntu-latest
     steps:
+      - name: Registration (RDAP)
+        run: |
+          curl -sS --max-time 20 -H "Accept: application/rdap+json" https://rdap.org/domain/subhadeepdatta.page -L \
+            | python3 -c "import json,sys; d=json.load(sys.stdin); print('status:', d.get('status')); [print(e.get('eventAction'), e.get('eventDate')) for e in d.get('events',[])]; print('nameservers:', [n.get('ldhName') for n in d.get('nameservers',[])])" \
+            || echo "RDAP lookup failed"
+          sudo apt-get install -y -qq whois >/dev/null 2>&1 && whois subhadeepdatta.page | grep -iE "expir|status|updated|creation|registrar:|name server" | head -20 || true
       - name: DNS
         run: |
           for h in www.subhadeepdatta.page subhadeepdatta.page; do
